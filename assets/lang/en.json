@@ -1,0 +1,23 @@
+{
+  "ok": "Ok",
+  "cancel": "Cancel",
+  "please_wait": "Please wait",
+  "cannot_connect_to_server": "Cannot connect to server. Please check network and try again!",
+  "auth_base": {
+    "sign_in": "Sign in",
+    "sign_up": "Sign up"
+  },
+  "login": {
+    "title": "Sign in to GFSales",
+    "description": "Enter username to continue",
+    "username": "Username",
+    "send_otp": "SEND OTP"
+  },
+  "register": {
+    "title": "Sign up to GFSales",
+    "description": "Enter information to continue",
+    "username": "Username",
+    "phone_number": "Phone number",
+    "send_otp": "SEND OTP"
+  }
+}

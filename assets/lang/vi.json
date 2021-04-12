@@ -1,0 +1,23 @@
+{
+  "ok": "Đồng ý",
+  "cancel": "Hủy",
+  "please_wait": "Đang tải",
+  "cannot_connect_to_server": "Không thể kết nối đến máy chủ. Xin hãy kiểm tra kết nối mạng và thử lại.",
+  "auth_base": {
+    "sign_in": "Đăng nhập",
+    "sign_up": "Đăng ký"
+  },
+  "login": {
+    "title": "Đăng nhập GFSales",
+    "description": "Nhập tên đăng nhập để tiếp tục",
+    "username": "Tên đăng nhập",
+    "send_otp": "GỬI OTP"
+  },
+  "register": {
+    "title": "Đăng ký GFSales",
+    "description": "Nhập thông tin để tiếp tục",
+    "username": "Tên đăng nhập",
+    "phone_number": "Số điện thoại",
+    "send_otp": "GỬI OTP"
+  }
+}
