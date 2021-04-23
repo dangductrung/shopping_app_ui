@@ -4,6 +4,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopping_app/injector.dart';
+import 'package:shopping_app/pages/Signup/Signup.dart';
+import 'package:shopping_app/pages/signin/signin.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
-        home: Container(),
+        home: SignIn(),
         builder: (context, child) => FlutterEasyLoading(child: child),
       ),
     );
