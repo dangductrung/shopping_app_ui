@@ -5,10 +5,14 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shopping_app/injector.dart';
 import 'package:shopping_app/pages/Signup/Signup.dart';
+import 'package:shopping_app/pages/home/home.dart';
 import 'package:shopping_app/pages/signin/signin.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
+import 'common/bottombar.dart';
+
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> firstTabNavKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,9 +54,13 @@ class MyApp extends StatelessWidget {
         ),
         navigatorKey: navigatorKey,
         localizationsDelegates: context.localizationDelegates,
+        // localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+        //   DefaultMaterialLocalizations.delegate,
+        //   DefaultWidgetsLocalizations.delegate,
+        // ],
         supportedLocales: context.supportedLocales,
         locale: context.locale,
-        home: SignIn(),
+        home: SignUp(),
         builder: (context, child) => FlutterEasyLoading(child: child),
       ),
     );

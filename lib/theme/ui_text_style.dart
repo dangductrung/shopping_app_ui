@@ -27,4 +27,7 @@ class UITextStyle {
   static const TextStyle red_16_w700 = TextStyle(color: UIColor.red, fontSize: 16.0, fontWeight: FontWeight.w700);
   static const TextStyle orange_16_w700 = TextStyle(color: Colors.orangeAccent, fontSize: 16.0, fontWeight: FontWeight.w700);
   static const TextStyle grayText_16_w700 = TextStyle(color: UIColor.grayText, fontSize: 16.0, fontWeight: FontWeight.w700);
+
+  static const TextStyle mediumBlack_14_w700 = TextStyle(color: UIColor.mediumBlack, fontSize: 14.0, fontWeight: FontWeight.w700);
+  static const TextStyle mediumBlack_14_w400 = TextStyle(color: UIColor.mediumBlack, fontSize: 14.0, fontWeight: FontWeight.w400);
 }

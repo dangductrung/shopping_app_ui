@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shopping_app/common/bottombar.dart';
+import 'package:shopping_app/pages/signup/signup.dart';
+import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 
 class SignIn extends StatefulWidget {
@@ -60,8 +63,8 @@ class SignInState extends State<SignIn> {
                                       begin: Alignment.topRight,
                                       end: Alignment.bottomLeft,
                                       colors: [
-                                        Color(0xffF12711),
-                                        Color(0xffF5AF19)
+                                        UIColor.orange,
+                                        UIColor.yellow
                                       ]),
                                   borderRadius: BorderRadius.circular(15)),
                               width: width*25,
@@ -129,7 +132,12 @@ class SignInState extends State<SignIn> {
                                 margin: EdgeInsets.fromLTRB(0, 10, 0, 30),
                                 child: CupertinoButton(
                                     color: Color(0xffE45826),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => BottomBar()),
+                                      );
+                                    },
                                     child: Text("Đăng nhập",
                                         style: UITextStyle.white_16_w400
                                             .copyWith(fontSize: 18)))),
@@ -149,10 +157,17 @@ class SignInState extends State<SignIn> {
                                   style: UITextStyle.grayText_16_w400.copyWith(
                                       color: Colors.black45, fontSize: 16),
                                 ),
-                                Text(
-                                  "Đăng ký ngay",
-                                  style: UITextStyle.grayText_16_w700.copyWith(
-                                      color: Color(0xffF0A500), fontSize: 16),
+                                TextButton(onPressed: (){
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => SignUp()),
+                                  );
+                                },
+                                  child: Text(
+                                    "Đăng ký ngay",
+                                    style: UITextStyle.grayText_16_w700.copyWith(
+                                        color: Color(0xffF0A500), fontSize: 16),
+                                  ),
                                 )
                               ]),
                             ),

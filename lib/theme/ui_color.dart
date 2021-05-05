@@ -20,4 +20,10 @@ class UIColor {
   static const Color lightGrayShadow_a16 = Color(0x2680828B);
   static const Color grayText = Color(0xFF6E7989);
   static const Color red = Colors.redAccent;
+  static const Color orange = Color(0xffF12711);
+  static const Color yellow = Color(0xffF5AF19);
+  static const Color scaffoldBackground = Color(0xfff0f0f0);
+  static const Color searchBackground = Color(0xffe0e0e0);
+  static const Color searchCursorColor = Color.fromRGBO(0, 122, 255, 1);
+  static const Color searchIconColor = Color.fromRGBO(128, 128, 128, 1);
 }

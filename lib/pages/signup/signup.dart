@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shopping_app/pages/signin/signin.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 
 class SignUp extends StatefulWidget {
@@ -35,16 +36,26 @@ class SignUpState extends State<SignUp> {
   }
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height/100;
+    final width = MediaQuery.of(context).size.width/100;
     return Scaffold(
-        body: SafeArea(
-            child: Center(
+        body: Stack(
+            children:<Widget>[
+        Container(width: width*106, height: height*25,
+            decoration: BoxDecoration(borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(280),
+                bottomRight: Radius.circular(120)
+            ), border: Border.all(
+                color: Color(0xffFFAB73)
+            ), color: Color(0xffFFAB73))),(
+            Center(
                 child: SingleChildScrollView(
                     padding: EdgeInsets.symmetric(horizontal: 30),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Container(margin: EdgeInsets.only(bottom: 20),
+                          Container(margin: EdgeInsets.only(bottom: 20, top: 25),
                             decoration: BoxDecoration(gradient: LinearGradient(
                             begin: Alignment.topRight,
                             end:Alignment.bottomLeft,
@@ -131,7 +142,12 @@ class SignUpState extends State<SignUp> {
                               margin: EdgeInsets.symmetric(vertical: 30),
                               child: CupertinoButton(
                                   color: Color(0xffE45826),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => SignIn()),
+                                    );
+                                  },
                                   child: Text("Đăng ký",
                                       style: UITextStyle.white_16_w400.copyWith(fontSize: 18)))),
                           Row(
@@ -140,11 +156,19 @@ class SignUpState extends State<SignUp> {
                               children: <Widget>[
                                 Text("Bạn đã có tài khoản? ",
                                     style: UITextStyle.grayText_16_w400),
-                                Text("Đăng nhập ",
-                                    style: UITextStyle.lightGreen_16_w700
-                                        .copyWith(
-                                            fontSize: 16, color: Color(0xffF0A500))),
+                                TextButton(onPressed: (){
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => SignIn()),
+                                  );
+                                },
+                                  child: Text("Đăng nhập ",
+                                      style: UITextStyle.lightGreen_16_w700
+                                          .copyWith(
+                                              fontSize: 16, color: Color(0xffF0A500))),
+                                ),
                               ]),
-                        ])))));
+                        ])))
+              )]));
   }
 }
