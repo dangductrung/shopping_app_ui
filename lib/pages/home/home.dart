@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shopping_app/common/product_thumb.dart';
+import 'package:shopping_app/common/column_product.dart';
 import 'package:shopping_app/common/searchbar.dart';
+
+import 'discount_banner.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreenState createState() => HomeScreenState();
@@ -66,48 +68,43 @@ class HomeScreenState extends State<HomeScreen> {
               ),
             ),
             child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 _buildSearchBox(),
               ],
             ),
           )),
       body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Container(
-                margin: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                child: Image.asset("assets/imgs/banner.png"),
-                width: width * 200,
-                height: height * 16),
-            Container(
-                width: width * 100,
-                height: height * 39,
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                color: Colors.red.shade900,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      child: Text(
-                        "Sản phẩm nổi bật",
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white, letterSpacing: 0.8),
-                      ),
-                    ),
-                    Container(
-                      height: height * 30,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 10,
-                        itemBuilder: (context, index) {
-                          return ProductThumb();
-                        },
-                      ),
-                    ),
-                  ],
-                ))
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              DiscountBanner(),
+              // Container(padding: EdgeInsets.all(0),
+              //     margin: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+              //     child: Image.asset("assets/imgs/banner.png"),
+              //     width: width * 220,
+              //     height: height * 12),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: width * 5, vertical: width * 2),
+                child: Text(
+                  "Sản phẩm nổi bật",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black, letterSpacing: 0.8),
+                ),
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return TwoProducts();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

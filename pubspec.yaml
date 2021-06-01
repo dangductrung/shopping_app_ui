@@ -60,6 +60,8 @@ dependencies:
   timeago: ^2.0.30
   cached_network_image: ^2.5.0
   shimmer: ^1.1.2
+  flutter_svg: ^0.19.1
+  fl_chart: ^0.12.3
 
 dev_dependencies:
   flutter_test:

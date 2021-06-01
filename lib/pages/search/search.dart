@@ -37,12 +37,13 @@ class _SearchTabState extends State<SearchTab> {
   }
 
   Widget _buildSearchBox() {
-    final width = MediaQuery.of(context).size.width/100;
+    final width = MediaQuery.of(context).size.width / 100;
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Row(children: [
-        Container(margin: EdgeInsets.symmetric(horizontal: 5),
-          width: width*92,
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 5),
+          width: width * 92,
           child: SearchBar(
             controller: _controller,
             focusNode: _focusNode,
@@ -54,31 +55,29 @@ class _SearchTabState extends State<SearchTab> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height/100;
+    final height = MediaQuery.of(context).size.height / 100;
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false,
-          flexibleSpace: Container(
-          padding: EdgeInsets.fromLTRB(0, 14, 0, 0),
-          decoration: BoxDecoration(
-                gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [UIColor.orange, UIColor.yellow])),
-                child: Column(
-                    children: [
-                        _buildSearchBox(),
-                    ],
-        ),
-      )),
-      body: SafeArea(
-        child:
-            Container(height: height*100,
-              child: ListView.builder(itemCount: 20,
-                itemBuilder: (context,index){
-              return ProductItem();
-            }),
-    ))
-
-    );
+        appBar: AppBar(
+            automaticallyImplyLeading: false,
+            flexibleSpace: Container(
+              padding: EdgeInsets.fromLTRB(0, 14, 0, 0),
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [UIColor.orange, UIColor.yellow])),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  _buildSearchBox(),
+                ],
+              ),
+            )),
+        body: SafeArea(
+            child: Container(
+          height: height * 100,
+          child: ListView.builder(
+              itemCount: 20,
+              itemBuilder: (context, index) {
+                return ProductItem(false);
+              }),
+        )));
   }
 }
