@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_app/pages/favoriteList/favoriteList.dart';
 import 'package:shopping_app/pages/home/home.dart';
+import 'package:shopping_app/pages/notification/notificationList.dart';
 import 'package:shopping_app/pages/profile/profile_screen.dart';
-import 'package:shopping_app/pages/search/search.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 // final GlobalKey<NavigatorState> firstTabNavKey = GlobalKey<NavigatorState>();
 // final GlobalKey<NavigatorState> secondTabNavKey = GlobalKey<NavigatorState>();
@@ -16,7 +16,7 @@ class BottomBar extends StatefulWidget {
 class BottomBarState extends State<BottomBar> {
   List<Widget> _pages = [
     HomeScreen(), // see the FrontPage class
-    SearchTab(),
+    NotificationList(),
     FavoriteList(),
     ProfileScreen(),
   ];
