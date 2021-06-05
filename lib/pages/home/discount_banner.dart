@@ -30,6 +30,7 @@ class DiscountBanner extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               '06.06 Deal sốc',
@@ -37,7 +38,7 @@ class DiscountBanner extends StatelessWidget {
             ),
             Text(
               'Mua gì cũng rẻ',
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white),
             ),
           ],
         ));

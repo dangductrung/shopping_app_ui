@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_app/pages/details/details_screen.dart';
+import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 
 class ProductThumbInfo {
@@ -18,7 +19,7 @@ class ProductThumb extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height / 100;
     final width = MediaQuery.of(context).size.width / 100;
-    final name = item.name.length > 35 ? item.name.substring(0, 30) + '...' : item.name;
+    final name = item.name.length > 40 ? item.name.substring(0, 40) + '...' : item.name;
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
@@ -26,12 +27,12 @@ class ProductThumb extends StatelessWidget {
         ));
       },
       child: Container(
-        width: width * 42,
-        height: height * 30,
-        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+        width: width * 45,
+        height: width * 48,
+        margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         child: Stack(children: [
           Container(
-            decoration: BoxDecoration(color: Colors.white12, border: Border.all(color: Colors.black12, width: 2.0)),
+            decoration: BoxDecoration(color: UIColor.lightGray, border: Border.all(color: UIColor.black12, width: 2.0)),
             width: 180,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,8 +44,8 @@ class ProductThumb extends StatelessWidget {
                     item.imgUrl,
                     fit: BoxFit.contain,
                   ),
-                  width: 100,
-                  height: 110,
+                  width: height * 15,
+                  height: height * 12,
                 ),
                 Expanded(
                   child: Container(

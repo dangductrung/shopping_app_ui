@@ -34,7 +34,7 @@ class ProfileMenu extends StatelessWidget {
             Expanded(
                 child: Text(
               text,
-              style: UITextStyle.mediumBlack_16_w400.copyWith(fontSize: 16, fontWeight: FontWeight.w200),
+              style: UITextStyle.mediumBlack_16_w400,
             )),
             // Icon(Icons.arrow_forward_ios),
           ],

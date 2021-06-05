@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_app/common/column_product.dart';
 import 'package:shopping_app/common/searchbar.dart';
+import 'package:shopping_app/theme/ui_text_style.dart';
 
 import 'discount_banner.dart';
 
@@ -56,6 +57,7 @@ class HomeScreenState extends State<HomeScreen> {
     final height = MediaQuery.of(context).size.height / 100;
     final width = MediaQuery.of(context).size.width / 100;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
           automaticallyImplyLeading: false,
           flexibleSpace: Container(
@@ -77,33 +79,31 @@ class HomeScreenState extends State<HomeScreen> {
           )),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              DiscountBanner(),
-              // Container(padding: EdgeInsets.all(0),
-              //     margin: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-              //     child: Image.asset("assets/imgs/banner.png"),
-              //     width: width * 220,
-              //     height: height * 12),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: width * 5, vertical: width * 2),
-                child: Text(
-                  "Sản phẩm nổi bật",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black, letterSpacing: 0.8),
+          child: RefreshIndicator(
+            onRefresh: () async {
+              // call api
+              return true;
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                DiscountBanner(),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: width * 5, vertical: width * 2),
+                  child: Text("Sản phẩm nổi bật", style: UITextStyle.mediumBlack_15_w600),
                 ),
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return TwoProducts();
-                },
-              ),
-            ],
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return TwoProducts();
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

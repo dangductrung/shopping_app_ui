@@ -3,14 +3,24 @@ import 'package:shopping_app/common/product_item.dart';
 import 'package:shopping_app/pages/details/components/product_images.dart';
 import 'package:shopping_app/pages/details/label_checkbox.dart';
 import 'package:shopping_app/theme/ui_color.dart';
+import 'package:shopping_app/theme/ui_text_style.dart';
 
 import 'product_description.dart';
 import 'top_rounded_container.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   final ProductItemInfo product;
 
   const Body(this.product);
+
+  BodyState createState() => BodyState();
+}
+
+class BodyState extends State<Body> {
+  bool isFavourite;
+  void initState() {
+    isFavourite = widget.product.isFavourite;
+  }
 
   void showDialog(BuildContext context) {
     showGeneralDialog(
@@ -53,6 +63,9 @@ class Body extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
                     child: Center(
                       child: Text(
                         'Gửi',
@@ -80,16 +93,19 @@ class Body extends StatelessWidget {
     final w = MediaQuery.of(context).size.width / 375;
     return ListView(
       children: [
-        ProductImages(product: product),
+        ProductImages(product: widget.product),
         TopRoundedContainer(
           color: Colors.white,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
               ProductDescription(
-                product: product,
+                product: widget.product,
                 pressOnComplain: () {
                   showDialog(context);
+                },
+                pressFavorite: () {
+                  setState(() => isFavourite = !isFavourite);
                 },
               ),
               Container(
@@ -111,11 +127,7 @@ class Body extends StatelessWidget {
                       child: FlatButton(
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         color: UIColor.yellow,
-                        child: Text("Đến trang bán hàng",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                            )),
+                        child: Text("Đến trang bán hàng", style: UITextStyle.white_18_w400),
                         onPressed: () {},
                       ),
                     ),

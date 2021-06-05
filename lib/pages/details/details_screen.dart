@@ -23,49 +23,26 @@ class DetailsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-          leading: Container(
-            margin: EdgeInsets.symmetric(horizontal: w * 5),
-            child: IconButton(
-              icon: Icon(Icons.arrow_back_ios, color: Colors.white, size: 22),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
+        leading: Container(
+          margin: EdgeInsets.symmetric(horizontal: w * 5),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back_ios, color: Colors.white, size: 22),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
-          actions: [
-            // Container(
-            //   margin: EdgeInsets.only(right: w * 2, bottom: w * 2),
-            //   width: 45,
-            //   height: 30,
-            //   decoration: BoxDecoration(
-            //     color: item.isFavourite ? Colors.white.withOpacity(0.8) : Color(0xFFF5F6F9),
-            //     borderRadius: BorderRadius.circular(30),
-            //   ),
-            //   child: IconButton(
-            //       icon: Icon(
-            //         Icons.favorite,
-            //         color: item.isFavourite ? Colors.red : Colors.white,
-            //         // size: w * (22),
-            //       ),
-            //       onPressed: () {}),
-            // ),
-          ],
-          automaticallyImplyLeading: false,
-          flexibleSpace: Container(
-            padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
-            decoration: BoxDecoration(
-                gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [UIColor.orange, UIColor.yellow])),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "Chi tiết sản phẩm",
-                  style: UITextStyle.mediumBlack_16_w400.copyWith(fontSize: 20, color: Colors.white),
-                )
-              ],
-            ),
-          )),
+        ),
+        automaticallyImplyLeading: false,
+        flexibleSpace: Container(
+          padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
+          decoration:
+              BoxDecoration(gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [UIColor.orange, UIColor.yellow])),
+        ),
+        title: Text(
+          "Chi tiết sản phẩm",
+          style: UITextStyle.mediumBlack_16_w400.copyWith(fontSize: 20, color: Colors.white),
+        ),
+      ),
       // CustomAppBar(),
       body: Body(item),
     );

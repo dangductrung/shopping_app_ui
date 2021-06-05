@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shopping_app/pages/favoriteList/favoriteList.dart';
+import 'package:shopping_app/pages/favoriteList/favorite_list.dart';
 import 'package:shopping_app/pages/home/home.dart';
-import 'package:shopping_app/pages/notification/notificationList.dart';
+import 'package:shopping_app/pages/notification/notification_list.dart';
 import 'package:shopping_app/pages/profile/profile_screen.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 // final GlobalKey<NavigatorState> firstTabNavKey = GlobalKey<NavigatorState>();
@@ -36,7 +36,7 @@ class BottomBarState extends State<BottomBar> {
                       style: UITextStyle.mediumBlack_12_w400,
                     )),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.search_outlined),
+                    icon: Icon(Icons.whatshot_outlined),
                     title: Text(
                       "Thông báo",
                       style: UITextStyle.mediumBlack_12_w400,

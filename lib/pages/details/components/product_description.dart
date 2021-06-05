@@ -8,11 +8,12 @@ class ProductDescription extends StatelessWidget {
     Key key,
     @required this.product,
     this.pressOnComplain,
+    this.pressFavorite,
   }) : super(key: key);
 
   final ProductItemInfo product;
   final GestureTapCallback pressOnComplain;
-
+  final GestureTapCallback pressFavorite;
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width / 375;
@@ -20,7 +21,6 @@ class ProductDescription extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          // width: w * 100,
           height: 100,
           padding: EdgeInsets.fromLTRB(w * 20, w * 20, w * 20, w * 20),
           child: Row(
@@ -30,26 +30,24 @@ class ProductDescription extends StatelessWidget {
               Expanded(
                 child: Text(
                   product.name,
-                  maxLines: 3,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  maxLines: 4,
+                  style: UITextStyle.black_18_w500,
                 ),
               ),
               // TextSpan(
-
               Container(
-                margin: EdgeInsets.only(bottom: w * 2, right: w * 2),
-                width: 30,
-                height: 30,
-                child: IconButton(
-                    icon: Icon(
+                margin: EdgeInsets.only(
+                  right: w * 2,
+                ),
+                width: 25,
+                height: 25,
+                child: GestureDetector(
+                    child: Icon(
                       Icons.favorite,
                       color: product.isFavourite ? Colors.red : Colors.white,
                       size: 30,
                     ),
-                    onPressed: () {}),
+                    onTap: pressFavorite),
               ),
             ],
           ),
@@ -59,21 +57,20 @@ class ProductDescription extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Giá hiện tại', style: UITextStyle.gray_16_w400.copyWith(fontSize: 16, fontWeight: FontWeight.w500)),
+              Text('Giá hiện tại', style: UITextStyle.grayText_16_w500),
               Text(
                 product.curPrice,
-                style: UITextStyle.lightGreen_16_w700.copyWith(fontSize: 18),
+                style: UITextStyle.blue_18_w600,
               )
             ],
           ),
         ),
-
         Padding(
           padding: EdgeInsets.symmetric(horizontal: w * 20, vertical: w * 5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Giá thấp nhất', style: UITextStyle.gray_16_w400.copyWith(fontSize: 16, fontWeight: FontWeight.w500)),
+              Text('Giá thấp nhất', style: UITextStyle.grayText_16_w500),
               Text(
                 product.curPrice,
                 style: UITextStyle.mediumBlack_16_w400,
@@ -81,13 +78,12 @@ class ProductDescription extends StatelessWidget {
             ],
           ),
         ),
-
         Padding(
           padding: EdgeInsets.symmetric(horizontal: w * 20, vertical: w * 5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Giá cao nhất', style: UITextStyle.gray_16_w400.copyWith(fontSize: 16, fontWeight: FontWeight.w500)),
+              Text('Giá cao nhất', style: UITextStyle.grayText_16_w500),
               Text(
                 product.curPrice,
                 style: UITextStyle.mediumBlack_16_w400,
@@ -95,15 +91,15 @@ class ProductDescription extends StatelessWidget {
             ],
           ),
         ),
-
+        Padding(padding: EdgeInsets.symmetric(horizontal: w * 20, vertical: w * 20), child: LineChartSample1()),
         Padding(
-          padding: EdgeInsets.fromLTRB(w * 20, w * 20, w * 20, 0),
+          padding: EdgeInsets.fromLTRB(w * 20, w * 20, w * 20, w * 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "Thông tin sản phẩm chưa chính xác?",
-                style: TextStyle(fontWeight: FontWeight.w400, color: Colors.black45, fontSize: 14),
+                style: UITextStyle.black45_14_w400,
               ),
               GestureDetector(
                 onTap: () {},
@@ -111,7 +107,7 @@ class ProductDescription extends StatelessWidget {
                   children: [
                     Text(
                       'Vui lòng báo lỗi cho chúng tôi',
-                      style: TextStyle(fontWeight: FontWeight.w400, color: Colors.black45, fontSize: 14),
+                      style: UITextStyle.black45_14_w400,
                     ),
                     SizedBox(width: 5),
                     GestureDetector(
@@ -127,8 +123,6 @@ class ProductDescription extends StatelessWidget {
             ],
           ),
         ),
-        // ),
-        Padding(padding: EdgeInsets.symmetric(horizontal: w * 20, vertical: w * 20), child: LineChartSample1())
       ],
     );
   }
