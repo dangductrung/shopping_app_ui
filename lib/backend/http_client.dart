@@ -1,10 +1,14 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:get/get_utils/src/get_utils/get_utils.dart';
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 import 'package:shopping_app/backend/http_error.dart';
 import 'package:shopping_app/config/config.dart';
+import 'package:shopping_app/helpers/auth_helper.dart';
+import 'package:shopping_app/injector.dart';
+import 'package:shopping_app/storage/storages/client_storage.dart';
 
 @lazySingleton
 class HttpClient {
@@ -34,19 +38,17 @@ class HttpClient {
 
   Future<RequestOptions> _onRequest(RequestOptions option) async {
     option.headers["Content-Type"] = "application/json";
-    // final String accessToken = await injector<Oauth2Manager>().getAccessToken();
-    // if (GetUtils.isNullOrBlank(accessToken)) {
-    //   // await injector<AuthHelper>().logout();
-    // } else {
-    //   option.headers["Authorization"] = "Bearer $accessToken";
-    // }
+    final String accessToken = injector<ClientStorage>()?.get()?.token ?? "";
+    if (!GetUtils.isNullOrBlank(accessToken)) {
+      option.headers["token"] = accessToken;
+    }
     return option;
   }
 
   HttpError _onError(DioError e) {
     final HttpError httpError = HttpError(e);
     if (e?.response?.statusCode == HttpStatus.unauthorized) {
-      // injector<AuthHelper>().logout();
+      injector<AuthHelper>().logout();
     }
     return httpError;
   }
