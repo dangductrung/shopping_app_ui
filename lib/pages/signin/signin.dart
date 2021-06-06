@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shopping_app/generated/assets.gen.dart';
 import 'package:shopping_app/pages/signin/sign_in_view_model.dart';
 import 'package:shopping_app/pages/signup/signup.dart';
 import 'package:shopping_app/shared/base/base_view_state.dart';
@@ -34,21 +35,9 @@ class SignInState extends BaseViewState<SignIn, SignInViewModel> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 20),
-                      decoration: BoxDecoration(
-                          gradient: const LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [UIColor.orange, UIColor.yellow]), borderRadius: BorderRadius.circular(15)),
-                      width: width * 25,
-                      height: width * 25,
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text("À HA", style: UITextStyle.mediumWhite_22_w700),
-                            Text("SALE", style: UITextStyle.mediumWhite_22_w700),
-                          ],
-                        ),
-                      ),
+                    Assets.icons.icLogo.image(height: 120, width: 120),
+                    SizedBox(
+                      height: 16.0,
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 10),
