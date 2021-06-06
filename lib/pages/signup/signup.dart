@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_app/common/form_error.dart';
 import 'package:shopping_app/constants/constants.dart';
+import 'package:shopping_app/generated/assets.gen.dart';
 import 'package:shopping_app/pages/signin/signin.dart';
 import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
@@ -63,18 +64,9 @@ class SignUpState extends State<SignUp> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(bottom: 10),
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [Color(0xffF12711), Color(0xffF5AF19)]),
-                    borderRadius: BorderRadius.circular(15)),
-                width: width * 25,
-                height: width * 25,
-                child: Center(
-                    child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-                  Text("À HA", style: UITextStyle.mediumWhite_22_w700),
-                  Text("SALE", style: UITextStyle.mediumWhite_22_w700),
-                ])),
+              Assets.icons.icLogo.image(height: 120, width: 120),
+              SizedBox(
+                height: 16.0,
               ),
               Container(
                 margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
