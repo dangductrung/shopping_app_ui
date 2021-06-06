@@ -1,4 +1,4 @@
-package vn.com.shopping_app;
+package vn.com.ahasale;
 
 import io.flutter.embedding.android.FlutterActivity;
 
