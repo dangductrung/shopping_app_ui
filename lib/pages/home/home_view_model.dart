@@ -19,4 +19,6 @@ class HomeViewModel extends BaseViewModel {
       _products.assignAll(await injector<ProductService>().getListLastItem());
     });
   }
+
+  void onItemClicked(int i) {}
 }

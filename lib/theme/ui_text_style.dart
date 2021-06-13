@@ -1,45 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/theme/ui_color.dart';
+import 'package:shopping_app/extensions/size_ext.dart';
 
 class UITextStyle {
-  static const TextStyle mediumLightShadeGray_12_w400 = TextStyle(color: UIColor.mediumLightShadeGray, fontSize: 12.0, fontWeight: FontWeight.w400);
-  static const TextStyle mediumLightShadeGray_12_w700 = TextStyle(color: UIColor.mediumLightShadeGray, fontSize: 12.0, fontWeight: FontWeight.w700);
-  static const TextStyle red_12_w400 = TextStyle(color: UIColor.red, fontSize: 12.0, fontWeight: FontWeight.w400);
-  static const TextStyle mediumBlack_12_w400 = TextStyle(color: UIColor.mediumBlack, fontSize: 12.0, fontWeight: FontWeight.w400);
-  static const TextStyle mediumBlack_12_w700 = TextStyle(color: UIColor.mediumBlack, fontSize: 12.0, fontWeight: FontWeight.w700);
-  static const TextStyle mediumBlack_12_bold = TextStyle(color: UIColor.mediumBlack, fontSize: 12.0, fontWeight: FontWeight.bold);
-  static const TextStyle white_12_w400 = TextStyle(color: UIColor.white, fontSize: 12.0, fontWeight: FontWeight.w400);
+  UITextStyle._();
+  static initUITextStyle() {
+    UITextStyle.mediumLightShadeGray_12_w400 = TextStyle(color: UIColor.mediumLightShadeGray, fontSize: 12.0.sp, fontWeight: FontWeight.w400);
 
-  static const TextStyle mediumBlack_16_w400 = TextStyle(color: UIColor.mediumBlack, fontSize: 16.0, fontWeight: FontWeight.w400);
-  static const TextStyle grayText_16_w400 = TextStyle(color: UIColor.grayText, fontSize: 16.0, fontWeight: FontWeight.w400);
-  static const TextStyle lightGreen_16_w400 = TextStyle(color: UIColor.lightGreen, fontSize: 16.0, fontWeight: FontWeight.w400);
-  static const TextStyle white_16_w400 = TextStyle(color: UIColor.white, fontSize: 16.0, fontWeight: FontWeight.w400);
-  static const TextStyle green_16_w400 = TextStyle(color: UIColor.green, fontSize: 16.0, fontWeight: FontWeight.w400);
-  static const TextStyle red_16_w400 = TextStyle(color: Colors.red, fontSize: 16.0, fontWeight: FontWeight.w400);
-  static const TextStyle orange_16_w400 = TextStyle(color: Colors.orangeAccent, fontSize: 16.0, fontWeight: FontWeight.w400);
-  static const TextStyle gray_16_w400 = TextStyle(color: UIColor.gray, fontSize: 16.0, fontWeight: FontWeight.w400);
-  static const TextStyle mediumLightShadeGray_16_w400 = TextStyle(color: UIColor.mediumLightShadeGray, fontSize: 16.0, fontWeight: FontWeight.w400);
-  static const TextStyle chryslerBurnishedSilver_16_w400 = TextStyle(color: UIColor.chryslerBurnishedSilver, fontSize: 16.0, fontWeight: FontWeight.w400);
-  static const TextStyle lightGreen_16_w700 = TextStyle(color: UIColor.lightGreen, fontSize: 16.0, fontWeight: FontWeight.w700);
-  static const TextStyle white_16_w700 = TextStyle(color: UIColor.white, fontSize: 16.0, fontWeight: FontWeight.w700);
-  static const TextStyle mediumBlack_16_w700 = TextStyle(color: UIColor.mediumBlack, fontSize: 16.0, fontWeight: FontWeight.w700);
-  static const TextStyle green_16_w700 = TextStyle(color: UIColor.green, fontSize: 16.0, fontWeight: FontWeight.w700);
-  static const TextStyle red_16_w700 = TextStyle(color: UIColor.red, fontSize: 16.0, fontWeight: FontWeight.w700);
-  static const TextStyle orange_16_w700 = TextStyle(color: Colors.orangeAccent, fontSize: 16.0, fontWeight: FontWeight.w700);
-  static const TextStyle grayText_16_w700 = TextStyle(color: UIColor.grayText, fontSize: 16.0, fontWeight: FontWeight.w700);
-  static const TextStyle grayText_16_w500 = TextStyle(color: UIColor.grayText, fontSize: 16.0, fontWeight: FontWeight.w500);
+    UITextStyle.mediumBlack_14_w400 = TextStyle(color: UIColor.mediumBlack, fontSize: 14.0.sp, fontWeight: FontWeight.w400);
+    UITextStyle.black45_14_w400 = TextStyle(color: UIColor.black45, fontSize: 14.0.sp, fontWeight: FontWeight.w400);
 
-  static const TextStyle mediumBlack_15_w600 = TextStyle(color: UIColor.mediumBlack, fontSize: 15.0, fontWeight: FontWeight.w600);
-  static const TextStyle mediumBlack_14_w700 = TextStyle(color: UIColor.mediumBlack, fontSize: 14.0, fontWeight: FontWeight.w700);
-  static const TextStyle mediumBlack_14_w400 = TextStyle(color: UIColor.mediumBlack, fontSize: 14.0, fontWeight: FontWeight.w400);
-  static const TextStyle mediumWhite_22_w700 = TextStyle(color: UIColor.white, fontSize: 22.0, fontWeight: FontWeight.w700);
-  static const TextStyle black54_16_w400 = TextStyle(color: Colors.black54, fontSize: 16.0, fontWeight: FontWeight.w400);
-  static const TextStyle white_18_w400 = TextStyle(color: UIColor.white, fontSize: 18.0, fontWeight: FontWeight.w400);
-  static const TextStyle darkYellow_16_w600 = TextStyle(color: UIColor.darkYellow, fontSize: 16.0, fontWeight: FontWeight.w600);
-  static const TextStyle black_18_w500 = TextStyle(color: Colors.black, fontSize: 18.0, fontWeight: FontWeight.w500);
-  static const TextStyle black45_14_w400 = TextStyle(color: Colors.black45, fontSize: 14.0, fontWeight: FontWeight.w400);
-  static const TextStyle blue_18_w600 = TextStyle(color: Colors.blue, fontSize: 18.0, fontWeight: FontWeight.w600);
-  static const TextStyle lightGreen_16_w600 = TextStyle(color: UIColor.lightGreen, fontSize: 16.0, fontWeight: FontWeight.w600);
+    UITextStyle.mediumBlack_15_w600 = TextStyle(color: UIColor.mediumBlack, fontSize: 15.0.sp, fontWeight: FontWeight.w400);
 
-  static const TextStyle red_18_w700 = TextStyle(color: UIColor.red, fontSize: 18.0, fontWeight: FontWeight.w700);
+    UITextStyle.black54_16_w400 = TextStyle(color: UIColor.black45, fontSize: 16.0.sp, fontWeight: FontWeight.w400);
+    UITextStyle.mediumBlack_16_w400 = TextStyle(color: UIColor.mediumBlack, fontSize: 16.0.sp, fontWeight: FontWeight.w400);
+    UITextStyle.white_16_w400 = TextStyle(color: UIColor.white, fontSize: 16.0.sp, fontWeight: FontWeight.w400);
+    UITextStyle.grayText_16_w400 = TextStyle(color: UIColor.grayText, fontSize: 16.0.sp, fontWeight: FontWeight.w400);
+    UITextStyle.darkYellow_16_w600 = TextStyle(color: UIColor.darkYellow, fontSize: 16.0.sp, fontWeight: FontWeight.w400);
+    UITextStyle.red_16_w700 = TextStyle(color: UIColor.red, fontSize: 16.0.sp, fontWeight: FontWeight.w700);
+    UITextStyle.lightGreen_16_w600 = TextStyle(color: UIColor.lightGreen, fontSize: 16.0.sp, fontWeight: FontWeight.w600);
+    UITextStyle.grayText_16_w500 = TextStyle(color: UIColor.grayText, fontSize: 16.0.sp, fontWeight: FontWeight.w500);
+    UITextStyle.lightGreen_16_w700 = TextStyle(color: UIColor.lightGreen, fontSize: 16.0.sp, fontWeight: FontWeight.w700);
+    UITextStyle.green_16_w700 = TextStyle(color: UIColor.green, fontSize: 16.0.sp, fontWeight: FontWeight.w700);
+    UITextStyle.lightGreen_16_w400 = TextStyle(color: UIColor.lightGreen, fontSize: 16.0.sp, fontWeight: FontWeight.w400);
+    UITextStyle.mediumLightShadeGray_16_w400 = TextStyle(color: UIColor.mediumLightShadeGray, fontSize: 16.0.sp, fontWeight: FontWeight.w400);
+
+    UITextStyle.white_18_w400 = TextStyle(color: UIColor.white, fontSize: 18.0.sp, fontWeight: FontWeight.w400);
+    UITextStyle.red_18_w700 = TextStyle(color: UIColor.red, fontSize: 18.0.sp, fontWeight: FontWeight.w700);
+    UITextStyle.blue_18_w600 = TextStyle(color: Colors.blue, fontSize: 18.0.sp, fontWeight: FontWeight.w600);
+    UITextStyle.black_18_w500 = TextStyle(color: UIColor.mediumBlack, fontSize: 18.0.sp, fontWeight: FontWeight.w500);
+  }
+
+  static TextStyle mediumLightShadeGray_12_w400;
+
+  static TextStyle mediumBlack_14_w400;
+  static TextStyle black45_14_w400;
+
+  static TextStyle mediumBlack_15_w600;
+
+  static TextStyle black54_16_w400;
+  static TextStyle mediumBlack_16_w400;
+  static TextStyle white_16_w400;
+  static TextStyle grayText_16_w400;
+  static TextStyle darkYellow_16_w600;
+  static TextStyle red_16_w700;
+  static TextStyle lightGreen_16_w600;
+  static TextStyle grayText_16_w500;
+  static TextStyle lightGreen_16_w700;
+  static TextStyle green_16_w700;
+  static TextStyle lightGreen_16_w400;
+  static TextStyle mediumLightShadeGray_16_w400;
+
+  static TextStyle white_18_w400;
+  static TextStyle black_18_w500;
+  static TextStyle red_18_w700;
+  static TextStyle blue_18_w600;
 }

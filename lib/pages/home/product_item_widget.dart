@@ -1,14 +1,12 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:shopping_app/generated/assets.gen.dart';
 import 'package:shopping_app/helpers/format_helpers.dart';
 import 'package:shopping_app/models/product.dart';
 import 'package:shopping_app/shared/view/network_image.dart';
 import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
-import 'package:shopping_app/extensions/double_ext.dart';
+import 'package:shopping_app/extensions/size_ext.dart';
 
 class ProductItemWidget extends StatelessWidget {
   final Product product;
@@ -20,7 +18,7 @@ class ProductItemWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: UIColor.lightGrayBorder),
-        borderRadius: BorderRadius.circular(5.0),
+        borderRadius: BorderRadius.circular(5.0.h),
         color: UIColor.white,
       ),
       child: Column(
@@ -32,15 +30,15 @@ class ProductItemWidget extends StatelessWidget {
             height: (Get.width - 32 - 10) / 2,
           ),
           SizedBox(
-            height: 6.0,
+            height: 6.0.h,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            padding: EdgeInsets.symmetric(horizontal: 8.0.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Container(
-                  height: 50,
+                SizedBox(
+                  height: 60.0.h,
                   child: Text(
                     product?.name,
                     style: UITextStyle.mediumBlack_16_w400,
@@ -49,39 +47,43 @@ class ProductItemWidget extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 6.0,
+                  height: 6.0.h,
                 ),
                 Row(
                   children: [
                     SizedBox(
-                      width: 6.0,
+                      width: 6.0.w,
                     ),
                     getIcon(),
                     SizedBox(
-                      width: 6.0,
+                      width: 6.0.w,
                     ),
                     Text(
                       "${FormatHelper.moneyFormat(product?.price ?? 0)}đ",
                       style: UITextStyle.red_18_w700,
                       textAlign: TextAlign.end,
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Icon(
                       Icons.favorite,
                       color: UIColor.red,
+                      size: 24.0.h,
                     ),
                     SizedBox(
-                      width: 6.0,
+                      width: 6.0.w,
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: 12.0,
+                  height: 12.0.h,
                 ),
                 Text(
                   "Ngày cập nhật: ${FormatHelper.formatDateTime(product.createdAt, pattern: "dd/MM/yyyy")}",
                   style: UITextStyle.mediumLightShadeGray_12_w400,
                   textAlign: TextAlign.start,
+                ),
+                SizedBox(
+                  height: 12.0.h,
                 ),
               ],
             ),
@@ -93,13 +95,13 @@ class ProductItemWidget extends StatelessWidget {
 
   Widget getIcon() {
     if (product.from == "shopee") {
-      return Assets.icons.icShopee.image(height: 24, width: 24);
+      return Assets.icons.icShopee.image(height: 24.0.h, width: 24.0.h);
     }
     if (product.from == "tiki") {
-      return Assets.icons.icTiki.image(height: 24, width: 24);
+      return Assets.icons.icTiki.image(height: 24.0.h, width: 24.0.h);
     }
     if (product.from == "lazada") {
-      return Assets.icons.icLazada.image(height: 24, width: 24);
+      return Assets.icons.icLazada.image(height: 24.0.h, width: 24.0.h);
     }
     return Container();
   }

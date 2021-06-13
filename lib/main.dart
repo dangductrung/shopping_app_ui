@@ -7,6 +7,7 @@ import 'package:shopping_app/injector.dart';
 import 'package:shopping_app/pages/Signup/Signup.dart';
 import 'package:shopping_app/pages/home/home.dart';
 import 'package:shopping_app/pages/signin/signin.dart';
+import 'package:shopping_app/pages/splash/splash_screen.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'pages/bottom_bar/bottombar.dart';
@@ -60,7 +61,7 @@ class MyApp extends StatelessWidget {
         // ],
         supportedLocales: context.supportedLocales,
         locale: context.locale,
-        home: BottomBar(),
+        home: SplashScreen(),
         builder: (context, child) => FlutterEasyLoading(child: child),
       ),
     );

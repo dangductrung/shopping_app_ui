@@ -12,6 +12,7 @@ import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 
 class BottomBar extends StatefulWidget {
+  @override
   BottomBarState createState() => BottomBarState();
 }
 
@@ -23,7 +24,7 @@ class BottomBarState extends BaseViewState<BottomBar, BottomBarViewModel> {
         bottomNavigationBar: Obx(
           () => BottomNavigationBar(
             currentIndex: viewModel.index,
-            items: const [
+            items: [
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.home_outlined,

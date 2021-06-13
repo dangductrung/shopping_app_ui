@@ -6,6 +6,7 @@ import 'package:shopping_app/pages/signup/sign_up_view_model.dart';
 import 'package:shopping_app/shared/base/base_view_state.dart';
 import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
+import 'package:shopping_app/extensions/size_ext.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -21,11 +22,11 @@ class SignUpState extends BaseViewState<SignUp, SignUpViewModel> {
       scaffold: Scaffold(
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: height * 15),
+          padding: EdgeInsets.symmetric(horizontal: 20.0.w, vertical: height * 15),
           child: Form(
             child: Column(
               children: <Widget>[
-                Assets.icons.icLogo.image(height: 120, width: 120),
+                Assets.icons.icLogo.image(height: 160.0.h, width: 160.0.h),
                 const SizedBox(
                   height: 16.0,
                 ),
@@ -34,58 +35,66 @@ class SignUpState extends BaseViewState<SignUp, SignUpViewModel> {
                   child: Text("Đăng ký ngay để nhận thêm nhiều ưu đãi", style: UITextStyle.black54_16_w400),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: height * 1),
+                  margin: EdgeInsets.symmetric(vertical: height),
                   child: TextFormField(
                       autocorrect: false,
                       style: UITextStyle.mediumBlack_16_w400,
-                      decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
-                          border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(vertical: 15.0.h, horizontal: 10.0.w),
+                          border: const OutlineInputBorder(),
                           hintText: "Tên đăng nhập",
                           labelText: "Tên đăng nhập",
-                          labelStyle: TextStyle(color: Colors.black45),
-                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black))),
+                          labelStyle: UITextStyle.mediumLightShadeGray_16_w400,
+                          focusedBorder: const OutlineInputBorder(borderSide: BorderSide())),
                       onChanged: viewModel.onUsernameChanged),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: height * 1),
+                  margin: EdgeInsets.symmetric(vertical: height),
                   child: TextFormField(
                     autocorrect: false,
                     obscureText: true,
                     style: UITextStyle.mediumBlack_16_w400,
-                    decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
-                        border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(vertical: 15.0.h, horizontal: 10.0.w),
+                        border: const OutlineInputBorder(),
                         hintText: "Mật khẩu",
                         labelText: "Mật khẩu",
-                        labelStyle: TextStyle(color: Colors.black45),
-                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black))),
+                        labelStyle: UITextStyle.mediumLightShadeGray_16_w400,
+                        focusedBorder: const OutlineInputBorder()),
                     onChanged: viewModel.onPwdChanged,
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: height * 1),
+                  margin: EdgeInsets.symmetric(vertical: height),
                   child: TextFormField(
                       autocorrect: false,
                       obscureText: true,
                       style: UITextStyle.mediumBlack_16_w400,
-                      decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
-                          border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(vertical: 15.0.h, horizontal: 10.0.w),
+                          border: const OutlineInputBorder(),
                           hintText: "Nhập lại mật khẩu",
                           labelText: "Xác nhận mật khẩu",
-                          labelStyle: TextStyle(color: UIColor.black45),
-                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black))),
+                          labelStyle: UITextStyle.mediumLightShadeGray_16_w400,
+                          focusedBorder: const OutlineInputBorder()),
                       onChanged: viewModel.onConfirmPwdChanged),
                 ),
-                Container(
-                  height: 50,
-                  width: 400,
-                  margin: EdgeInsets.symmetric(vertical: height * 2),
-                  child: CupertinoButton(
-                    color: UIColor.orangeBtn,
-                    onPressed: viewModel.onRegisterClicked,
-                    child: Text("Đăng ký", style: UITextStyle.white_18_w400),
+                SizedBox(
+                  height: 16.0.h,
+                ),
+                GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: viewModel.onRegisterClicked,
+                  child: Container(
+                    height: 60.0.h,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0.h),
+                      color: UIColor.orangeBtn,
+                    ),
+                    child: Center(
+                      child: Text("Đăng ký", style: UITextStyle.white_16_w400),
+                    ),
                   ),
                 ),
                 Row(

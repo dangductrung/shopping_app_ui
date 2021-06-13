@@ -4,6 +4,7 @@ import 'package:shopping_app/pages/bottom_bar/bottombar.dart';
 import 'package:shopping_app/constants/constants.dart';
 import 'package:shopping_app/helpers/toast_helper.dart';
 import 'package:shopping_app/injector.dart';
+import 'package:shopping_app/pages/signup/signup.dart';
 import 'package:shopping_app/shared/base/base_view_model.dart';
 import 'package:shopping_app/storage/storages/client_storage.dart';
 
@@ -47,5 +48,9 @@ class SignInViewModel extends BaseViewModel {
   // ignore: use_setters_to_change_properties
   void onUsernameChanged(String value) {
     username = value;
+  }
+
+  void onSignUpClicked() {
+    Get.to(SignUp());
   }
 }

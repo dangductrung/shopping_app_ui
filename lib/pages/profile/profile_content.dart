@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_app/helpers/auth_helper.dart';
+import 'package:shopping_app/injector.dart';
 import 'package:shopping_app/pages/profile/profile_menu.dart';
 import 'package:shopping_app/pages/profile/profile_pic.dart';
 import 'package:shopping_app/pages/signin/signin.dart';
@@ -85,10 +87,7 @@ class Body extends StatelessWidget {
               text: "Đăng xuất",
               icon: "assets/icons/Log out.svg",
               press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignIn()),
-                );
+                injector<AuthHelper>().logout();
               },
             ),
           ),
