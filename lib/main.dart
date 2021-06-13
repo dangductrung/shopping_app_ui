@@ -9,7 +9,7 @@ import 'package:shopping_app/pages/home/home.dart';
 import 'package:shopping_app/pages/signin/signin.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-import 'common/bottombar.dart';
+import 'pages/bottom_bar/bottombar.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> firstTabNavKey = GlobalKey<NavigatorState>();
@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
         // ],
         supportedLocales: context.supportedLocales,
         locale: context.locale,
-        home: SignUp(),
+        home: BottomBar(),
         builder: (context, child) => FlutterEasyLoading(child: child),
       ),
     );

@@ -1,0 +1,22 @@
+import 'package:shopping_app/backend/services/product/product_service.dart';
+import 'package:shopping_app/injector.dart';
+import 'package:shopping_app/models/product.dart';
+import 'package:shopping_app/shared/base/base_view_model.dart';
+import 'package:get/get.dart';
+
+class HomeViewModel extends BaseViewModel {
+  final _products = <Product>[].obs;
+  List<Product> get products => _products.toList();
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  void getData() {
+    call(() async {
+      _products.assignAll(await injector<ProductService>().getListLastItem());
+    });
+  }
+}

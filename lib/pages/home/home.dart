@@ -1,16 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shopping_app/common/column_product.dart';
+import 'package:get/get.dart';
+import 'package:shopping_app/common/product_item.dart';
 import 'package:shopping_app/common/searchbar.dart';
+import 'package:shopping_app/pages/home/home_view_model.dart';
+import 'package:shopping_app/pages/home/product_item_widget.dart';
+import 'package:shopping_app/shared/base/base_view_model.dart';
+import 'package:shopping_app/shared/base/base_view_state.dart';
+import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 
 import 'discount_banner.dart';
 
 class HomeScreen extends StatefulWidget {
+  @override
   HomeScreenState createState() => HomeScreenState();
 }
 
-class HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
   TextEditingController _controller;
   FocusNode _focusNode;
   String _terms = '';
@@ -40,14 +47,18 @@ class HomeScreenState extends State<HomeScreen> {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Row(mainAxisSize: MainAxisSize.max, children: [
-        Container(
-          width: width * 80,
-          child: SearchBar(
-            controller: _controller,
-            focusNode: _focusNode,
+        Expanded(
+          child: Container(
+            child: SearchBar(
+              controller: _controller,
+              focusNode: _focusNode,
+            ),
           ),
         ),
-        Expanded(child: Icon(Icons.notifications, size: 30, color: Colors.white))
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Icon(Icons.search, size: 30, color: Colors.white),
+        )
       ]),
     );
   }
@@ -57,12 +68,13 @@ class HomeScreenState extends State<HomeScreen> {
     final height = MediaQuery.of(context).size.height / 100;
     final width = MediaQuery.of(context).size.width / 100;
     return Scaffold(
+      backgroundColor: UIColor.white,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
           automaticallyImplyLeading: false,
           flexibleSpace: Container(
-            padding: EdgeInsets.fromLTRB(5, 14, 0, 0),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.fromLTRB(5, 14, 0, 0),
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
@@ -77,36 +89,43 @@ class HomeScreenState extends State<HomeScreen> {
               ],
             ),
           )),
-      body: SafeArea(
+      body: RefreshIndicator(
+        onRefresh: () async {
+          viewModel.getData();
+          return true;
+        },
         child: SingleChildScrollView(
-          child: RefreshIndicator(
-            onRefresh: () async {
-              // call api
-              return true;
-            },
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                DiscountBanner(),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: width * 5, vertical: width * 2),
-                  child: Text("Sản phẩm nổi bật", style: UITextStyle.mediumBlack_15_w600),
-                ),
-                ListView.builder(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DiscountBanner(),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: width * 5, vertical: width * 2),
+                child: Text("Sản phẩm nổi bật", style: UITextStyle.mediumBlack_15_w600),
+              ),
+              Obx(
+                () => GridView.count(
+                  childAspectRatio: 0.6,
                   shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return TwoProducts();
-                  },
+                  physics: NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10.0,
+                  crossAxisSpacing: 10.0,
+                  children: viewModel.products.map((e) {
+                    return ProductItemWidget(
+                      product: e,
+                    );
+                  }).toList(),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
+
+  @override
+  HomeViewModel createViewModel() => HomeViewModel();
 }

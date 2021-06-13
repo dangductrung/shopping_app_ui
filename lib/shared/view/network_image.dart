@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:shopping_app/theme/ui_color.dart';
 
 class NetworkImageWidget extends StatelessWidget {
   final String url;
@@ -16,6 +17,7 @@ class NetworkImageWidget extends StatelessWidget {
       width: width ?? 100,
       height: height ?? 100,
       fit: boxFit ?? BoxFit.contain,
+      filterQuality: FilterQuality.high,
       loadingBuilder: (context, widget, event) {
         return event == null
             ? widget

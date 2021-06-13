@@ -49,52 +49,48 @@ class ProductItemState extends State<ProductItem> {
               Expanded(
                 child: Container(
                   padding: EdgeInsets.fromLTRB(10, 15, 0, 0),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Bình Hoa Thủy Tinh Trong Suốt Phong Cách Bắc Âu",
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                          maxLines: 3,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 10),
-                          // ignore: prefer_const_literals_to_create_immutables
-                          child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                            Text("Giá: ", style: UITextStyle.mediumBlack_14_w400),
-                            // ignore: prefer_const_literals_to_create_immutables
-                            Text("14.999.000", style: TextStyle(fontSize: 14, decoration: TextDecoration.lineThrough)),
-                            Text("13.999.000", style: UITextStyle.red_16_w700),
-                          ]),
-                        ),
-                        Expanded(
-                          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
+                  child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, mainAxisSize: MainAxisSize.max, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    Text(
+                      "Bình Hoa Thủy Tinh Trong Suốt Phong Cách Bắc Âu",
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                      maxLines: 3,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 10),
+                      // ignore: prefer_const_literals_to_create_immutables
+                      child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        Text("Giá: ", style: UITextStyle.mediumBlack_14_w400),
+                        // ignore: prefer_const_literals_to_create_immutables
+                        Text("14.999.000", style: TextStyle(fontSize: 14, decoration: TextDecoration.lineThrough)),
+                        Text("13.999.000", style: UITextStyle.red_16_w700),
+                      ]),
+                    ),
+                    Expanded(
+                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    // ignore: sized_box_for_whitespace
-                                    Container(width: 20, height: 20, child: Image.asset("assets/icons/shopee.png")),
-                                    Container(padding: EdgeInsets.symmetric(horizontal: 5), child: Text('Ngày cập nhật: 01/05/2021')),
-                                  ],
-                                ),
+                                // ignore: sized_box_for_whitespace
+                                Container(width: 20, height: 20, child: Image.asset("assets/icons/ic_shopee.png")),
+                                Container(padding: EdgeInsets.symmetric(horizontal: 5), child: Text('Ngày cập nhật: 01/05/2021')),
                               ],
                             ),
-                            IconButton(
-                                icon: Icon(
-                                  Icons.favorite,
-                                  color: _isFavourite ? Colors.red : Colors.grey,
-                                ),
-                                onPressed: () => setState(() => _isFavourite = !_isFavourite))
-                          ]),
-                        )
+                          ],
+                        ),
+                        IconButton(
+                            icon: Icon(
+                              Icons.favorite,
+                              color: _isFavourite ? Colors.red : Colors.grey,
+                            ),
+                            onPressed: () => setState(() => _isFavourite = !_isFavourite))
                       ]),
+                    )
+                  ]),
                 ),
               ),
             ],

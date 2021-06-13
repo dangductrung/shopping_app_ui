@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:shopping_app/backend/services/oauth/oauth_service.dart';
-import 'package:shopping_app/common/bottombar.dart';
+import 'package:shopping_app/pages/bottom_bar/bottombar.dart';
 import 'package:shopping_app/constants/constants.dart';
 import 'package:shopping_app/helpers/toast_helper.dart';
 import 'package:shopping_app/injector.dart';
