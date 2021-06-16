@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopping_app/common/product_item.dart';
 import 'package:shopping_app/common/searchbar.dart';
 import 'package:shopping_app/pages/home/home_view_model.dart';
 import 'package:shopping_app/pages/home/product_item_widget.dart';
-import 'package:shopping_app/shared/base/base_view_model.dart';
 import 'package:shopping_app/shared/base/base_view_state.dart';
 import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
@@ -23,6 +21,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
   @override
   void initState() {
     super.initState();
+    _controller = TextEditingController();
     _focusNode = FocusNode();
   }
 
@@ -35,7 +34,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
 
   Widget _buildSearchBox() {
     return Padding(
-      padding: EdgeInsets.all(10.0.h),
+      padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 12.0.h),
       child: Row(children: [
         Expanded(
           child: SearchBar(
@@ -53,7 +52,6 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height / 100;
     final width = MediaQuery.of(context).size.width / 100;
     return Scaffold(
       backgroundColor: UIColor.white,

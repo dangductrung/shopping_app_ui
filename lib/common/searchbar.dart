@@ -5,7 +5,7 @@ import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/extensions/size_ext.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 
-class SearchBar extends StatelessWidget {
+class SearchBar extends StatefulWidget {
   const SearchBar({
     this.controller,
     this.focusNode,
@@ -14,6 +14,11 @@ class SearchBar extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
 
+  @override
+  _SearchBarState createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -27,15 +32,15 @@ class SearchBar extends StatelessWidget {
               Expanded(
                 child: CupertinoTextField(
                   placeholder: "Bạn tìm kiếm gì hôm nay?",
-                  controller: controller,
-                  focusNode: focusNode,
+                  controller: widget.controller,
+                  focusNode: widget.focusNode,
                   style: UITextStyle.mediumLightShadeGray_16_w400,
                   cursorColor: UIColor.searchCursorColor,
                   decoration: null,
                 ),
               ),
               GestureDetector(
-                onTap: controller.clear,
+                onTap: () => {widget.controller.text = ""},
                 child: Icon(
                   CupertinoIcons.clear_thick_circled,
                   color: UIColor.searchIconColor,
