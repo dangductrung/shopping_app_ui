@@ -37,4 +37,11 @@ class FavoriteListViewModel extends BaseViewModel {
       _products.removeAt(index);
     });
   }
+
+  @override
+  void disposeState() {
+    _products.close();
+    _isHaveLoadMore.close();
+    super.disposeState();
+  }
 }

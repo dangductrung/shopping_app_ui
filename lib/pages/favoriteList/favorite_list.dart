@@ -17,8 +17,8 @@ class FavoriteList extends StatefulWidget {
 class FavoriteListState extends BaseViewState<FavoriteList, FavoriteListViewModel> {
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height / 100;
     return Scaffold(
+      backgroundColor: UIColor.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         flexibleSpace: Container(

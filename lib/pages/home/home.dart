@@ -57,23 +57,24 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
       backgroundColor: UIColor.white,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-          automaticallyImplyLeading: false,
-          flexibleSpace: Container(
-            padding: EdgeInsets.fromLTRB(5.0.w, 14.0.h, 0, 0),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [Color(0xffF12711), Color(0xffF5AF19)],
-              ),
+        automaticallyImplyLeading: false,
+        flexibleSpace: Container(
+          padding: EdgeInsets.fromLTRB(5.0.w, 14.0.h, 0, 0),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [Color(0xffF12711), Color(0xffF5AF19)],
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                _buildSearchBox(),
-              ],
-            ),
-          )),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              _buildSearchBox(),
+            ],
+          ),
+        ),
+      ),
       body: RefreshIndicator(
         onRefresh: () async {
           viewModel.getData();

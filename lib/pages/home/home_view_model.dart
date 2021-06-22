@@ -32,4 +32,10 @@ class HomeViewModel extends BaseViewModel {
       getData();
     });
   }
+
+  @override
+  void disposeState() {
+    _products.close();
+    super.disposeState();
+  }
 }

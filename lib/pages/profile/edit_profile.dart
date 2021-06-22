@@ -1,21 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shopping_app/pages/profile/edit_profile_view_model.dart';
 import 'package:shopping_app/pages/profile/profile_screen.dart';
+import 'package:shopping_app/shared/base/base_view_state.dart';
 import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 
 class EditProfile extends StatefulWidget {
   @override
-  EditProfileState createState() => new EditProfileState();
+  EditProfileState createState() => EditProfileState();
 }
 
-class EditProfileState extends State<EditProfile> {
+class EditProfileState extends BaseViewState<EditProfile, EditProfileViewModel> {
   String email;
   String phone;
   String name;
 
   TextEditingController _email, _phone, _name;
 
+  @override
   void initState() {
     super.initState();
     setState(() {
@@ -28,6 +31,7 @@ class EditProfileState extends State<EditProfile> {
     });
   }
 
+  @override
   void dispose() {
     _email.dispose();
     _phone.dispose();
@@ -54,8 +58,7 @@ class EditProfileState extends State<EditProfile> {
         automaticallyImplyLeading: false,
         flexibleSpace: Container(
           padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
-          decoration:
-              BoxDecoration(gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [UIColor.orange, UIColor.yellow])),
+          decoration: BoxDecoration(gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [UIColor.orange, UIColor.yellow])),
         ),
         title: Text(
           "Chỉnh sửa thông tin",
@@ -140,4 +143,7 @@ class EditProfileState extends State<EditProfile> {
       ),
     );
   }
+
+  @override
+  EditProfileViewModel createViewModel() => EditProfileViewModel();
 }
