@@ -10,8 +10,9 @@ import 'package:shopping_app/extensions/size_ext.dart';
 
 class ProductItemWidget extends StatelessWidget {
   final Product product;
+  final Function() onFollowClicked;
 
-  const ProductItemWidget({this.product});
+  const ProductItemWidget({this.product, this.onFollowClicked});
 
   @override
   Widget build(BuildContext context) {
@@ -64,10 +65,18 @@ class ProductItemWidget extends StatelessWidget {
                       textAlign: TextAlign.end,
                     ),
                     const Spacer(),
-                    Icon(
-                      Icons.favorite,
-                      color: UIColor.red,
-                      size: 24.0.h,
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () {
+                        if (onFollowClicked != null) {
+                          onFollowClicked();
+                        }
+                      },
+                      child: Icon(
+                        Icons.favorite,
+                        color: product?.isFollow ?? false ? Colors.red : Colors.grey,
+                        size: 24.0.h,
+                      ),
                     ),
                     SizedBox(
                       width: 6.0.w,

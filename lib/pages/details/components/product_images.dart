@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/common/product_item.dart';
 
+import 'body.dart';
+
 class ProductImages extends StatefulWidget {
   const ProductImages({
     Key key,

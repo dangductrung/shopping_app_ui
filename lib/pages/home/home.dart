@@ -109,6 +109,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                 onTap: () => viewModel.onItemClicked(i),
                 child: ProductItemWidget(
                   product: viewModel.products[i],
+                  onFollowClicked: () => viewModel.onFollowClicked(i),
                 ),
               ),
             ),
@@ -122,6 +123,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                 onTap: () => viewModel.onItemClicked(i),
                 child: ProductItemWidget(
                   product: viewModel.products[i + 1],
+                  onFollowClicked: () => viewModel.onFollowClicked(i + 1),
                 ),
               ),
             ),

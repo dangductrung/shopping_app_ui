@@ -8,6 +8,18 @@ import 'package:shopping_app/theme/ui_text_style.dart';
 import 'product_description.dart';
 import 'top_rounded_container.dart';
 
+class ProductItemInfo {
+  final String name;
+  final String curPrice;
+  final String priceBefore;
+  final String date;
+  final String src;
+  final String description;
+  final String imgUrl;
+  final bool isFavourite;
+  ProductItemInfo(this.name, this.curPrice, this.priceBefore, this.date, this.src, this.description, this.imgUrl, this.isFavourite);
+}
+
 class Body extends StatefulWidget {
   final ProductItemInfo product;
 

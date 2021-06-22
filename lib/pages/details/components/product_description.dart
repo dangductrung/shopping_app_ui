@@ -3,6 +3,8 @@ import 'package:shopping_app/common/product_item.dart';
 import 'package:shopping_app/pages/details/chart/line_chart.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 
+import 'body.dart';
+
 class ProductDescription extends StatelessWidget {
   const ProductDescription({
     Key key,

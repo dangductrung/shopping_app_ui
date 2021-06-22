@@ -21,4 +21,15 @@ class HomeViewModel extends BaseViewModel {
   }
 
   void onItemClicked(int i) {}
+
+  void onFollowClicked(int i) {
+    call(() async {
+      if (products[i]?.isFollow ?? false) {
+        await injector<ProductService>().unFollowProduct(products[i].id);
+      } else {
+        await injector<ProductService>().followProduct(products[i].id);
+      }
+      getData();
+    });
+  }
 }

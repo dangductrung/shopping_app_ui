@@ -1,32 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shopping_app/generated/assets.gen.dart';
+import 'package:shopping_app/helpers/format_helpers.dart';
+import 'package:shopping_app/models/product.dart';
 import 'package:shopping_app/pages/details/details_screen.dart';
+import 'package:shopping_app/shared/view/network_image.dart';
+import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
+import 'package:shopping_app/extensions/size_ext.dart';
+import 'package:shopping_app/extensions/double_ext.dart';
 
-enum source { Tiki, Lazada, Shopee }
+class ProductItem extends StatelessWidget {
+  final Product product;
+  final Function() onFollowClicked;
 
-class ProductItemInfo {
-  final String name;
-  final String curPrice;
-  final String priceBefore;
-  final String date;
-  final String src;
-  final String description;
-  final String imgUrl;
-  final bool isFavourite;
-  ProductItemInfo(this.name, this.curPrice, this.priceBefore, this.date, this.src, this.description, this.imgUrl, this.isFavourite);
-}
-
-class ProductItem extends StatefulWidget {
-  bool isFavourite;
-  ProductItem(this.isFavourite);
-  ProductItemState createState() => ProductItemState(isFavourite);
-}
-
-class ProductItemState extends State<ProductItem> {
-  ProductItemInfo product;
-  bool _isFavourite;
-  ProductItemState(this._isFavourite);
+  const ProductItem({this.product, this.onFollowClicked});
 
   @override
   Widget build(BuildContext context) {
@@ -36,65 +24,92 @@ class ProductItemState extends State<ProductItem> {
           builder: (context) => DetailsScreen(),
         ));
       },
-      child: Container(
-          height: 100,
-          child: Row(
+      child: Column(
+        children: [
+          Row(
             children: [
-              Container(
-                margin: EdgeInsets.only(left: 10),
-                child: Image.asset("assets/imgs/meow.jpg"),
-                width: 80,
-                height: 80,
+              NetworkImageWidget(
+                url: product?.image ?? "",
+                height: 90.0.h,
+                width: 90.0.h,
               ),
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(10, 15, 0, 0),
-                  child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, mainAxisSize: MainAxisSize.max, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Text(
-                      "Bình Hoa Thủy Tinh Trong Suốt Phong Cách Bắc Âu",
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                      maxLines: 3,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 10),
-                      // ignore: prefer_const_literals_to_create_immutables
-                      child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text("Giá: ", style: UITextStyle.mediumBlack_14_w400),
-                        // ignore: prefer_const_literals_to_create_immutables
-                        Text("14.999.000", style: TextStyle(fontSize: 14, decoration: TextDecoration.lineThrough)),
-                        Text("13.999.000", style: UITextStyle.red_16_w700),
-                      ]),
-                    ),
-                    Expanded(
-                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                // ignore: sized_box_for_whitespace
-                                Container(width: 20, height: 20, child: Image.asset("assets/icons/ic_shopee.png")),
-                                Container(padding: EdgeInsets.symmetric(horizontal: 5), child: Text('Ngày cập nhật: 01/05/2021')),
-                              ],
-                            ),
-                          ],
-                        ),
-                        IconButton(
-                            icon: Icon(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 8.0.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        product?.name ?? "",
+                        style: UITextStyle.mediumBlack_16_w400,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(
+                        height: 4.0.h,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Giá: ", style: UITextStyle.mediumBlack_16_w400),
+                          Text(
+                            product?.price?.toSignedString() ?? "",
+                            style: UITextStyle.red_16_w700,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 4.0.h,
+                      ),
+                      Row(
+                        children: [
+                          getIcon(),
+                          Container(padding: EdgeInsets.symmetric(horizontal: 5.0.w), child: Text('Ngày cập nhật: ${FormatHelper.formatDateTime(product?.createdAt, pattern: "dd/MM/yyyy")}')),
+                          const Spacer(),
+                          GestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            onTap: () {
+                              if (onFollowClicked != null) {
+                                onFollowClicked();
+                              }
+                            },
+                            child: Icon(
                               Icons.favorite,
-                              color: _isFavourite ? Colors.red : Colors.grey,
+                              color: product?.isFollow ?? false ? Colors.red : Colors.grey,
+                              size: 24.0.h,
                             ),
-                            onPressed: () => setState(() => _isFavourite = !_isFavourite))
-                      ]),
-                    )
-                  ]),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],
-          )),
+          ),
+          SizedBox(
+            height: 4.0.h,
+          ),
+          Container(
+            height: 1.0.h,
+            width: double.infinity,
+            color: UIColor.mediumLightShadeGray,
+          )
+        ],
+      ),
     );
+  }
+
+  Widget getIcon() {
+    if (product.from == "shopee") {
+      return Assets.icons.icShopee.image(height: 24.0.h, width: 24.0.h);
+    }
+    if (product.from == "tiki") {
+      return Assets.icons.icTiki.image(height: 24.0.h, width: 24.0.h);
+    }
+    if (product.from == "lazada") {
+      return Assets.icons.icLazada.image(height: 24.0.h, width: 24.0.h);
+    }
+    return Container();
   }
 }
