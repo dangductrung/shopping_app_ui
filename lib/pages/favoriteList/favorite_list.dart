@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:shopping_app/common/product_item.dart';
 import 'package:shopping_app/pages/favoriteList/favorite_list_view_model.dart';
 import 'package:shopping_app/shared/base/base_view_state.dart';
+import 'package:shopping_app/shared/view/easy_list_view.dart';
 import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 import 'package:shopping_app/extensions/string_ext.dart';
@@ -40,11 +41,16 @@ class FavoriteListState extends BaseViewState<FavoriteList, FavoriteListViewMode
         () => SafeArea(
           child: RefreshIndicator(
             onRefresh: () async {
+              viewModel.page = 0;
               viewModel.getData();
               return true;
             },
-            child: ListView.builder(
-              shrinkWrap: true,
+            child: EasyListView(
+              padding: EdgeInsets.only(bottom: 16.0.h),
+              loadMore: viewModel.isHaveLoadMore,
+              onLoadMore: () {
+                viewModel.getData();
+              },
               itemCount: viewModel.products?.length ?? 0,
               itemBuilder: (context, index) {
                 return ProductItem(

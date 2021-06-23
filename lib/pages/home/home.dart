@@ -35,18 +35,23 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
   Widget _buildSearchBox() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 12.0.h),
-      child: Row(children: [
-        Expanded(
-          child: SearchBar(
-            controller: _controller,
-            focusNode: _focusNode,
+      child: Row(
+        children: [
+          Expanded(
+            child: SearchBar(
+              controller: _controller,
+              focusNode: _focusNode,
+            ),
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(8.0.h),
-          child: Icon(Icons.search, size: 30.0.h, color: Colors.white),
-        )
-      ]),
+          GestureDetector(
+            onTap: () => viewModel.onSearchClicked(_controller?.text ?? ""),
+            child: Padding(
+              padding: EdgeInsets.all(8.0.h),
+              child: Icon(Icons.search, size: 30.0.h, color: Colors.white),
+            ),
+          )
+        ],
+      ),
     );
   }
 

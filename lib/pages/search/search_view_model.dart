@@ -1,11 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:shopping_app/backend/services/product/product_service.dart';
 import 'package:shopping_app/injector.dart';
-import 'package:shopping_app/models/product.dart';
 import 'package:shopping_app/models/product.dart';
 import 'package:shopping_app/shared/base/base_view_model.dart';
 import 'package:get/get.dart';
 
-class FavoriteListViewModel extends BaseViewModel {
+class SearchViewModel extends BaseViewModel {
+  TextEditingController searchController = TextEditingController();
+  FocusNode focusNode = FocusNode();
+
+  String searchText = "";
+
   final _products = <Product>[].obs;
   List<Product> get products => _products.toList();
   final _isHaveLoadMore = false.obs;
@@ -14,13 +19,20 @@ class FavoriteListViewModel extends BaseViewModel {
 
   @override
   void initState() {
+    searchController = TextEditingController(text: searchText);
     getData();
     super.initState();
   }
 
   void getData() {
+    if (GetUtils.isNullOrBlank(searchController.text)) {
+      _products.assignAll([]);
+      return;
+    }
     call(() async {
-      final productsTemp = await injector<ProductService>().getFollowList(page ?? 0);
+      final Map<String, dynamic> params = {};
+      params["keyword"] = searchController.text;
+      final productsTemp = await injector<ProductService>().search(params, page ?? 0);
 
       if (page == 0) {
         _products.assignAll(productsTemp);
@@ -32,10 +44,16 @@ class FavoriteListViewModel extends BaseViewModel {
     });
   }
 
-  void onUnFollowClicked(int index) {
+  void onFollowClicked(int i) {
     call(() async {
-      await injector<ProductService>().unFollowProduct(products[index].id);
-      _products.removeAt(index);
+      if (products[i]?.isFollow ?? false) {
+        await injector<ProductService>().unFollowProduct(products[i].id);
+        _products[i].isFollow = false;
+      } else {
+        await injector<ProductService>().followProduct(products[i].id);
+        _products[i].isFollow = true;
+      }
+      _products.refresh();
     });
   }
 

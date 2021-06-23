@@ -15,7 +15,7 @@ abstract class ProductService {
   @factoryMethod
   factory ProductService() => _ProductService(injector<HttpClient>().dio);
 
-  @GET("/search")
+  @POST("/search")
   Future<List<Product>> search(@Body() Map<String, dynamic> params, @Query("page") int page);
 
   @GET("/product/latest")
