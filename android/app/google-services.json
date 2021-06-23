@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "710969667908",
+    "project_id": "ahasale-49ea5",
+    "storage_bucket": "ahasale-49ea5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710969667908:android:f9ad5b1ba2eff174c3e711",
+        "android_client_info": {
+          "package_name": "vn.com.ahasale"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "710969667908-grv2q643hl7v4r99qq4v6hpf8e8mujka.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEfzr2npXEtG8BESkck0l0AALxRNS8MZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "710969667908-grv2q643hl7v4r99qq4v6hpf8e8mujka.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "710969667908-agn7emq0pik74c1uhbfk39af3fp60apa.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "vn.com.ahasale"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

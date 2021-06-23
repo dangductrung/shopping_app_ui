@@ -45,7 +45,6 @@ class SignInState extends BaseViewState<SignIn, SignInViewModel> {
                     Container(
                       margin: EdgeInsets.symmetric(vertical: 10.0.h),
                       child: TextFormField(
-                        controller: TextEditingController(),
                         style: UITextStyle.mediumBlack_16_w400,
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(vertical: 15.0.h, horizontal: 10.0.w),
@@ -61,7 +60,6 @@ class SignInState extends BaseViewState<SignIn, SignInViewModel> {
                       margin: EdgeInsets.symmetric(vertical: 10.0.h),
                       child: TextFormField(
                         obscureText: true,
-                        controller: TextEditingController(),
                         style: UITextStyle.mediumBlack_16_w400,
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(vertical: 15.0.h, horizontal: 10.0.w),

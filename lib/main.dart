@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -21,14 +25,20 @@ Future<void> main() async {
   await setupInjector();
   // config timeago
   setupTimeAgo();
-  runApp(EasyLocalization(
-    // ignore: prefer_const_literals_to_create_immutables
-    supportedLocales: [const Locale('en'), const Locale('vi')],
-    path: 'assets/lang',
-    fallbackLocale: const Locale('vi'),
-    useOnlyLangCode: true,
-    child: MyApp(),
-  ));
+
+  await Firebase.initializeApp();
+  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+
+  await runZonedGuarded<Future<void>>(() async {
+    runApp(EasyLocalization(
+      // ignore: prefer_const_literals_to_create_immutables
+      supportedLocales: [const Locale('en'), const Locale('vi')],
+      path: 'assets/lang',
+      fallbackLocale: const Locale('vi'),
+      useOnlyLangCode: true,
+      child: MyApp(),
+    ));
+  }, FirebaseCrashlytics.instance.recordError);
 }
 
 void setupTimeAgo() {

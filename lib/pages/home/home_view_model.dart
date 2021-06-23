@@ -1,4 +1,5 @@
 import 'package:shopping_app/backend/services/product/product_service.dart';
+import 'package:shopping_app/firebase/fcm_manager.dart';
 import 'package:shopping_app/injector.dart';
 import 'package:shopping_app/models/product.dart';
 import 'package:shopping_app/pages/search/search_page.dart';
@@ -11,6 +12,8 @@ class HomeViewModel extends BaseViewModel {
 
   @override
   void initState() {
+    injector<FCMManager>().configNotification(Get.context);
+    injector<FCMManager>().registerFcmToken();
     getData();
     super.initState();
   }
