@@ -2,6 +2,7 @@ import 'package:shopping_app/backend/services/profile/profile_service.dart';
 import 'package:shopping_app/helpers/auth_helper.dart';
 import 'package:shopping_app/injector.dart';
 import 'package:shopping_app/models/profile.dart';
+import 'package:shopping_app/pages/profile/edit_profile.dart';
 import 'package:shopping_app/shared/base/base_view_model.dart';
 import 'package:get/get.dart';
 
@@ -29,5 +30,13 @@ class ProfileViewModel extends BaseViewModel {
 
   void onLogoutClicked() {
     injector<AuthHelper>().logout();
+  }
+
+  void onEditClicked() {
+    Get.to(EditProfile(
+      onUpdateSuccess: () {
+        getData();
+      },
+    ));
   }
 }

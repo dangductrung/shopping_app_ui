@@ -32,12 +32,7 @@ class _ProfileScreenState extends BaseViewState<ProfileScreen, ProfileViewModel>
         ),
         actions: [
           GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => EditProfile()),
-              );
-            },
+            onTap: viewModel.onEditClicked,
             child: Padding(
               padding: EdgeInsets.only(right: 16.0.w),
               child: Center(
