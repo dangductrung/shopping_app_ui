@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:shopping_app/pages/notification/notification_view_model.dart';
 import 'package:shopping_app/pages/notification/notification_widget.dart';
 import 'package:shopping_app/shared/base/base_view_state.dart';
+import 'package:shopping_app/shared/view/easy_list_view.dart';
 import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 import 'package:shopping_app/extensions/size_ext.dart';
@@ -37,11 +38,11 @@ class NotificationListState extends BaseViewState<NotificationList, Notification
           GestureDetector(
             onTap: viewModel.onReadAll,
             child: Padding(
-              padding: EdgeInsets.only(right: 16.0),
+              padding: EdgeInsets.only(right: 16.0.w),
               child: Center(
                 child: Icon(
                   Icons.check,
-                  size: 24.0,
+                  size: 24.0.h,
                 ),
               ),
             ),
@@ -59,7 +60,11 @@ class NotificationListState extends BaseViewState<NotificationList, Notification
             viewModel.getData();
             return true;
           },
-          child: ListView.builder(
+          child: EasyListView(
+              onLoadMore: () {
+                viewModel.getData();
+              },
+              loadMore: viewModel.isHaveLoadMore,
               itemCount: viewModel.notifications?.length ?? 0,
               itemBuilder: (context, index) {
                 return GestureDetector(

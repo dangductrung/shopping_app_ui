@@ -22,10 +22,12 @@ class Product {
   bool isFollow;
   @JsonKey(name: "isNew")
   bool isNew;
+  @JsonKey(name: "followId")
+  int followId;
   @JsonKey(name: "created_at")
   DateTime createdAt;
 
-  Product({this.id, this.name, this.image, this.brand, this.from, this.link, this.price, this.isFollow, this.createdAt});
+  Product({this.id, this.name, this.image, this.brand, this.from, this.link, this.price, this.isFollow, this.isNew, this.followId, this.createdAt});
 
   factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
   Map<String, dynamic> toJson() => _$ProductToJson(this);

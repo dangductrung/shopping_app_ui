@@ -53,9 +53,13 @@ class FavoriteListState extends BaseViewState<FavoriteList, FavoriteListViewMode
               },
               itemCount: viewModel.products?.length ?? 0,
               itemBuilder: (context, index) {
-                return ProductItem(
-                  product: viewModel.products[index],
-                  onFollowClicked: () => viewModel.onUnFollowClicked(index),
+                return GestureDetector(
+                  onTap: () => viewModel.onItemClicked(index),
+                  behavior: HitTestBehavior.translucent,
+                  child: ProductItem(
+                    product: viewModel.products[index],
+                    onFollowClicked: () => viewModel.onUnFollowClicked(index),
+                  ),
                 );
               },
             ),

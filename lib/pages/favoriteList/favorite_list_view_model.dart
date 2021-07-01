@@ -2,6 +2,7 @@ import 'package:shopping_app/backend/services/product/product_service.dart';
 import 'package:shopping_app/injector.dart';
 import 'package:shopping_app/models/product.dart';
 import 'package:shopping_app/models/product.dart';
+import 'package:shopping_app/pages/details/details_screen.dart';
 import 'package:shopping_app/shared/base/base_view_model.dart';
 import 'package:get/get.dart';
 
@@ -44,5 +45,22 @@ class FavoriteListViewModel extends BaseViewModel {
     _products.close();
     _isHaveLoadMore.close();
     super.disposeState();
+  }
+
+  void onItemClicked(int index) {
+    call(() async {
+      await injector<ProductService>().unNewProduct(products[index].followId);
+      _products[index].isNew = false;
+      _products.refresh();
+      goToDetail(index);
+    });
+  }
+
+  void goToDetail(int index) {
+    Get.to(
+      DetailsScreen(
+        product: products[index],
+      ),
+    );
   }
 }

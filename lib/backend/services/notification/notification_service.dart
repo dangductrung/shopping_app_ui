@@ -16,7 +16,7 @@ abstract class NotificationService {
   factory NotificationService() => _NotificationService(injector<HttpClient>().dio);
 
   @GET("/notification/list")
-  Future<List<NotificationModel>> getList(@Query("id") int page);
+  Future<List<NotificationModel>> getList(@Query("page") int page);
 
   @POST("/notification/read")
   Future<void> read(@Query("id") int id);

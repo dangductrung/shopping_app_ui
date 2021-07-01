@@ -32,4 +32,7 @@ abstract class ProductService {
 
   @POST("/follow/unfollow")
   Future<void> unFollowProduct(@Query("product") int productId);
+
+  @POST("/follow/unnew")
+  Future<void> unNewProduct(@Query("id") int id);
 }
