@@ -51,20 +51,25 @@ class ProductItemWidget extends StatelessWidget {
                   height: 6.0.h,
                 ),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
-                      width: 6.0.w,
-                    ),
                     getIcon(),
-                    SizedBox(
-                      width: 6.0.w,
+                    Expanded(
+                      child: Text(
+                        "${FormatHelper.moneyFormat(product?.price ?? 0)}đ",
+                        style: UITextStyle.red_18_w700,
+                        textAlign: TextAlign.end,
+                      ),
                     ),
-                    Text(
-                      "${FormatHelper.moneyFormat(product?.price ?? 0)}đ",
-                      style: UITextStyle.red_18_w700,
-                      textAlign: TextAlign.end,
-                    ),
-                    const Spacer(),
+                  ],
+                ),
+                SizedBox(
+                  height: 12.0.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
                     GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onTap: () {
@@ -77,9 +82,6 @@ class ProductItemWidget extends StatelessWidget {
                         color: product?.isFollow ?? false ? Colors.red : Colors.grey,
                         size: 24.0.h,
                       ),
-                    ),
-                    SizedBox(
-                      width: 6.0.w,
                     ),
                   ],
                 ),

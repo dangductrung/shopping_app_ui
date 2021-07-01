@@ -21,17 +21,31 @@ class ProductItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => DetailsScreen(),
+          builder: (context) => DetailsScreen(
+            product: product,
+          ),
         ));
       },
       child: Column(
         children: [
           Row(
             children: [
-              NetworkImageWidget(
-                url: product?.image ?? "",
-                height: 90.0.h,
-                width: 90.0.h,
+              Stack(
+                children: [
+                  NetworkImageWidget(
+                    url: product?.image ?? "",
+                    height: 90.0.h,
+                    width: 90.0.h,
+                  ),
+                  if (product?.isNew ?? false)
+                    Container(
+                      color: UIColor.red,
+                      child: Text(
+                        "New",
+                        style: UITextStyle.white_14_400,
+                      ),
+                    ),
+                ],
               ),
               Expanded(
                 child: Container(
@@ -53,7 +67,7 @@ class ProductItem extends StatelessWidget {
                         children: [
                           Text("Giá: ", style: UITextStyle.mediumBlack_16_w400),
                           Text(
-                            product?.price?.toSignedString() ?? "",
+                            "${FormatHelper.moneyFormat(product?.price ?? 0)}đ",
                             style: UITextStyle.red_16_w700,
                           ),
                         ],
@@ -93,7 +107,7 @@ class ProductItem extends StatelessWidget {
           Container(
             height: 1.0.h,
             width: double.infinity,
-            color: UIColor.mediumLightShadeGray,
+            color: UIColor.lightBlueBg,
           )
         ],
       ),

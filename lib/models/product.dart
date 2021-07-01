@@ -20,6 +20,8 @@ class Product {
   double price;
   @JsonKey(name: "isFollow")
   bool isFollow;
+  @JsonKey(name: "isNew")
+  bool isNew;
   @JsonKey(name: "created_at")
   DateTime createdAt;
 

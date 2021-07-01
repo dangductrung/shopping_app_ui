@@ -1,42 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/common/product_item.dart';
+import 'package:shopping_app/generated/assets.gen.dart';
+import 'package:shopping_app/helpers/format_helpers.dart';
+import 'package:shopping_app/models/product.dart';
+import 'package:shopping_app/pages/details/chart/line_chart.dart';
+import 'package:shopping_app/shared/view/network_image.dart';
 import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 
 import 'components/body.dart';
+import 'package:shopping_app/extensions/size_ext.dart';
 
-class DetailsScreen extends StatelessWidget {
-  String description = "Wireless Controller for PS4™ gives you what you want in your gaming from over precision control your games to sharing …";
+class DetailsScreen extends StatefulWidget {
+  final Product product;
 
-  ProductItemInfo item = ProductItemInfo(
-      "Bình Hoa Thủy Tinh Trong Suốt Phong Cách Bắc Âu",
-      '14.599.000',
-      '17.000.000',
-      "05/05/2021",
-      "shopee",
-      "Features:1. Material: Made of high-quality Glass material, non-toxic and tasteless, durable, environmentally friendly and practical.2. Exquisite shape: Stylish and beautiful, can be placed on the coffee table or cabinet to perfectly decorate your home.3. INS style, It is possible to place artificial flowers & Hydroponic real flowers4OCCASION: Suitable for family decoration, wedding decoration, banquet decoration, stage decoration, table decoration, etc.5. Pls Attention ! : Glass processing problems, there may be small protrusions or small bubbles on the vase, please understand that this is normal!",
-      "assets/imgs/a.jpg",
-      true);
+  const DetailsScreen({this.product});
+
+  @override
+  _DetailsScreenState createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width / 100;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: Container(
-          margin: EdgeInsets.symmetric(horizontal: w * 5),
-          child: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: Colors.white, size: 22),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
-        automaticallyImplyLeading: false,
         flexibleSpace: Container(
-          padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
-          decoration:
-              BoxDecoration(gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [UIColor.orange, UIColor.yellow])),
+          padding: EdgeInsets.fromLTRB(5.0.w, 14.0.h, 0, 0),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [Color(0xffF12711), Color(0xffF5AF19)],
+            ),
+          ),
         ),
         title: Text(
           "Chi tiết sản phẩm",
@@ -44,8 +43,66 @@ class DetailsScreen extends StatelessWidget {
         ),
       ),
       // CustomAppBar(),
-      body: Body(item),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            NetworkImageWidget(
+              url: widget.product?.image,
+              width: double.infinity,
+              height: 240.0.h,
+            ),
+            SizedBox(
+              height: 16.0.h,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget?.product?.name ?? "",
+                    style: UITextStyle.mediumBlack_16_w400,
+                  ),
+                  SizedBox(
+                    height: 8.0.h,
+                  ),
+                  Row(
+                    children: [
+                      getIcon(),
+                      SizedBox(
+                        width: 8.0.w,
+                      ),
+                      Text(
+                        "${FormatHelper.moneyFormat(widget?.product?.price ?? 0)} đ",
+                        style: UITextStyle.red_18_w700,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 16.0.h,
+                  ),
+                  LineChartSample1(),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
+  }
+
+  Widget getIcon() {
+    if (widget.product.from == "shopee") {
+      return Assets.icons.icShopee.image(height: 24.0.h, width: 24.0.h);
+    }
+    if (widget.product.from == "tiki") {
+      return Assets.icons.icTiki.image(height: 24.0.h, width: 24.0.h);
+    }
+    if (widget.product.from == "lazada") {
+      return Assets.icons.icLazada.image(height: 24.0.h, width: 24.0.h);
+    }
+    return Container();
   }
 }
 

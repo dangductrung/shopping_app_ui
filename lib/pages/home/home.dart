@@ -63,6 +63,8 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        title: _buildSearchBox(),
+        titleSpacing: 0,
         flexibleSpace: Container(
           padding: EdgeInsets.fromLTRB(5.0.w, 14.0.h, 0, 0),
           decoration: const BoxDecoration(
@@ -71,12 +73,6 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
               end: Alignment.bottomLeft,
               colors: [Color(0xffF12711), Color(0xffF5AF19)],
             ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              _buildSearchBox(),
-            ],
           ),
         ),
       ),
