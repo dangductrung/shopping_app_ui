@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shopping_app/pages/notification/notification_view_model.dart';
+import 'package:shopping_app/pages/notification/notification_widget.dart';
+import 'package:shopping_app/shared/base/base_view_state.dart';
 import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
-
-import 'notification.dart';
+import 'package:shopping_app/extensions/size_ext.dart';
 
 class NotificationList extends StatefulWidget {
   @override
@@ -12,58 +15,66 @@ class NotificationList extends StatefulWidget {
   }
 }
 
-class NotificationListState extends State<NotificationList> {
+class NotificationListState extends BaseViewState<NotificationList, NotificationViewModel> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height / 100;
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          flexibleSpace: Container(
-            padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
-            decoration: BoxDecoration(
-                gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [UIColor.orange, UIColor.yellow])),
-          ),
-          actions: [
-            GestureDetector(
-              onTap: () {},
-              child: Padding(
-                padding: EdgeInsets.only(right: 16.0),
-                child: Center(
-                  child: Icon(
-                    Icons.check,
-                    size: 24.0,
-                  ),
-                ),
-              ),
-            )
-          ],
-          title: Text(
-            "Thông báo",
-            style: UITextStyle.mediumBlack_16_w400.copyWith(fontSize: 20, color: Colors.white),
+      backgroundColor: UIColor.white,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        flexibleSpace: Container(
+          padding: EdgeInsets.fromLTRB(5.0.w, 14.0.h, 0, 0),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [Color(0xffF12711), Color(0xffF5AF19)],
+            ),
           ),
         ),
-        body: SafeArea(
-            child: Container(
-          height: height * 100,
-          child: RefreshIndicator(
-            onRefresh: () async {
-              // call api
-              return true;
-            },
-            child: ListView.builder(
-                itemCount: 15,
-                itemBuilder: (context, index) {
-                  NotificationInfo item;
-                  if (index % 2 == 0) {
-                    item =
-                        new NotificationInfo('discount', 'Sản phẩm Bình Hoa Thủy Tinh Trong Suốt Phong cách Bắc Âu hiện đang có giá thấp nhất', true);
-                  } else {
-                    item = new NotificationInfo('announcement', '06.06 mua thả ga, không lo mòn ví', false);
-                  }
-                  return NotifyItem(item);
-                }),
-          ),
-        )));
+        actions: [
+          GestureDetector(
+            onTap: viewModel.onReadAll,
+            child: Padding(
+              padding: EdgeInsets.only(right: 16.0),
+              child: Center(
+                child: Icon(
+                  Icons.check,
+                  size: 24.0,
+                ),
+              ),
+            ),
+          )
+        ],
+        title: Text(
+          "Thông báo",
+          style: UITextStyle.mediumBlack_16_w400.copyWith(fontSize: 20, color: Colors.white),
+        ),
+      ),
+      body: Obx(
+        () => RefreshIndicator(
+          onRefresh: () async {
+            viewModel.page = 0;
+            viewModel.getData();
+            return true;
+          },
+          child: ListView.builder(
+              itemCount: viewModel.notifications?.length ?? 0,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () => viewModel.onReadNotification(index),
+                  child: NotifyItem(
+                    notification: viewModel.notifications[index],
+                  ),
+                );
+              }),
+        ),
+      ),
+    );
   }
+
+  @override
+  NotificationViewModel createViewModel() => NotificationViewModel();
 }

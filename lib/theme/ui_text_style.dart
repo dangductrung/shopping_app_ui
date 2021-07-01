@@ -23,6 +23,7 @@ class UITextStyle {
     UITextStyle.grayText_16_w500 = TextStyle(color: UIColor.grayText, fontSize: 16.0.sp, fontWeight: FontWeight.w500);
     UITextStyle.lightGreen_16_w700 = TextStyle(color: UIColor.lightGreen, fontSize: 16.0.sp, fontWeight: FontWeight.w700);
     UITextStyle.green_16_w700 = TextStyle(color: UIColor.green, fontSize: 16.0.sp, fontWeight: FontWeight.w700);
+    UITextStyle.mediumBlack_16_w700 = TextStyle(color: UIColor.mediumBlack, fontSize: 16.0.sp, fontWeight: FontWeight.w700);
     UITextStyle.lightGreen_16_w400 = TextStyle(color: UIColor.lightGreen, fontSize: 16.0.sp, fontWeight: FontWeight.w400);
     UITextStyle.mediumLightShadeGray_16_w400 = TextStyle(color: UIColor.mediumLightShadeGray, fontSize: 16.0.sp, fontWeight: FontWeight.w400);
 
@@ -49,6 +50,7 @@ class UITextStyle {
   static TextStyle lightGreen_16_w600;
   static TextStyle grayText_16_w500;
   static TextStyle lightGreen_16_w700;
+  static TextStyle mediumBlack_16_w700;
   static TextStyle green_16_w700;
   static TextStyle lightGreen_16_w400;
   static TextStyle mediumLightShadeGray_16_w400;
