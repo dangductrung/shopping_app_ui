@@ -4,11 +4,11 @@ import 'package:shopping_app/generated/assets.gen.dart';
 import 'package:shopping_app/helpers/format_helpers.dart';
 import 'package:shopping_app/models/product.dart';
 import 'package:shopping_app/pages/details/chart/line_chart.dart';
+import 'package:shopping_app/pages/details/detail_view_model.dart';
+import 'package:shopping_app/shared/base/base_view_state.dart';
 import 'package:shopping_app/shared/view/network_image.dart';
 import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
-
-import 'components/body.dart';
 import 'package:shopping_app/extensions/size_ext.dart';
 
 class DetailsScreen extends StatefulWidget {
@@ -20,7 +20,13 @@ class DetailsScreen extends StatefulWidget {
   _DetailsScreenState createState() => _DetailsScreenState();
 }
 
-class _DetailsScreenState extends State<DetailsScreen> {
+class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> {
+  @override
+  void loadArguments() {
+    viewModel.product = widget?.product;
+    super.loadArguments();
+  }
+
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width / 100;
@@ -37,6 +43,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
             ),
           ),
         ),
+        actions: [
+          GestureDetector(
+            onTap: viewModel.onReportClicked,
+            behavior: HitTestBehavior.translucent,
+            child: Padding(
+              padding: EdgeInsets.only(right: 8.0.w),
+              child: Icon(
+                Icons.report,
+                size: 24.0.h,
+              ),
+            ),
+          )
+        ],
         title: Text(
           "Chi tiết sản phẩm",
           style: UITextStyle.mediumBlack_16_w400.copyWith(fontSize: 20, color: Colors.white),
@@ -137,10 +156,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     }
     return Container();
   }
-}
 
-class ProductDetailsArguments {
-  final ProductItemInfo product;
-
-  ProductDetailsArguments({@required this.product});
+  @override
+  DetailViewModel createViewModel() => DetailViewModel();
 }

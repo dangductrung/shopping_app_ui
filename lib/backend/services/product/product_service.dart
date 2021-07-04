@@ -36,4 +36,7 @@ abstract class ProductService {
 
   @POST("/follow/unnew")
   Future<void> unNewProduct(@Query("id") int id);
+
+  @POST("/report/add")
+  Future<void> sendReport(@Body() Map<String, dynamic> params);
 }
