@@ -68,15 +68,48 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     height: 8.0.h,
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      getIcon(),
-                      SizedBox(
-                        width: 8.0.w,
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            getIcon(),
+                            SizedBox(
+                              width: 8.0.w,
+                            ),
+                            Expanded(
+                              child: Text(
+                                "${FormatHelper.moneyFormat(widget?.product?.price ?? 0)}đ",
+                                style: UITextStyle.red_18_w700,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      Text(
-                        "${FormatHelper.moneyFormat(widget?.product?.price ?? 0)} đ",
-                        style: UITextStyle.red_18_w700,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          GestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            onTap: () {},
+                            child: Icon(
+                              Icons.favorite,
+                              color: widget?.product?.isFollow ?? false ? Colors.red : Colors.grey,
+                              size: 24.0.h,
+                            ),
+                          ),
+                        ],
                       ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8.0.h,
+                  ),
+                  Row(
+                    children: [
+                      Text("Ngày cập nhật: ${FormatHelper.formatDateTime(widget?.product?.createdAt, pattern: "dd/MM/yyyy")}", style: UITextStyle.mediumBlack_14_w400, maxLines: 4),
                     ],
                   ),
                   SizedBox(

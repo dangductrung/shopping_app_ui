@@ -38,17 +38,14 @@ class ProductItemWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(
-                  height: 60.0.h,
-                  child: Text(
-                    product?.name,
-                    style: UITextStyle.mediumBlack_16_w400,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+                Text(
+                  product?.name,
+                  style: UITextStyle.mediumBlack_16_w400,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(
-                  height: 6.0.h,
+                  height: 3.0.h,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -65,7 +62,7 @@ class ProductItemWidget extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  height: 12.0.h,
+                  height: 4.0.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -86,7 +83,7 @@ class ProductItemWidget extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  height: 12.0.h,
+                  height: 4.0.h,
                 ),
                 Text(
                   "Ngày cập nhật: ${FormatHelper.formatDateTime(product.createdAt, pattern: "dd/MM/yyyy")}",

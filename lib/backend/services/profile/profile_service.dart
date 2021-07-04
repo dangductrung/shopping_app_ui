@@ -21,4 +21,7 @@ abstract class ProfileService {
 
   @POST("/profile/update")
   Future<Profile> updateProfile(@Body() Map<String, dynamic> params);
+
+  @POST("/profile/changepw")
+  Future<void> changePw(@Body() Map<String, dynamic> params);
 }

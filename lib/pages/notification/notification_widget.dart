@@ -15,7 +15,7 @@ class NotifyItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10.0.h),
+      padding: EdgeInsets.symmetric(vertical: 4.0.h),
       decoration: BoxDecoration(
         color: !(notification?.is_read ?? false) ? UIColor.lightShadeGray : Colors.white,
       ),

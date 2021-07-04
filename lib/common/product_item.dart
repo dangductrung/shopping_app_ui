@@ -32,6 +32,7 @@ class ProductItem extends StatelessWidget {
                 if (product?.isNew ?? false)
                   Container(
                     color: UIColor.red,
+                    padding: EdgeInsets.only(right: 4.0.w),
                     child: Text(
                       "New",
                       style: UITextStyle.white_14_400,

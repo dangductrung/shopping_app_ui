@@ -4,6 +4,7 @@ import 'package:shopping_app/injector.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:shopping_app/config/config.dart';
+import 'package:shopping_app/models/chart.dart';
 import 'package:shopping_app/models/client.dart';
 import 'package:shopping_app/models/product.dart';
 
@@ -25,7 +26,7 @@ abstract class ProductService {
   Future<List<Product>> getFollowList(@Query("page") int page);
 
   @GET("/product/chart")
-  Future<List<Product>> getChartData(@Query("product") int productId);
+  Future<Chart> getChartData(@Query("product") int productId);
 
   @POST("/follow/add")
   Future<void> followProduct(@Query("product") int productId);

@@ -130,7 +130,7 @@ class _ProfileScreenState extends BaseViewState<ProfileScreen, ProfileViewModel>
                 height: 16.0.h,
               ),
               InkWell(
-                onTap: viewModel.onLogoutClicked,
+                onTap: viewModel.onChangePwClicked,
                 child: Container(
                     height: 50.0.h,
                     width: double.infinity,
@@ -145,7 +145,7 @@ class _ProfileScreenState extends BaseViewState<ProfileScreen, ProfileViewModel>
                           width: 16.0.w,
                         ),
                         Icon(
-                          Icons.logout,
+                          Icons.add_moderator,
                           size: 24.0.h,
                           color: UIColor.red,
                         ),
@@ -153,11 +153,45 @@ class _ProfileScreenState extends BaseViewState<ProfileScreen, ProfileViewModel>
                           width: 8.0.w,
                         ),
                         Text(
-                          "Đăng xuất",
+                          "Đổi mật khẩu",
                           style: UITextStyle.mediumBlack_16_w400,
                         )
                       ],
                     )),
+              ),
+              SizedBox(
+                height: 16.0.h,
+              ),
+              InkWell(
+                onTap: viewModel.onLogoutClicked,
+                child: Container(
+                  height: 50.0.h,
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(horizontal: 16.0.w),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0.h),
+                    color: UIColor.lightShadeGray,
+                  ),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 16.0.w,
+                      ),
+                      Icon(
+                        Icons.logout,
+                        size: 24.0.h,
+                        color: UIColor.red,
+                      ),
+                      SizedBox(
+                        width: 8.0.w,
+                      ),
+                      Text(
+                        "Đăng xuất",
+                        style: UITextStyle.mediumBlack_16_w400,
+                      )
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

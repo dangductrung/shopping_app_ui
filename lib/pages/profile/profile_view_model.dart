@@ -2,6 +2,7 @@ import 'package:shopping_app/backend/services/profile/profile_service.dart';
 import 'package:shopping_app/helpers/auth_helper.dart';
 import 'package:shopping_app/injector.dart';
 import 'package:shopping_app/models/profile.dart';
+import 'package:shopping_app/pages/changepw/change_pw.dart';
 import 'package:shopping_app/pages/profile/edit_profile.dart';
 import 'package:shopping_app/shared/base/base_view_model.dart';
 import 'package:get/get.dart';
@@ -37,6 +38,12 @@ class ProfileViewModel extends BaseViewModel {
       onUpdateSuccess: () {
         getData();
       },
+    ));
+  }
+
+  void onChangePwClicked() {
+    Get.to(ChangePw(
+      onChangePwSuccess: getData,
     ));
   }
 }
