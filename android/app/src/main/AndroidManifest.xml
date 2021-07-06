@@ -9,7 +9,7 @@
 
     <application
         android:name=".Application"
-        android:label="À HA SALE"
+        android:label="ÀHA SALE"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

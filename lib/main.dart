@@ -47,13 +47,12 @@ void setupTimeAgo() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return RestartWidget(
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        defaultTransition: Transition.downToUp,
+        defaultTransition: Transition.rightToLeft,
         transitionDuration: const Duration(milliseconds: 400),
         title: 'Shopping',
         theme: ThemeData(
