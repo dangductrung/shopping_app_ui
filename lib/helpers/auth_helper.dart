@@ -17,21 +17,20 @@ class AuthHelper {
     return injector<ClientStorage>().get() != null && !injector<ClientStorage>().get().isExpired();
   }
 
-  Future<void> logout() async {
-    try {
-      await EasyLoading.show(status: LocaleKeys.please_wait.trans());
-      await handleLogout();
-      await EasyLoading.dismiss();
-      await Get.offAll(SignIn());
-    } catch (error) {
-      await EasyLoading.dismiss();
-      await Get.offAll(SignIn());
-    }
+  void logout() {
+    handleLogout();
+    gotoLogin();
+  }
+
+  void gotoLogin() {
+    Get.to(SignIn());
   }
 
   Future<void> handleLogout() async {
+    await EasyLoading.show(status: "");
     await deleteFCMToken();
     await clearPrefs();
+    await EasyLoading.dismiss();
   }
 
   Future<void> clearPrefs() async {

@@ -30,7 +30,7 @@ class BaseViewModel {
     try {
       _error = null;
       if (!background) {
-        await EasyLoading.show(status: LocaleKeys.please_wait.trans());
+        await EasyLoading.show(status: "");
       }
       final result = handler();
       if (result is Future) {

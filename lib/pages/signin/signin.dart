@@ -38,7 +38,7 @@ class SignInState extends BaseViewState<SignIn, SignInViewModel> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Assets.icons.icLogo.image(height: 120.0.h, width: 120.0.h),
+                    Assets.icons.icLogo.image(height: 100.0.h, width: 100.0.h),
                     SizedBox(
                       height: 16.0.h,
                     ),
@@ -78,7 +78,7 @@ class SignInState extends BaseViewState<SignIn, SignInViewModel> {
                       behavior: HitTestBehavior.translucent,
                       onTap: viewModel.onBtnClicked,
                       child: Container(
-                        height: 60.0.h,
+                        height: 50.0.h,
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5.0.h),

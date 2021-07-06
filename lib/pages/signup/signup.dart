@@ -26,7 +26,7 @@ class SignUpState extends BaseViewState<SignUp, SignUpViewModel> {
           child: Form(
             child: Column(
               children: <Widget>[
-                Assets.icons.icLogo.image(height: 120.0.h, width: 120.0.h),
+                Assets.icons.icLogo.image(height: 100.0.h, width: 100.0.h),
                 const SizedBox(
                   height: 16.0,
                 ),
@@ -86,7 +86,7 @@ class SignUpState extends BaseViewState<SignUp, SignUpViewModel> {
                   behavior: HitTestBehavior.translucent,
                   onTap: viewModel.onRegisterClicked,
                   child: Container(
-                    height: 60.0.h,
+                    height: 50.0.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5.0.h),

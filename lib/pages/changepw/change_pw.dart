@@ -51,6 +51,13 @@ class _ChangePwState extends BaseViewState<ChangePw, ChangePwViewModel> {
               SizedBox(
                 height: 16.0.h,
               ),
+              Text(
+                "Mật khẩu hiện tại",
+                style: UITextStyle.mediumBlack_16_w400,
+              ),
+              SizedBox(
+                height: 4.0.h,
+              ),
               SizedBox(
                 height: 50.0.h,
                 child: TextField(
@@ -70,6 +77,13 @@ class _ChangePwState extends BaseViewState<ChangePw, ChangePwViewModel> {
               SizedBox(
                 height: 16.0.h,
               ),
+              Text(
+                "Mật khẩu mới",
+                style: UITextStyle.mediumBlack_16_w400,
+              ),
+              SizedBox(
+                height: 4.0.h,
+              ),
               SizedBox(
                 height: 50.0.h,
                 child: TextField(
@@ -88,6 +102,13 @@ class _ChangePwState extends BaseViewState<ChangePw, ChangePwViewModel> {
               ),
               SizedBox(
                 height: 16.0.h,
+              ),
+              Text(
+                "Nhập lại mật khẩu mới",
+                style: UITextStyle.mediumBlack_16_w400,
+              ),
+              SizedBox(
+                height: 4.0.h,
               ),
               SizedBox(
                 height: 50.0.h,
