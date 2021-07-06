@@ -38,7 +38,7 @@ class SignInState extends BaseViewState<SignIn, SignInViewModel> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Assets.icons.icLogo.image(height: 160.0.h, width: 160.0.h),
+                    Assets.icons.icLogo.image(height: 120.0.h, width: 120.0.h),
                     SizedBox(
                       height: 16.0.h,
                     ),

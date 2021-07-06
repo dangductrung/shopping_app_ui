@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     return FadeTransition(
       opacity: controller,
       child: Center(
-        child: Assets.icons.icLogo.image(height: 180.0.h, width: 180.0.h),
+        child: Assets.icons.icLogo.image(height: 120.0.h, width: 120.0.h),
       ),
     );
   }

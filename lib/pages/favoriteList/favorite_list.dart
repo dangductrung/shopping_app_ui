@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopping_app/common/product_item.dart';
+import 'package:shopping_app/pages/favoriteList/product_item.dart';
 import 'package:shopping_app/pages/favoriteList/favorite_list_view_model.dart';
 import 'package:shopping_app/shared/base/base_view_state.dart';
 import 'package:shopping_app/shared/view/easy_list_view.dart';
@@ -34,7 +34,7 @@ class FavoriteListState extends BaseViewState<FavoriteList, FavoriteListViewMode
         ),
         title: Text(
           "Sản phẩm yêu thích",
-          style: UITextStyle.mediumBlack_16_w400.copyWith(fontSize: 20, color: Colors.white),
+          style: UITextStyle.white_18_w400,
         ),
       ),
       body: Obx(

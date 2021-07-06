@@ -40,7 +40,7 @@ class _ChangePwState extends BaseViewState<ChangePw, ChangePwViewModel> {
           ),
           title: Text(
             "Đổi mật khẩu",
-            style: UITextStyle.mediumBlack_16_w400.copyWith(fontSize: 20, color: Colors.white),
+            style: UITextStyle.white_18_w400,
           ),
         ),
         body: Padding(

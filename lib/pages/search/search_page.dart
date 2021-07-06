@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:keyboard_service/keyboard_service.dart';
-import 'package:shopping_app/common/product_item.dart';
+import 'package:shopping_app/pages/favoriteList/product_item.dart';
 import 'package:shopping_app/common/searchbar.dart';
 import 'package:shopping_app/pages/search/search_view_model.dart';
 import 'package:shopping_app/shared/base/base_view_state.dart';

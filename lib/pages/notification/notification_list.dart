@@ -50,7 +50,7 @@ class NotificationListState extends BaseViewState<NotificationList, Notification
         ],
         title: Text(
           "Thông báo",
-          style: UITextStyle.mediumBlack_16_w400.copyWith(fontSize: 20, color: Colors.white),
+          style: UITextStyle.white_18_w400,
         ),
       ),
       body: Obx(

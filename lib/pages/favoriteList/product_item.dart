@@ -48,7 +48,7 @@ class ProductItem extends StatelessWidget {
                   children: [
                     Text(
                       product?.name ?? "",
-                      style: UITextStyle.mediumBlack_16_w400,
+                      style: UITextStyle.mediumBlack_14_w400,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -58,7 +58,7 @@ class ProductItem extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Giá: ", style: UITextStyle.mediumBlack_16_w400),
+                        Text("Giá: ", style: UITextStyle.mediumBlack_14_w400),
                         Text(
                           "${FormatHelper.moneyFormat(product?.price ?? 0)}đ",
                           style: UITextStyle.red_16_w700,
@@ -71,7 +71,12 @@ class ProductItem extends StatelessWidget {
                     Row(
                       children: [
                         getIcon(),
-                        Container(padding: EdgeInsets.symmetric(horizontal: 5.0.w), child: Text('Ngày cập nhật: ${FormatHelper.formatDateTime(product?.createdAt, pattern: "dd/MM/yyyy")}')),
+                        Container(
+                            padding: EdgeInsets.symmetric(horizontal: 5.0.w),
+                            child: Text(
+                              'Ngày cập nhật: ${FormatHelper.formatDateTime(product?.createdAt, pattern: "dd/MM/yyyy")}',
+                              style: UITextStyle.mediumBlack_14_w400,
+                            )),
                         const Spacer(),
                         GestureDetector(
                           behavior: HitTestBehavior.translucent,

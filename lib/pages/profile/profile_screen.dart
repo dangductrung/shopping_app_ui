@@ -46,7 +46,7 @@ class _ProfileScreenState extends BaseViewState<ProfileScreen, ProfileViewModel>
         ],
         title: Text(
           "Thông tin tài khoản",
-          style: UITextStyle.mediumBlack_16_w400.copyWith(fontSize: 20, color: Colors.white),
+          style: UITextStyle.white_18_w400,
         ),
       ),
       body: Obx(

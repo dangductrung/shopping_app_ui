@@ -41,7 +41,7 @@ class NotifyItem extends StatelessWidget {
                   SizedBox(
                     height: 5.0.h,
                   ),
-                  Text(notification?.body ?? '', style: UITextStyle.mediumBlack_16_w400, maxLines: 4),
+                  Text(notification?.body ?? '', style: UITextStyle.mediumBlack_14_w400, maxLines: 4),
                   SizedBox(
                     height: 5.0.h,
                   ),

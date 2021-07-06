@@ -40,7 +40,7 @@ class ProductItemWidget extends StatelessWidget {
               children: [
                 Text(
                   product?.name,
-                  style: UITextStyle.mediumBlack_16_w400,
+                  style: UITextStyle.mediumBlack_14_w400,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),

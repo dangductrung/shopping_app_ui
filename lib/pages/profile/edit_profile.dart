@@ -44,7 +44,7 @@ class EditProfileState extends BaseViewState<EditProfile, EditProfileViewModel> 
             ),
             title: Text(
               "Chỉnh sửa thông tin",
-              style: UITextStyle.mediumBlack_16_w400.copyWith(fontSize: 20, color: Colors.white),
+              style: UITextStyle.white_18_w400,
             ),
           ),
           // CustomAppBar(),

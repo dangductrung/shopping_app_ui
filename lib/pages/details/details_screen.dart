@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app/common/product_item.dart';
+import 'package:shopping_app/pages/favoriteList/product_item.dart';
 import 'package:shopping_app/generated/assets.gen.dart';
 import 'package:shopping_app/helpers/format_helpers.dart';
 import 'package:shopping_app/models/product.dart';
@@ -58,7 +58,7 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
         ],
         title: Text(
           "Chi tiết sản phẩm",
-          style: UITextStyle.mediumBlack_16_w400.copyWith(fontSize: 20, color: Colors.white),
+          style: UITextStyle.white_18_w400,
         ),
       ),
       // CustomAppBar(),

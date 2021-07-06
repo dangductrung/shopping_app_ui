@@ -26,7 +26,7 @@ class SignUpState extends BaseViewState<SignUp, SignUpViewModel> {
           child: Form(
             child: Column(
               children: <Widget>[
-                Assets.icons.icLogo.image(height: 160.0.h, width: 160.0.h),
+                Assets.icons.icLogo.image(height: 120.0.h, width: 120.0.h),
                 const SizedBox(
                   height: 16.0,
                 ),

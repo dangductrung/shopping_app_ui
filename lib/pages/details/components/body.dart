@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app/common/product_item.dart';
+import 'package:shopping_app/pages/favoriteList/product_item.dart';
 import 'package:shopping_app/pages/details/components/product_images.dart';
 import 'package:shopping_app/pages/details/label_checkbox.dart';
 import 'package:shopping_app/theme/ui_color.dart';
