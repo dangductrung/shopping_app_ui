@@ -1,21 +1,33 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:shopping_app/helpers/format_helpers.dart';
 import 'package:shopping_app/theme/ui_color.dart';
+import 'package:shopping_app/theme/ui_text_style.dart';
 
 class LineChartSample1 extends StatefulWidget {
+  final List<List<FlSpot>> data;
+  final double verticalInterval;
+  final List<DateTime> horizontalAxisValues;
+  final List<String> from;
+
+  const LineChartSample1({this.data, this.verticalInterval, this.horizontalAxisValues, this.from});
+
   @override
   State<StatefulWidget> createState() => LineChartSample1State();
 }
 
 class LineChartSample1State extends State<LineChartSample1> {
-  static bool isShowingMainData;
-
-  @override
-  void initState() {
-    super.initState();
-    isShowingMainData = true;
-  }
-
+  final double maxHorizontalValue = 5;
+  final String datePattern = "dd/MM";
+  final String hourPattern = "H'H'";
+  final String timePattern = "HH:mm";
+  final int secondToMilliseconds = 1000;
+  final int minuteToMilliseconds = 60 * 1000;
+  final int hourToMilliseconds = 60 * 60 * 1000;
+  final int dayToMilliseconds = 24 * 60 * 60 * 1000;
+  final int toleranceMinute = 10;
+  String currentPattern = "";
+  bool isShow = true;
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
@@ -23,11 +35,7 @@ class LineChartSample1State extends State<LineChartSample1> {
       child: Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(18)),
-          gradient: LinearGradient(
-            colors: [UIColor.white, Color(0xfff8ede3)],
-            begin: Alignment.bottomCenter,
-            end: Alignment.topCenter,
-          ),
+          color: UIColor.lightGrayBorder,
         ),
         child: Stack(
           children: <Widget>[
@@ -38,7 +46,7 @@ class LineChartSample1State extends State<LineChartSample1> {
                   height: 37,
                 ),
                 const Text(
-                  'Biến động giá trong tháng',
+                  'Biến động giá',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
@@ -55,7 +63,7 @@ class LineChartSample1State extends State<LineChartSample1> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 16.0, left: 6.0),
                     child: LineChart(
-                      isShowingMainData ? sampleData1() : sampleData2(),
+                      sampleData1(),
                       swapAnimationDuration: const Duration(milliseconds: 250),
                     ),
                   ),
@@ -65,17 +73,6 @@ class LineChartSample1State extends State<LineChartSample1> {
                 ),
               ],
             ),
-            IconButton(
-              icon: Icon(
-                Icons.refresh,
-                color: Colors.white.withOpacity(isShowingMainData ? 1.0 : 0.5),
-              ),
-              onPressed: () {
-                setState(() {
-                  isShowingMainData = !isShowingMainData;
-                });
-              },
-            )
           ],
         ),
       ),
@@ -86,7 +83,7 @@ class LineChartSample1State extends State<LineChartSample1> {
     return LineChartData(
       lineTouchData: LineTouchData(
         touchTooltipData: LineTouchTooltipData(
-          tooltipBgColor: Colors.blueGrey.withOpacity(0.8),
+          tooltipBgColor: Colors.white,
         ),
         touchCallback: (LineTouchResponse touchResponse) {},
         handleBuiltInTouches: true,
@@ -97,59 +94,30 @@ class LineChartSample1State extends State<LineChartSample1> {
       titlesData: FlTitlesData(
         bottomTitles: SideTitles(
           showTitles: true,
-          reservedSize: 22,
-          getTextStyles: (value) => const TextStyle(
-            color: Color(0xff72719b),
-            fontWeight: FontWeight.w500,
-            fontSize: 16,
-          ),
+          reservedSize: 15,
+          getTextStyles: (value) => UITextStyle.mediumBlack_12_w400,
           margin: 10,
+          interval: getHorizontalInterval(),
           getTitles: (value) {
-            switch (value.toInt()) {
-              case 2:
-                return 'Tuần 1';
-              case 7:
-                return 'Tuần 2';
-              case 12:
-                return 'Tuần 3';
-            }
-            return '';
+            return getHorizontalValue(value.toInt());
           },
         ),
         leftTitles: SideTitles(
           showTitles: true,
-          getTextStyles: (value) => const TextStyle(
-            color: Color(0xff75729e),
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
-          ),
+          getTextStyles: (value) => UITextStyle.mediumBlack_12_w400,
+          interval: widget.verticalInterval,
           getTitles: (value) {
-            switch (value.toInt()) {
-              case 1:
-                return '14';
-              case 2:
-                return '14.5';
-              case 3:
-                return '14.2';
-              case 4:
-                return '15';
-            }
-            return '';
+            return getVerticalValue(value);
           },
-          margin: 8,
-          reservedSize: 30,
+          margin: 14,
+          reservedSize: 15,
         ),
       ),
       borderData: FlBorderData(
         show: true,
         border: const Border(
-          bottom: BorderSide(
-            color: Color(0xff4e4965),
-            width: 3,
-          ),
-          left: BorderSide(
-            color: Colors.transparent,
-          ),
+          bottom: BorderSide(color: UIColor.mediumBlack, width: 2),
+          left: BorderSide(color: UIColor.mediumBlack, width: 2),
           right: BorderSide(
             color: Colors.transparent,
           ),
@@ -158,194 +126,137 @@ class LineChartSample1State extends State<LineChartSample1> {
           ),
         ),
       ),
-      minX: 0,
-      maxX: 14,
-      maxY: 4,
+      minX: getMinHorizontal(),
+      maxX: getMaxHorizontal(),
+      maxY: getMaxVertical(),
       minY: 0,
-      lineBarsData: linesBarData1(),
+      lineBarsData: chartBarData(),
     );
   }
 
-  List<LineChartBarData> linesBarData1() {
-    final lineChartBarData1 = LineChartBarData(
-      spots: [
-        FlSpot(1, 1),
-        FlSpot(3, 1.5),
-        FlSpot(5, 1.4),
-        FlSpot(7, 3.4),
-        FlSpot(10, 2),
-        FlSpot(12, 2.2),
-        FlSpot(13, 1.8),
-      ],
-      isCurved: true,
-      colors: [
-        Colors.black54,
-        // UIColor.yellow
-      ],
-      barWidth: 4,
-      isStrokeCapRound: true,
-      dotData: FlDotData(
-        show: false,
-      ),
-      belowBarData: BarAreaData(
-        show: false,
-      ),
-    );
-
-    return [
-      lineChartBarData1,
-    ];
-  }
-
-  LineChartData sampleData2() {
-    return LineChartData(
-      lineTouchData: LineTouchData(
-        enabled: false,
-      ),
-      gridData: FlGridData(
-        show: false,
-      ),
-      titlesData: FlTitlesData(
-        bottomTitles: SideTitles(
-          showTitles: true,
-          reservedSize: 22,
-          getTextStyles: (value) => const TextStyle(
-            color: Color(0xff72719b),
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
-          margin: 10,
-          getTitles: (value) {
-            switch (value.toInt()) {
-              case 2:
-                return 'SEPT';
-              case 7:
-                return 'OCT';
-              case 12:
-                return 'DEC';
-            }
-            return '';
-          },
-        ),
-        leftTitles: SideTitles(
-          showTitles: true,
-          getTextStyles: (value) => const TextStyle(
-            color: Color(0xff75729e),
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
-          ),
-          getTitles: (value) {
-            switch (value.toInt()) {
-              case 1:
-                return '1m';
-              case 2:
-                return '2m';
-              case 3:
-                return '3m';
-              case 4:
-                return '5m';
-              case 5:
-                return '6m';
-            }
-            return '';
-          },
-          margin: 8,
-          reservedSize: 30,
-        ),
-      ),
-      borderData: FlBorderData(
-          show: true,
-          border: const Border(
-            bottom: BorderSide(
-              color: Color(0xff4e4965),
-              width: 4,
-            ),
-            left: BorderSide(
-              color: Colors.transparent,
-            ),
-            right: BorderSide(
-              color: Colors.transparent,
-            ),
-            top: BorderSide(
-              color: Colors.transparent,
-            ),
-          )),
-      minX: 0,
-      maxX: 14,
-      maxY: 6,
-      minY: 0,
-      lineBarsData: linesBarData2(),
-    );
-  }
-
-  List<LineChartBarData> linesBarData2() {
-    return [
-      LineChartBarData(
-        spots: [
-          FlSpot(1, 1),
-          FlSpot(3, 4),
-          FlSpot(5, 1.8),
-          FlSpot(7, 5),
-          FlSpot(10, 2),
-          FlSpot(12, 2.2),
-          FlSpot(13, 1.8),
-        ],
-        isCurved: true,
-        curveSmoothness: 0,
-        colors: const [
-          Color(0x444af699),
-        ],
-        barWidth: 4,
-        isStrokeCapRound: true,
-        dotData: FlDotData(
-          show: false,
-        ),
-        belowBarData: BarAreaData(
-          show: false,
-        ),
-      ),
-      LineChartBarData(
-        spots: [
-          FlSpot(1, 1),
-          FlSpot(3, 2.8),
-          FlSpot(7, 1.2),
-          FlSpot(10, 2.8),
-          FlSpot(12, 2.6),
-          FlSpot(13, 3.9),
-        ],
-        isCurved: true,
-        colors: const [
-          Color(0x99aa4cfc),
-        ],
-        barWidth: 4,
-        isStrokeCapRound: true,
-        dotData: FlDotData(
-          show: false,
-        ),
-        belowBarData: BarAreaData(show: true, colors: [
-          const Color(0x33aa4cfc),
-        ]),
-      ),
-      LineChartBarData(
-        spots: [
-          FlSpot(1, 3.8),
-          FlSpot(3, 1.9),
-          FlSpot(6, 5),
-          FlSpot(10, 3.3),
-          FlSpot(13, 4.5),
-        ],
-        isCurved: true,
-        curveSmoothness: 0,
-        colors: const [
-          Color(0x4427b6fc),
-        ],
+  List<LineChartBarData> chartBarData() {
+    final List<LineChartBarData> result = [];
+    for (int i = 0; i < (widget.data?.length ?? 0); ++i) {
+      result.add(LineChartBarData(
+        spots: widget.data[i],
+        isCurved: false,
+        colors: [getColor(i)],
         barWidth: 2,
         isStrokeCapRound: true,
         dotData: FlDotData(show: true),
         belowBarData: BarAreaData(
           show: false,
         ),
-      ),
-    ];
+      ));
+    }
+    return result;
+  }
+
+  Color getColor(int index) {
+    return widget?.from[index] == "shopee" ? UIColor.yellow : Colors.blue;
+  }
+
+  double getHorizontalInterval() {
+    final int statisticSize = widget.horizontalAxisValues?.length ?? 0;
+    final double dayDiff = widget.horizontalAxisValues[statisticSize - 1].difference(widget.horizontalAxisValues[0]).inHours / 24 ?? 0;
+
+    double result = 0;
+    if (dayDiff > 1) {
+      result = calcGapByDay(dayDiff, statisticSize);
+    } else {
+      result = calcGapByTime(dayDiff, statisticSize);
+    }
+    return result;
+  }
+
+  double calcGapByDay(double dayDiff, int statisticSize) {
+    currentPattern = datePattern;
+    final double dayGap = (dayDiff.toDouble() / maxHorizontalValue).toDouble() > 1 ? (dayDiff / maxHorizontalValue).toDouble() : 1;
+    return dayGap.ceilToDouble() * dayToMilliseconds;
+  }
+
+  double calcGapByTime(double dayRange, int statisticSize) {
+    final int hourDiff = widget.horizontalAxisValues[statisticSize - 1].difference(widget.horizontalAxisValues[0])?.inHours ?? 0;
+    if (hourDiff > 1) {
+      final double hourGap = (hourDiff / maxHorizontalValue).toDouble();
+      currentPattern = hourPattern;
+      return hourGap.ceilToDouble() * hourToMilliseconds;
+    }
+
+    currentPattern = timePattern;
+    final double minuteGap = toleranceMinute.toDouble();
+    return minuteGap * minuteToMilliseconds;
+  }
+
+  String getHorizontalValue(int index) {
+    String res = FormatHelper.formatDateTime(DateTime.fromMillisecondsSinceEpoch(index), pattern: currentPattern);
+    if (index == getMinHorizontal() && (currentPattern == hourPattern || currentPattern == timePattern)) {
+      res = "${FormatHelper.formatDateTime(DateTime.fromMillisecondsSinceEpoch(index), pattern: "dd/MM")} $res";
+    }
+    return res;
+  }
+
+  String getVerticalValue(double value) {
+    if (value <= 100000) {
+      return "${(value / 1000).toStringAsFixed(0)}K";
+    } else if (value >= 1000000) {
+      return "${(value / 1000000).toStringAsFixed(0)}M";
+    }
+    return value.toStringAsFixed(0);
+  }
+
+  double getMinHorizontal() {
+    if (currentPattern == datePattern) {
+      return DateTime.parse(FormatHelper.formatDateTime(widget.horizontalAxisValues[0], pattern: FormatHelper.startDatePattern)).millisecondsSinceEpoch.toDouble();
+    }
+    final DateTime startDate = widget.horizontalAxisValues[0];
+    final int deltaMilliseconds = (startDate.minute * minuteToMilliseconds + startDate.second * secondToMilliseconds) % (toleranceMinute * minuteToMilliseconds);
+    return startDate.millisecondsSinceEpoch.toDouble() - deltaMilliseconds;
+  }
+
+  double getMinVertical() {
+    if (widget.data?.isEmpty ?? false) {
+      return 0;
+    }
+    if (widget.data[0]?.isEmpty ?? false) {
+      return 0;
+    }
+    double min = widget.data[0]?.first?.y ?? 0;
+    for (int j = 0; j < widget.data.length; ++j) {
+      for (int i = 1; i < (widget.data[j]?.length ?? 0); ++i) {
+        if (min > widget.data[j][i].y) {
+          min = widget.data[j][i].y;
+        }
+      }
+    }
+    return min.floorToDouble();
+  }
+
+  double getMaxVertical() {
+    if ((widget.data?.length ?? 0) == 0) {
+      return 0;
+    }
+    if ((widget.data[0]?.length ?? 0) == 0) {
+      return 0;
+    }
+    double max = widget.data[0]?.first?.y ?? 0;
+    for (int j = 0; j < widget.data.length; ++j) {
+      for (int i = 1; i < (widget.data[j]?.length ?? 0); ++i) {
+        if (max < widget.data[j][i].y) {
+          max = widget.data[j][i].y;
+        }
+      }
+    }
+    return max + widget.verticalInterval * 0.5;
+  }
+
+  double getMaxHorizontal() {
+    if (currentPattern == datePattern) {
+      return DateTime.parse(FormatHelper.formatDateTime(widget.horizontalAxisValues[widget.horizontalAxisValues.length - 1], pattern: FormatHelper.endDatePattern)).millisecondsSinceEpoch.toDouble();
+    }
+    final DateTime endDate = widget.horizontalAxisValues[widget.horizontalAxisValues.length - 1];
+    final int deltaMilliseconds =
+        ((toleranceMinute * minuteToMilliseconds) - (endDate.minute * minuteToMilliseconds + endDate.second * secondToMilliseconds)) % (toleranceMinute * minuteToMilliseconds);
+    return endDate.millisecondsSinceEpoch.toDouble() + deltaMilliseconds;
   }
 }

@@ -4,7 +4,6 @@ import 'dart:isolate';
 import 'dart:typed_data';
 import 'dart:ui';
 
-import 'package:device_info/device_info.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';

@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class FormatHelper {
+  static const String startDatePattern = "yyyy-MM-ddT00:00:00";
+  static const String endDatePattern = "yyyy-MM-ddT23:59:59";
   FormatHelper._();
 
   static String formatTime(int second) {

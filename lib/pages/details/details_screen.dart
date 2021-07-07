@@ -1,4 +1,6 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shopping_app/pages/favoriteList/product_item.dart';
 import 'package:shopping_app/generated/assets.gen.dart';
 import 'package:shopping_app/helpers/format_helpers.dart';
@@ -29,7 +31,6 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
 
   @override
   Widget build(BuildContext context) {
-    final w = MediaQuery.of(context).size.width / 100;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -132,9 +133,33 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                     ],
                   ),
                   SizedBox(
+                    height: 8.0.h,
+                  ),
+                  GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () => viewModel.onOpenBrowserClicked(),
+                    child: Text("Đến nơi bán", style: UITextStyle.blue_16_w400, maxLines: 4),
+                  ),
+                  SizedBox(
                     height: 16.0.h,
                   ),
-                  LineChartSample1(),
+                  Obx(
+                    () => viewModel.isHaveChart()
+                        ? Container(
+                            height: 300.0.h,
+                            width: double.infinity,
+                            child: LineChartSample1(
+                              data: viewModel.getLineData(),
+                              verticalInterval: viewModel.getVerticalInterval(),
+                              horizontalAxisValues: viewModel.calcDateTime(),
+                              from: viewModel.getFrom(),
+                            ),
+                          )
+                        : Container(),
+                  ),
+                  SizedBox(
+                    height: 50.0.h,
+                  ),
                 ],
               ),
             )
