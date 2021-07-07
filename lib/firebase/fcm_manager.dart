@@ -10,6 +10,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shopping_app/backend/services/fcm_service/fcm_service.dart';
+import 'package:shopping_app/injector.dart';
+import 'package:shopping_app/storage/storages/fcm_token_storage.dart';
 
 import 'fcm_payload.dart';
 
@@ -94,42 +97,15 @@ class FCMManager {
   }
 
   Future<void> registerFcmToken() async {
-    // final String fcmToken = injector<FCMTokenStorage>().get();
-    // debugPrint("- FCM Token: $fcmToken");
-    // if (fcmToken?.isNotEmpty == true) {
-    //   return;
-    // }
+    final String fcmToken = injector<FCMTokenStorage>().get();
+    debugPrint("- FCM Token: $fcmToken");
+    if (fcmToken?.isNotEmpty == true) {
+      return;
+    }
     final String token = await _fbMessaging.getToken();
     assert(token != null);
     debugPrint("- FCM Token: $token");
-
-    final String imei = await getDeviceInfo();
-    // final userInformation = await EmployeeService(baseUrl: Config.CURRENT_URL).getUserInformation();
-    // if (userInformation?.isBlank ?? false) {
-    //   return;
-    // }
-    // await FirebaseService(baseUrl: Config.CURRENT_URL).registerFCMToken(userid: userInformation.id, fbtoken: token, imei: imei);
-    // injector<FCMTokenStorage>().set(token);
-  }
-
-  Future<String> getDeviceInfo() async {
-    final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    if (Platform.isIOS) {
-      final IosDeviceInfo iosDeviceInfo = await deviceInfo.iosInfo;
-      return iosDeviceInfo.identifierForVendor;
-    } else {
-      final AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;
-      return androidDeviceInfo.androidId;
-    }
-  }
-
-  Future<void> unregisterFcmToken() async {
-    // final token = injector<FCMTokenStorage>().get();
-    // if (!GetUtils.isNullOrBlank(token)) {
-    //   final param = HashMap<String, String>();
-    //   param['token'] = token;
-    //   // await injector<FCMService>().unRegisterFcm(param);
-    //   injector<FCMTokenStorage>().remove();
-    // }
+    await injector<FCMService>().registerFCM(token);
+    injector<FCMTokenStorage>().set(token);
   }
 }
