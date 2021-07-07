@@ -20,6 +20,7 @@ class ReportViewModel extends BaseViewModel {
     call(() async {
       final Map<String, dynamic> params = {"product": id, "title": title.text, "content": content.text};
       await injector<ProductService>().sendReport(params);
+      Get.back();
       ToastHelper.showToast(msg: "Gửi báo lỗi thành công");
     });
   }

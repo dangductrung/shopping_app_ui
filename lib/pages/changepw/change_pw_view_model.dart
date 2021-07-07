@@ -27,8 +27,8 @@ class ChangePwViewModel extends BaseViewModel {
       await injector<ProfileService>().changePw(params);
       if (onChangePwSuccess != null) {
         onChangePwSuccess();
-        ToastHelper.showToast(msg: "Đổi mật khẩu thành công.");
         Get.back();
+        ToastHelper.showToast(msg: "Đổi mật khẩu thành công.");
       }
     });
   }

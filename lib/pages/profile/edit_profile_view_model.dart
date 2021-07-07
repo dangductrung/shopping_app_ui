@@ -60,6 +60,7 @@ class EditProfileViewModel extends BaseViewModel {
       if (onUpdateSuccess != null) {
         onUpdateSuccess();
       }
+      Get.back();
       ToastHelper.showToast(msg: "Success");
     });
   }
