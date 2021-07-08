@@ -7,6 +7,7 @@ import 'package:shopping_app/helpers/format_helpers.dart';
 import 'package:shopping_app/models/product.dart';
 import 'package:shopping_app/pages/details/chart/line_chart.dart';
 import 'package:shopping_app/pages/details/detail_view_model.dart';
+import 'package:shopping_app/pages/home/product_item_widget.dart';
 import 'package:shopping_app/shared/base/base_view_state.dart';
 import 'package:shopping_app/shared/view/network_image.dart';
 import 'package:shopping_app/theme/ui_color.dart';
@@ -63,107 +64,167 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
         ),
       ),
       // CustomAppBar(),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            NetworkImageWidget(
-              url: widget.product?.image,
-              width: double.infinity,
-              height: 240.0.h,
-            ),
-            SizedBox(
-              height: 16.0.h,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget?.product?.name ?? "",
-                    style: UITextStyle.mediumBlack_16_w400,
-                  ),
-                  SizedBox(
-                    height: 8.0.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Row(
+      body: Obx(
+        () => SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              NetworkImageWidget(
+                url: widget.product?.image,
+                width: double.infinity,
+                height: 240.0.h,
+              ),
+              SizedBox(
+                height: 16.0.h,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget?.product?.name ?? "",
+                      style: UITextStyle.mediumBlack_16_w400,
+                    ),
+                    SizedBox(
+                      height: 8.0.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              getIcon(),
+                              SizedBox(
+                                width: 8.0.w,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  "${FormatHelper.moneyFormat(widget?.product?.price ?? 0)}đ",
+                                  style: UITextStyle.red_18_w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.end,
-                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            getIcon(),
-                            SizedBox(
-                              width: 8.0.w,
-                            ),
-                            Expanded(
-                              child: Text(
-                                "${FormatHelper.moneyFormat(widget?.product?.price ?? 0)}đ",
-                                style: UITextStyle.red_18_w700,
+                            GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: () {},
+                              child: Icon(
+                                Icons.favorite,
+                                color: widget?.product?.isFollow ?? false ? Colors.red : Colors.grey,
+                                size: 24.0.h,
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          GestureDetector(
-                            behavior: HitTestBehavior.translucent,
-                            onTap: () {},
-                            child: Icon(
-                              Icons.favorite,
-                              color: widget?.product?.isFollow ?? false ? Colors.red : Colors.grey,
-                              size: 24.0.h,
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8.0.h,
+                    ),
+                    Row(
+                      children: [
+                        Text("Ngày cập nhật: ${FormatHelper.formatDateTime(widget?.product?.createdAt, pattern: "dd/MM/yyyy")}", style: UITextStyle.mediumBlack_14_w400, maxLines: 4),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 16.0.h,
+                    ),
+                    if (viewModel.isHaveChart())
+                      SizedBox(
+                        height: 300.0.h,
+                        width: double.infinity,
+                        child: LineChartSample1(
+                          data: viewModel.getLineData(),
+                          verticalInterval: viewModel.getVerticalInterval(),
+                          horizontalAxisValues: viewModel.calcDateTime(),
+                          from: viewModel.getFrom(),
+                        ),
+                      )
+                    else
+                      Container(),
+                    SizedBox(
+                      height: 16.0.h,
+                    ),
+                    if ((viewModel.chart?.shopees?.length ?? 0) > 0)
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: viewModel.onGoToShopeeClicked,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Assets.icons.icShopee.image(height: 18.0.h, width: 18.0.h),
+                                SizedBox(
+                                  width: 8.0.w,
+                                ),
+                                Text(
+                                  "Đến sản phẩm trên Shopee",
+                                  style: UITextStyle.yellow_14_w400,
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 8.0.h,
-                  ),
-                  Row(
-                    children: [
-                      Text("Ngày cập nhật: ${FormatHelper.formatDateTime(widget?.product?.createdAt, pattern: "dd/MM/yyyy")}", style: UITextStyle.mediumBlack_14_w400, maxLines: 4),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 8.0.h,
-                  ),
-                  GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    onTap: () => viewModel.onOpenBrowserClicked(),
-                    child: Text("Đến nơi bán", style: UITextStyle.blue_16_w400, maxLines: 4),
-                  ),
-                  SizedBox(
-                    height: 16.0.h,
-                  ),
-                  Obx(
-                    () => viewModel.isHaveChart()
-                        ? Container(
-                            height: 300.0.h,
-                            width: double.infinity,
-                            child: LineChartSample1(
-                              data: viewModel.getLineData(),
-                              verticalInterval: viewModel.getVerticalInterval(),
-                              horizontalAxisValues: viewModel.calcDateTime(),
-                              from: viewModel.getFrom(),
+                            SizedBox(
+                              height: 8.0.h,
                             ),
-                          )
-                        : Container(),
-                  ),
-                  SizedBox(
-                    height: 50.0.h,
-                  ),
-                ],
-              ),
-            )
-          ],
+                          ],
+                        ),
+                      ),
+                    if ((viewModel.chart?.tikis?.length ?? 0) > 0)
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: viewModel.onGoToTikiClicked,
+                        child: Row(
+                          children: [
+                            Assets.icons.icTiki.image(height: 18.0.h, width: 18.0.h),
+                            SizedBox(
+                              width: 8.0.w,
+                            ),
+                            Text(
+                              "Đến sản phẩm trên Tiki",
+                              style: UITextStyle.blue_14_w400,
+                            ),
+                          ],
+                        ),
+                      ),
+                    SizedBox(
+                      height: 16.0.h,
+                    ),
+                    Text(
+                      "Sản phẩm liên quan",
+                      style: UITextStyle.mediumBlack_14_w400,
+                    ),
+                    SizedBox(
+                      height: 16.0.h,
+                    ),
+                    ListView.separated(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: viewModel?.products?.length ?? 0,
+                      separatorBuilder: (context, index) => SizedBox(
+                        height: 8.0.h,
+                      ),
+                      itemBuilder: (context, index) => ProductItemWidget(
+                        product: viewModel.products[index],
+                        onFollowClicked: () => viewModel.onFollowClicked(index),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 50.0.h,
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

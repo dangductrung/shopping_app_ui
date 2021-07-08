@@ -17,7 +17,7 @@ class LineChartSample1 extends StatefulWidget {
 }
 
 class LineChartSample1State extends State<LineChartSample1> {
-  final double maxHorizontalValue = 5;
+  final double maxHorizontalValue = 6;
   final String datePattern = "dd/MM";
   final String hourPattern = "H'H'";
   final String timePattern = "HH:mm";

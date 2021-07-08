@@ -3,6 +3,7 @@ import 'package:shopping_app/backend/services/product/product_service.dart';
 import 'package:shopping_app/injector.dart';
 import 'package:shopping_app/models/chart.dart';
 import 'package:shopping_app/models/product.dart';
+import 'package:shopping_app/pages/details/details_screen.dart';
 import 'package:shopping_app/pages/report/report_page.dart';
 import 'package:shopping_app/shared/base/base_view_model.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,7 +13,9 @@ class DetailViewModel extends BaseViewModel {
   Product product;
 
   final _chart = Chart().obs;
+  final _products = <Product>[].obs;
   Chart get chart => _chart.value;
+  List<Product> get products => _products.toList();
 
   void onReportClicked() {
     Get.to(ReportPage(
@@ -35,9 +38,11 @@ class DetailViewModel extends BaseViewModel {
   }
 
   void getChartData() {
-    print(product.id);
     call(() async {
       _chart.value = await injector<ProductService>().getChartData(product?.id);
+      final Map<String, dynamic> params = {};
+      params["keyword"] = product?.name;
+      _products.assignAll(await injector<ProductService>().search(params, 0));
     });
   }
 
@@ -135,6 +140,36 @@ class DetailViewModel extends BaseViewModel {
   @override
   void disposeState() {
     _chart.close();
+    _products.close();
     super.disposeState();
+  }
+
+  void onFollowClicked(int index) {
+    call(() async {
+      if (products[index]?.isFollow ?? false) {
+        await injector<ProductService>().unFollowProduct(products[index].id);
+        _products[index].isFollow = false;
+      } else {
+        await injector<ProductService>().followProduct(products[index].id);
+        _products[index].isFollow = true;
+      }
+      _products.refresh();
+    });
+  }
+
+  Future<void> onGoToShopeeClicked() async {
+    if (await canLaunch(chart.shopees[0].link)) {
+      await launch(chart.shopees[0].link);
+    } else {
+      throw 'Could not launch ${chart.shopees[0].link}';
+    }
+  }
+
+  Future<void> onGoToTikiClicked() async {
+    if (await canLaunch(chart.tikis[0].link)) {
+      await launch(chart.tikis[0].link);
+    } else {
+      throw 'Could not launch ${chart.shopees[0].link}';
+    }
   }
 }
