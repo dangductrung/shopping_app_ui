@@ -168,7 +168,7 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                                 ),
                                 Text(
                                   "Đến sản phẩm trên Shopee",
-                                  style: UITextStyle.yellow_14_w400,
+                                  style: UITextStyle.yellow_16_w400,
                                 ),
                               ],
                             ),
@@ -190,7 +190,7 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                             ),
                             Text(
                               "Đến sản phẩm trên Tiki",
-                              style: UITextStyle.blue_14_w400,
+                              style: UITextStyle.blue_16_w400,
                             ),
                           ],
                         ),
