@@ -122,7 +122,16 @@ class DetailViewModel extends BaseViewModel {
   }
 
   double getVerticalInterval() {
-    final double price = product.price;
+    double shopeePrice = 99999999999;
+    double tikiPrice = 99999999999;
+    if ((chart?.shopees?.length ?? 0) != 0) {
+      shopeePrice = chart.shopees[0].price;
+    }
+    if ((chart?.tikis?.length ?? 0) != 0) {
+      tikiPrice = chart.shopees[0].price;
+    }
+
+    double price = shopeePrice > tikiPrice ? shopeePrice : tikiPrice;
 
     if (price < 10000) {
       return 1000;
