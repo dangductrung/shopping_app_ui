@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shopping_app/backend/services/product/product_service.dart';
 import 'package:shopping_app/injector.dart';
@@ -167,18 +168,38 @@ class DetailViewModel extends BaseViewModel {
   }
 
   Future<void> onGoToShopeeClicked() async {
-    if (await canLaunch(chart.shopees[0].link)) {
-      await launch(chart.shopees[0].link);
+    final url = Uri.encodeFull(chart.shopees[0].link);
+
+    if (await canLaunch(url)) {
+      try {
+        await launch(
+          url,
+          forceSafariVC: false,
+          forceWebView: false,
+        );
+      } catch (e) {
+        debugPrint(e.toString());
+      }
     } else {
       throw 'Could not launch ${chart.shopees[0].link}';
     }
   }
 
   Future<void> onGoToTikiClicked() async {
-    if (await canLaunch(chart.tikis[0].link)) {
-      await launch(chart.tikis[0].link);
+    final url = Uri.encodeFull(chart.tikis[0].link);
+
+    if (await canLaunch(url)) {
+      try {
+        await launch(
+          url,
+          forceSafariVC: false,
+          forceWebView: false,
+        );
+      } catch (e) {
+        debugPrint(e.toString());
+      }
     } else {
-      throw 'Could not launch ${chart.shopees[0].link}';
+      throw 'Could not launch ${chart.tikis[0].link}';
     }
   }
 }

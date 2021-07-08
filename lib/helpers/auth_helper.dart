@@ -20,6 +20,7 @@ class AuthHelper {
 
   void logout() {
     handleLogout();
+    gotoLogin();
   }
 
   void gotoLogin() {
@@ -31,7 +32,6 @@ class AuthHelper {
     await deleteFCMToken();
     await clearPrefs();
     await EasyLoading.dismiss();
-    gotoLogin();
   }
 
   Future<void> clearPrefs() async {
