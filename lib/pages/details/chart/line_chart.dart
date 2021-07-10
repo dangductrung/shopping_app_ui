@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app/helpers/format_helpers.dart';
 import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
+import 'package:shopping_app/extensions/size_ext.dart';
 
 class LineChartSample1 extends StatefulWidget {
   final List<List<FlSpot>> data;
@@ -30,51 +31,48 @@ class LineChartSample1State extends State<LineChartSample1> {
   bool isShow = true;
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1.23,
-      child: Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(18)),
-          color: UIColor.lightGrayBorder,
-        ),
-        child: Stack(
-          children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                const SizedBox(
-                  height: 37,
+    return Container(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(18)),
+        color: UIColor.lightGrayBorder,
+      ),
+      child: Stack(
+        children: <Widget>[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              const SizedBox(
+                height: 37,
+              ),
+              const Text(
+                'Biến động giá',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
                 ),
-                const Text(
-                  'Biến động giá',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                const SizedBox(
-                  height: 37,
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 16.0, left: 6.0),
-                    child: LineChart(
-                      sampleData1(),
-                      swapAnimationDuration: const Duration(milliseconds: 250),
-                    ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: 4,
+              ),
+              const SizedBox(
+                height: 37,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                  child: LineChart(
+                    sampleData1(),
+                    swapAnimationDuration: const Duration(milliseconds: 250),
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -109,8 +107,8 @@ class LineChartSample1State extends State<LineChartSample1> {
           getTitles: (value) {
             return getVerticalValue(value);
           },
-          margin: 14,
-          reservedSize: 15,
+          margin: 8,
+          reservedSize: 25,
         ),
       ),
       borderData: FlBorderData(
@@ -197,9 +195,9 @@ class LineChartSample1State extends State<LineChartSample1> {
   }
 
   String getVerticalValue(double value) {
-    if (value <= 100000) {
+    if (value < 1000000) {
       return "${(value / 1000).toStringAsFixed(0)}K";
-    } else if (value >= 1000000) {
+    } else if (value < 1000000000) {
       return "${(value / 1000000).toStringAsFixed(0)}M";
     }
     return value.toStringAsFixed(0);

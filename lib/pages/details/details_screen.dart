@@ -160,17 +160,29 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                Assets.icons.icShopee.image(height: 18.0.h, width: 18.0.h),
-                                SizedBox(
-                                  width: 8.0.w,
-                                ),
-                                Text(
-                                  "Đến sản phẩm trên Shopee",
-                                  style: UITextStyle.yellow_16_w400,
-                                ),
-                              ],
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.0.h),
+                                color: UIColor.yellow,
+                              ),
+                              padding: EdgeInsets.symmetric(vertical: 8.0.h, horizontal: 8.0.w),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Assets.icons.icShopee.image(height: 18.0.h, width: 18.0.h),
+                                      SizedBox(
+                                        width: 8.0.w,
+                                      ),
+                                      Text(
+                                        "Đến sản phẩm trên Shopee",
+                                        style: UITextStyle.white_16_w400,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                             SizedBox(
                               height: 8.0.h,
@@ -182,17 +194,27 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                       GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onTap: viewModel.onGoToTikiClicked,
-                        child: Row(
-                          children: [
-                            Assets.icons.icTiki.image(height: 18.0.h, width: 18.0.h),
-                            SizedBox(
-                              width: 8.0.w,
-                            ),
-                            Text(
-                              "Đến sản phẩm trên Tiki",
-                              style: UITextStyle.blue_16_w400,
-                            ),
-                          ],
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0.h),
+                            color: Colors.blue,
+                          ),
+                          padding: EdgeInsets.symmetric(vertical: 8.0.h, horizontal: 8.0.w),
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(3.0.h),
+                                child: Assets.icons.tiki.image(height: 18.0.h, width: 18.0.h),
+                              ),
+                              SizedBox(
+                                width: 8.0.w,
+                              ),
+                              Text(
+                                "Đến sản phẩm trên Tiki",
+                                style: UITextStyle.white_16_w400,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     SizedBox(
