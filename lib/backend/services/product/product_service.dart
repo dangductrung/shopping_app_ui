@@ -6,6 +6,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:shopping_app/config/config.dart';
 import 'package:shopping_app/models/chart.dart';
 import 'package:shopping_app/models/client.dart';
+import 'package:shopping_app/models/poster.dart';
 import 'package:shopping_app/models/product.dart';
 
 part 'product_service.g.dart';
@@ -21,6 +22,9 @@ abstract class ProductService {
 
   @GET("/product/latest")
   Future<List<Product>> getListLastItem();
+
+  @GET("/product/poster")
+  Future<Poster> getPoster();
 
   @GET("/follow/list")
   Future<List<Product>> getFollowList(@Query("page") int page);

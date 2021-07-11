@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -85,8 +86,41 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(
+                height: 8.0.h,
+              ),
+              Obx(
+                () => viewModel.poster?.bgColorStart != null
+                    ? Container(
+                        margin: EdgeInsets.symmetric(horizontal: 16.0.w),
+                        padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 16.0.h),
+                        height: 100.0.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0.h),
+                          gradient: LinearGradient(
+                            colors: [viewModel.poster?.bgColorStart, viewModel.poster?.bgColorEnd],
+                            begin: FractionalOffset.topRight,
+                            end: FractionalOffset.bottomLeft,
+                          ),
+                        ),
+                        child: Center(
+                          child: AutoSizeText(
+                            viewModel.poster?.title,
+                            style: TextStyle(
+                              color: viewModel.poster.txtColor,
+                              fontSize: 20.0.sp,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      )
+                    : Container(),
+              ),
+              SizedBox(
+                height: 16.0.h,
+              ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: width * 5, vertical: width * 2),
+                padding: EdgeInsets.symmetric(horizontal: 16.0.w),
                 child: Text("Sản phẩm nổi bật", style: UITextStyle.mediumBlack_16_w400),
               ),
               Obx(
@@ -108,7 +142,6 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
             Expanded(
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
-                onTap: () => viewModel.onItemClicked(i),
                 child: ProductItemWidget(
                   product: viewModel.products[i],
                   onFollowClicked: () => viewModel.onFollowClicked(i),
@@ -122,7 +155,6 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
             Expanded(
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
-                onTap: () => viewModel.onItemClicked(i),
                 child: ProductItemWidget(
                   product: viewModel.products[i + 1],
                   onFollowClicked: () => viewModel.onFollowClicked(i + 1),
