@@ -29,7 +29,6 @@ class AuthHelper {
 
   Future<void> handleLogout() async {
     await EasyLoading.show(status: "");
-    await deleteFCMToken();
     await clearPrefs();
     await EasyLoading.dismiss();
   }
@@ -39,13 +38,6 @@ class AuthHelper {
       if (key != localeKey) {
         await injector<SharedPreferences>().remove(key);
       }
-    }
-  }
-
-  Future<void> deleteFCMToken() async {
-    final String fcmToken = injector<FCMTokenStorage>().get();
-    if (!GetUtils.isNullOrBlank(fcmToken)) {
-      await injector<FCMService>().removeToken(fcmToken);
     }
   }
 }
