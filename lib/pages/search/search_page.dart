@@ -61,9 +61,13 @@ class _SearchPageState extends BaseViewState<SearchPage, SearchViewModel> {
                 },
                 itemCount: viewModel.products?.length ?? 0,
                 itemBuilder: (context, index) {
-                  return ProductItem(
-                    product: viewModel.products[index],
-                    onFollowClicked: () => viewModel.onFollowClicked(index),
+                  return GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () => viewModel.onItemClicked(index),
+                    child: ProductItem(
+                      product: viewModel.products[index],
+                      onFollowClicked: () => viewModel.onFollowClicked(index),
+                    ),
                   );
                 },
               ),
