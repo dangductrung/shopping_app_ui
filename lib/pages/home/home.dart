@@ -109,6 +109,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                             style: TextStyle(
                               color: viewModel.poster.txtColor,
                               fontSize: 20.0.sp,
+                              fontWeight: FontWeight.w700,
                             ),
                             textAlign: TextAlign.center,
                           ),
