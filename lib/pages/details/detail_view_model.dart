@@ -44,6 +44,7 @@ class DetailViewModel extends BaseViewModel {
       final Map<String, dynamic> params = {};
       params["keyword"] = product?.name;
       _products.assignAll(await injector<ProductService>().search(params, 0));
+      _products.removeWhere((element) => element.link == product.link);
     });
   }
 
