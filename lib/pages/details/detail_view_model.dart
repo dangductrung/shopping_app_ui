@@ -57,7 +57,7 @@ class DetailViewModel extends BaseViewModel {
         dates.add(chart.tikis[i].createdAt);
       }
     }
-
+    dates.add(DateTime.now());
     dates.sort((a, b) => a.compareTo(b));
     return dates;
   }
@@ -94,6 +94,8 @@ class DetailViewModel extends BaseViewModel {
           temp.add(FlSpot(dates[i].millisecondsSinceEpoch.toDouble(), chart.shopees.firstWhere((element) => element.createdAt == dates[i], orElse: () => null).price));
         }
       }
+      temp.add(FlSpot(DateTime.now().millisecondsSinceEpoch.toDouble(), chart.shopees[chart.shopees.length - 1].price));
+
       result.add(temp);
     }
 
@@ -113,6 +115,7 @@ class DetailViewModel extends BaseViewModel {
           temp.add(FlSpot(dates[i].millisecondsSinceEpoch.toDouble(), chart.tikis.firstWhere((element) => element.createdAt == dates[i], orElse: () => null).price));
         }
       }
+      temp.add(FlSpot(DateTime.now().millisecondsSinceEpoch.toDouble(), chart.tikis[chart.tikis.length - 1].price));
       result.add(temp);
     }
     return result;
@@ -201,5 +204,13 @@ class DetailViewModel extends BaseViewModel {
     } else {
       throw 'Could not launch ${chart.tikis[0].link}';
     }
+  }
+
+  int frequencyPriceShopee() {
+    return (chart?.shopees?.length ?? 0) != 0 ? chart.shopees.length - 1 : 0;
+  }
+
+  int frequencyPriceTiki() {
+    return (chart?.tikis?.length ?? 0) != 0 ? chart.tikis.length - 1 : 0;
   }
 }

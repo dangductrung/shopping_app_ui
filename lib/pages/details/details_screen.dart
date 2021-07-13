@@ -221,6 +221,137 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                       height: 16.0.h,
                     ),
                     Text(
+                      "Tần suất biến động giá",
+                      style: UITextStyle.mediumBlack_16_w700,
+                    ),
+                    SizedBox(
+                      height: 8.0.h,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: UIColor.mediumLightShadeGray),
+                        borderRadius: BorderRadius.circular(5.0.h),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 8.0.h,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        "Nguồn",
+                                        style: UITextStyle.mediumBlack_16_w700,
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        "Tần suất",
+                                        style: UITextStyle.mediumBlack_16_w700,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 8.0.h,
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height: 1.0.h,
+                            width: double.infinity,
+                            color: UIColor.mediumLightShadeGray,
+                          ),
+                          if (viewModel.frequencyPriceShopee() != 0)
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 8.0.h,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Center(
+                                        child: Text(
+                                          "Shopee",
+                                          style: UITextStyle.yellow_16_w400,
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Center(
+                                        child: Text(
+                                          viewModel.frequencyPriceShopee().toString(),
+                                          style: UITextStyle.yellow_16_w400,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 8.0.h,
+                                ),
+                                Container(
+                                  height: 1.0.h,
+                                  width: double.infinity,
+                                  color: UIColor.mediumLightShadeGray,
+                                ),
+                              ],
+                            ),
+                          if (viewModel.frequencyPriceTiki() != 0)
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 8.0.h,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Center(
+                                        child: Text(
+                                          "Tiki",
+                                          style: UITextStyle.blue_16_w400,
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Center(
+                                        child: Text(
+                                          viewModel.frequencyPriceTiki().toString(),
+                                          style: UITextStyle.blue_16_w400,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 8.0.h,
+                                ),
+                                Container(
+                                  height: 1.0.h,
+                                  width: double.infinity,
+                                  color: UIColor.mediumLightShadeGray,
+                                ),
+                              ],
+                            ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 32.0.h,
+                    ),
+                    Text(
                       "Sản phẩm liên quan",
                       style: UITextStyle.mediumBlack_14_w400,
                     ),
