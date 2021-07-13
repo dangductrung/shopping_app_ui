@@ -213,4 +213,19 @@ class DetailViewModel extends BaseViewModel {
   int frequencyPriceTiki() {
     return (chart?.tikis?.length ?? 0) != 0 ? chart.tikis.length - 1 : 0;
   }
+
+  void onFollowPrdClicked() {
+    call(() async {
+      if (product?.isFollow ?? false) {
+        await injector<ProductService>().unFollowProduct(product.id);
+        product.isFollow = false;
+      } else {
+        await injector<ProductService>().followProduct(product.id);
+        product.isFollow = true;
+      }
+      final Map<String, dynamic> params = {};
+      params["keyword"] = product?.name;
+      _products.assignAll(await injector<ProductService>().search(params, 0));
+    });
+  }
 }

@@ -115,7 +115,7 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                           children: [
                             GestureDetector(
                               behavior: HitTestBehavior.translucent,
-                              onTap: () {},
+                              onTap: viewModel.onFollowPrdClicked,
                               child: Icon(
                                 Icons.favorite,
                                 color: widget?.product?.isFollow ?? false ? Colors.red : Colors.grey,
@@ -271,7 +271,7 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                             width: double.infinity,
                             color: UIColor.mediumLightShadeGray,
                           ),
-                          if (viewModel.frequencyPriceShopee() != 0)
+                          if ((viewModel.chart?.shopees?.length ?? 0) > 0)
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -308,7 +308,7 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                                 ),
                               ],
                             ),
-                          if (viewModel.frequencyPriceTiki() != 0)
+                          if ((viewModel.chart?.tikis?.length ?? 0) > 0)
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
