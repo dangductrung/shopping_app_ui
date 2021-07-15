@@ -10,8 +10,9 @@ class LineChartSample1 extends StatefulWidget {
   final double verticalInterval;
   final List<DateTime> horizontalAxisValues;
   final List<String> from;
+  final String unit;
 
-  const LineChartSample1({this.data, this.verticalInterval, this.horizontalAxisValues, this.from});
+  const LineChartSample1({this.data, this.verticalInterval, this.horizontalAxisValues, this.from, this.unit});
 
   @override
   State<StatefulWidget> createState() => LineChartSample1State();
@@ -44,19 +45,18 @@ class LineChartSample1State extends State<LineChartSample1> {
               const SizedBox(
                 height: 37,
               ),
-              const Text(
+              Text(
                 'Biến động giá',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
+                style: UITextStyle.mediumBlack_16_w700,
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                '(Đơn vị: ${widget?.unit ?? ''})',
+                style: UITextStyle.mediumBlack_14_w400,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
-                height: 4,
-              ),
-              const SizedBox(
-                height: 37,
+                height: 16,
               ),
               Expanded(
                 child: Padding(
@@ -196,9 +196,9 @@ class LineChartSample1State extends State<LineChartSample1> {
 
   String getVerticalValue(double value) {
     if (value < 1000000) {
-      return "${(value / 1000).toStringAsFixed(0)}K";
+      return "${(value / 1000).toStringAsFixed(0)}";
     } else if (value < 1000000000) {
-      return "${(value / 1000000).toStringAsFixed(0)}M";
+      return "${(value / 1000000).toStringAsFixed(0)}";
     }
     return value.toStringAsFixed(0);
   }

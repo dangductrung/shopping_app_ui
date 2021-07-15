@@ -126,6 +126,19 @@ class DetailViewModel extends BaseViewModel {
     return ((chart?.shopees?.length ?? 0) != 0 || (chart?.tikis?.length ?? 0) != 0) && ((calcDateTime()?.length ?? 0) != 0);
   }
 
+  String getUnit() {
+    if (getVerticalInterval() < 1000) {
+      return "đồng";
+    } else if (getVerticalInterval() < 1000000) {
+      return "nghìn đồng";
+    } else if (getVerticalInterval() < 1000000000) {
+      return "triệu đồng";
+    } else if (getVerticalInterval() < 1000000000000) {
+      return "tỉ đồng";
+    }
+    return "";
+  }
+
   double getVerticalInterval() {
     double shopeePrice = 0;
     double tikiPrice = 0;

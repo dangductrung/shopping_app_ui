@@ -146,6 +146,7 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                           verticalInterval: viewModel.getVerticalInterval(),
                           horizontalAxisValues: viewModel.calcDateTime(),
                           from: viewModel.getFrom(),
+                          unit: viewModel.getUnit(),
                         ),
                       )
                     else
@@ -353,7 +354,7 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                     ),
                     Text(
                       "Sản phẩm liên quan",
-                      style: UITextStyle.mediumBlack_14_w400,
+                      style: UITextStyle.mediumBlack_16_w700,
                     ),
                     SizedBox(
                       height: 16.0.h,
