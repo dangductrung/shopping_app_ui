@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shopping_app/backend/services/product/product_service.dart';
+import 'package:shopping_app/helpers/format_helpers.dart';
 import 'package:shopping_app/injector.dart';
 import 'package:shopping_app/models/chart.dart';
 import 'package:shopping_app/models/product.dart';
@@ -64,7 +65,7 @@ class DetailViewModel extends BaseViewModel {
   }
 
   List<String> getFrom() {
-    List<String> from = [];
+    final List<String> from = [];
     if ((chart?.shopees?.length ?? 0) > 0) {
       from.add("shopee");
     }
@@ -162,6 +163,70 @@ class DetailViewModel extends BaseViewModel {
     } else {
       return 10000000;
     }
+  }
+
+  String getMaxPrice() {
+    if ((chart?.shopees?.length ?? 0) == 0 && (chart?.tikis?.length ?? 0) == 0) {
+      return "";
+    }
+    if ((chart?.shopees?.length ?? 0) != 0) {
+      if (chart?.shopees[0].link == product?.link) {
+        double maxPrice = chart?.shopees[0].price;
+
+        for (int i = 1; i < chart?.shopees?.length; ++i) {
+          if (chart?.shopees[i].price > maxPrice) {
+            maxPrice = chart?.shopees[i].price;
+          }
+        }
+
+        return "${FormatHelper.moneyFormat(maxPrice)}đ";
+      }
+    } else {
+      if (chart?.tikis[0].link == product?.link) {
+        double maxPrice = chart?.tikis[0].price;
+
+        for (int i = 1; i < chart?.tikis?.length; ++i) {
+          if (chart?.tikis[i].price > maxPrice) {
+            maxPrice = chart?.tikis[i].price;
+          }
+        }
+
+        return "${FormatHelper.moneyFormat(maxPrice)}đ";
+      }
+    }
+    return "";
+  }
+
+  String getMinPrice() {
+    if ((chart?.shopees?.length ?? 0) == 0 && (chart?.tikis?.length ?? 0) == 0) {
+      return "";
+    }
+    if ((chart?.shopees?.length ?? 0) != 0) {
+      if (chart?.shopees[0].link == product?.link) {
+        double minPrice = chart?.shopees[0].price;
+
+        for (int i = 1; i < chart?.shopees?.length; ++i) {
+          if (chart?.shopees[i].price < minPrice) {
+            minPrice = chart?.shopees[i].price;
+          }
+        }
+
+        return "${FormatHelper.moneyFormat(minPrice)}đ";
+      }
+    } else {
+      if (chart?.tikis[0].link == product?.link) {
+        double minPrice = chart?.tikis[0].price;
+
+        for (int i = 1; i < chart?.tikis?.length; ++i) {
+          if (chart?.tikis[i].price < minPrice) {
+            minPrice = chart?.tikis[i].price;
+          }
+        }
+
+        return "${FormatHelper.moneyFormat(minPrice)}đ";
+      }
+    }
+    return "";
   }
 
   @override

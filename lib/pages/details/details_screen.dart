@@ -131,6 +131,22 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                     ),
                     Row(
                       children: [
+                        Text("Giá cao nhất: ${viewModel.getMaxPrice()}", style: UITextStyle.mediumBlack_16_w400, maxLines: 4),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8.0.h,
+                    ),
+                    Row(
+                      children: [
+                        Text("Giá thấp nhất: ${viewModel.getMinPrice()}", style: UITextStyle.mediumBlack_16_w400, maxLines: 4),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8.0.h,
+                    ),
+                    Row(
+                      children: [
                         Text("Ngày cập nhật: ${FormatHelper.formatDateTime(widget?.product?.createdAt, pattern: "dd/MM/yyyy")}", style: UITextStyle.mediumBlack_14_w400, maxLines: 4),
                       ],
                     ),
