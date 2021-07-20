@@ -11,8 +11,9 @@ class LineChartSample1 extends StatefulWidget {
   final List<DateTime> horizontalAxisValues;
   final List<String> from;
   final String unit;
+  final Function() onOpenClicked;
 
-  const LineChartSample1({this.data, this.verticalInterval, this.horizontalAxisValues, this.from, this.unit});
+  const LineChartSample1({this.data, this.verticalInterval, this.horizontalAxisValues, this.from, this.unit, this.onOpenClicked});
 
   @override
   State<StatefulWidget> createState() => LineChartSample1State();
@@ -42,21 +43,46 @@ class LineChartSample1State extends State<LineChartSample1> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              const SizedBox(
-                height: 37,
+              SizedBox(
+                height: 24.0.h,
               ),
-              Text(
-                'Biến động giá',
-                style: UITextStyle.mediumBlack_16_w700,
-                textAlign: TextAlign.center,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 24.0.w,
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Biến động giá',
+                      style: UITextStyle.mediumBlack_16_w700,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      if (widget?.onOpenClicked != null) {
+                        widget?.onOpenClicked();
+                      }
+                    },
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      color: UIColor.black45,
+                      size: 18.0.h,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 8.0.w,
+                  ),
+                ],
               ),
               Text(
                 '(Đơn vị: ${widget?.unit ?? ''})',
                 style: UITextStyle.mediumBlack_14_w400,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(
-                height: 16,
+              SizedBox(
+                height: 16.0.h,
               ),
               Expanded(
                 child: Padding(

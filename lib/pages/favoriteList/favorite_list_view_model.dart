@@ -48,12 +48,7 @@ class FavoriteListViewModel extends BaseViewModel {
   }
 
   void onItemClicked(int index) {
-    call(() async {
-      await injector<ProductService>().unNewProduct(products[index].followId);
-      _products[index].isNew = false;
-      _products.refresh();
-      goToDetail(index);
-    });
+    goToDetail(index);
   }
 
   void goToDetail(int index) {

@@ -72,11 +72,12 @@ class ProductItem extends StatelessWidget {
                       children: [
                         getIcon(),
                         Container(
-                            padding: EdgeInsets.symmetric(horizontal: 5.0.w),
-                            child: Text(
-                              'Ngày cập nhật: ${FormatHelper.formatDateTime(product?.createdAt, pattern: "dd/MM/yyyy")}',
-                              style: UITextStyle.mediumBlack_14_w400,
-                            )),
+                          padding: EdgeInsets.symmetric(horizontal: 5.0.w),
+                          child: Text(
+                            'Ngày cập nhật: ${FormatHelper.formatDateTime(product?.createdAt, pattern: "dd/MM/yyyy")}',
+                            style: UITextStyle.mediumBlack_14_w400,
+                          ),
+                        ),
                         const Spacer(),
                         GestureDetector(
                           behavior: HitTestBehavior.translucent,

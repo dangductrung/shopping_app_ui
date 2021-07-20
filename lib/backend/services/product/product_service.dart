@@ -6,6 +6,8 @@ import 'package:retrofit/retrofit.dart';
 import 'package:shopping_app/config/config.dart';
 import 'package:shopping_app/models/chart.dart';
 import 'package:shopping_app/models/client.dart';
+import 'package:shopping_app/models/fluctuation.dart';
+import 'package:shopping_app/models/history_product.dart';
 import 'package:shopping_app/models/poster.dart';
 import 'package:shopping_app/models/product.dart';
 
@@ -43,4 +45,13 @@ abstract class ProductService {
 
   @POST("/report/add")
   Future<void> sendReport(@Body() Map<String, dynamic> params);
+
+  @GET("/product/history")
+  Future<List<HistoryProduct>> history(@Query("product") int productId);
+
+  @GET("/product/fluctuation")
+  Future<List<Fluctuation>> fluctuation(@Query("page") int page);
+
+  @POST("/product/info")
+  Future<void> detailPrd(@Body() Map<String, dynamic> params);
 }

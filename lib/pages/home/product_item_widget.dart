@@ -21,10 +21,11 @@ class ProductItemWidget extends StatelessWidget {
       behavior: HitTestBehavior.translucent,
       onTap: () {
         Get.to(
-            DetailsScreen(
-              product: product,
-            ),
-            preventDuplicates: false);
+          DetailsScreen(
+            product: product,
+          ),
+          preventDuplicates: false,
+        );
       },
       child: Container(
         decoration: BoxDecoration(

@@ -163,6 +163,7 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                           horizontalAxisValues: viewModel.calcDateTime(),
                           from: viewModel.getFrom(),
                           unit: viewModel.getUnit(),
+                          onOpenClicked: viewModel.openHistoryPage,
                         ),
                       )
                     else

@@ -6,6 +6,7 @@ import 'package:shopping_app/injector.dart';
 import 'package:shopping_app/models/chart.dart';
 import 'package:shopping_app/models/product.dart';
 import 'package:shopping_app/pages/details/details_screen.dart';
+import 'package:shopping_app/pages/history_prd/history_prd_page.dart';
 import 'package:shopping_app/pages/report/report_page.dart';
 import 'package:shopping_app/shared/base/base_view_model.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -306,5 +307,13 @@ class DetailViewModel extends BaseViewModel {
       params["keyword"] = product?.name;
       _products.assignAll(await injector<ProductService>().search(params, 0));
     });
+  }
+
+  void openHistoryPage() {
+    Get.to(
+      HistoryPrdPage(
+        product: product,
+      ),
+    );
   }
 }
