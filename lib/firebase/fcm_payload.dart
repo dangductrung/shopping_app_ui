@@ -6,7 +6,7 @@ class FCMPayload {
   final String body;
   final String type;
   final String from;
-  final Map<String, dynamic> data;
+  final String data;
 
   bool get isDataMessage => title == null && body == null;
 
@@ -17,7 +17,7 @@ class FCMPayload {
     String body;
     String type;
     String from;
-    Map<String, dynamic> data;
+    String data;
 
     if (Platform.isAndroid) {
       if (message.containsKey("notification")) {
@@ -28,10 +28,8 @@ class FCMPayload {
       if (message.containsKey("data")) {
         final dataPayload = Map<String, dynamic>.from(message["data"] as Map);
         type = dataPayload["type"] as String;
-        from = message["from"] as String;
-        if (dataPayload.containsKey("item_data")) {
-          data = Map<String, dynamic>.from(json.decode(dataPayload["item_data"] as String) as Map);
-        }
+        from = dataPayload["from"] as String;
+        data = dataPayload["item_data"] as String;
       }
     } else {
       if (message.containsKey("aps")) {
@@ -45,7 +43,7 @@ class FCMPayload {
       type = message["type"] as String;
       from = message["from"] as String;
       if (message.containsKey("item_data")) {
-        data = Map<String, dynamic>.from(json.decode(message["item_data"] as String) as Map<String, dynamic>);
+        data = message["item_data"] as String;
       }
     }
 
@@ -60,7 +58,7 @@ class FCMPayload {
         body: parsed["body"] as String,
         type: parsed["type"] as String,
         from: parsed["from"] as String,
-        data: parsed["data"] as Map<String, dynamic>,
+        data: parsed["data"] as String,
       );
     } on FormatException {
       throw FormatException("Invalid Json: $json");

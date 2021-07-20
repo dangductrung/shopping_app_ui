@@ -81,9 +81,26 @@ class LineChartSample1State extends State<LineChartSample1> {
     return LineChartData(
       lineTouchData: LineTouchData(
         touchTooltipData: LineTouchTooltipData(
-          tooltipBgColor: Colors.white,
+          tooltipBgColor: UIColor.white,
+          fitInsideHorizontally: true,
+          fitInsideVertically: true,
+          tooltipPadding: EdgeInsets.symmetric(vertical: 8.0.h, horizontal: 8.0.w),
+          getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
+            final List<LineTooltipItem> tooltipItems = [];
+            for (int i = 0; i < (touchedBarSpots?.length ?? 0); ++i) {
+              tooltipItems.add(
+                LineTooltipItem(
+                  "${i == 0 ? FormatHelper.formatDateTime(DateTime.fromMillisecondsSinceEpoch(touchedBarSpots[i].x.toInt()), pattern: "dd/MM/yyyy \n") ?? "" : ""} ${FormatHelper.moneyFormat(touchedBarSpots[i].y)}",
+                  TextStyle(color: getColor(i), fontSize: 14, fontWeight: FontWeight.w700),
+                ),
+              );
+            }
+            return tooltipItems;
+          },
         ),
-        touchCallback: (LineTouchResponse touchResponse) {},
+        touchCallback: (response) {
+          isShow = true;
+        },
         handleBuiltInTouches: true,
       ),
       gridData: FlGridData(
@@ -141,7 +158,15 @@ class LineChartSample1State extends State<LineChartSample1> {
         colors: [getColor(i)],
         barWidth: 2,
         isStrokeCapRound: true,
-        dotData: FlDotData(show: true),
+        dotData: FlDotData(
+            show: true,
+            getDotPainter: (FlSpot spot, double xPercentage, LineChartBarData bar, int index, {double size}) {
+              return FlDotCirclePainter(
+                radius: 1.5.h,
+                color: getColor(i),
+                strokeColor: getColor(i),
+              );
+            }),
         belowBarData: BarAreaData(
           show: false,
         ),
