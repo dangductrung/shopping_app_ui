@@ -131,7 +131,8 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                     ),
                     Row(
                       children: [
-                        Text("Giá cao nhất: ${viewModel.getMaxPrice()}", style: UITextStyle.mediumBlack_16_w400, maxLines: 4),
+                        Expanded(child: Text("Giá cao nhất", style: UITextStyle.mediumBlack_16_w400)),
+                        Text(viewModel.getMaxPrice(), style: UITextStyle.mediumBlack_16_w400),
                       ],
                     ),
                     SizedBox(
@@ -139,7 +140,8 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                     ),
                     Row(
                       children: [
-                        Text("Giá thấp nhất: ${viewModel.getMinPrice()}", style: UITextStyle.mediumBlack_16_w400, maxLines: 4),
+                        Expanded(child: Text("Giá thấp nhất", style: UITextStyle.mediumBlack_16_w400)),
+                        Text(viewModel.getMinPrice(), style: UITextStyle.mediumBlack_16_w400),
                       ],
                     ),
                     SizedBox(
@@ -147,7 +149,8 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                     ),
                     Row(
                       children: [
-                        Text("Ngày cập nhật: ${FormatHelper.formatDateTime(widget?.product?.createdAt, pattern: "dd/MM/yyyy")}", style: UITextStyle.mediumBlack_14_w400, maxLines: 4),
+                        Expanded(child: Text("Ngày cập nhật ", style: UITextStyle.mediumBlack_16_w400, maxLines: 4)),
+                        Text(FormatHelper.formatDateTime(widget?.product?.createdAt, pattern: "dd/MM/yyyy"), style: UITextStyle.mediumBlack_16_w400, maxLines: 4),
                       ],
                     ),
                     SizedBox(
@@ -239,7 +242,7 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                       height: 16.0.h,
                     ),
                     Text(
-                      "Tần suất biến động giá",
+                      "Số lần biến động giá",
                       style: UITextStyle.mediumBlack_16_w700,
                     ),
                     SizedBox(
@@ -247,9 +250,10 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: UIColor.mediumLightShadeGray),
                         borderRadius: BorderRadius.circular(5.0.h),
+                        border: Border.all(color: UIColor.mediumLightShadeGray),
                       ),
+                      padding: EdgeInsets.symmetric(vertical: 8.0.h, horizontal: 8.0.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -262,19 +266,17 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                               Row(
                                 children: [
                                   Expanded(
-                                    child: Center(
-                                      child: Text(
-                                        "Nguồn",
-                                        style: UITextStyle.mediumBlack_16_w700,
-                                      ),
+                                    child: Text(
+                                      "Nguồn",
+                                      style: UITextStyle.mediumBlack_16_w400,
+                                      textAlign: TextAlign.center,
                                     ),
                                   ),
                                   Expanded(
-                                    child: Center(
-                                      child: Text(
-                                        "Tần suất",
-                                        style: UITextStyle.mediumBlack_16_w700,
-                                      ),
+                                    child: Text(
+                                      "Số lần",
+                                      style: UITextStyle.mediumBlack_16_w400,
+                                      textAlign: TextAlign.center,
                                     ),
                                   )
                                 ],
@@ -282,12 +284,12 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                               SizedBox(
                                 height: 8.0.h,
                               ),
+                              Container(
+                                width: double.infinity,
+                                height: 1.0.h,
+                                color: UIColor.mediumLightShadeGray,
+                              ),
                             ],
-                          ),
-                          Container(
-                            height: 1.0.h,
-                            width: double.infinity,
-                            color: UIColor.mediumLightShadeGray,
                           ),
                           if ((viewModel.chart?.shopees?.length ?? 0) > 0)
                             Column(
@@ -299,19 +301,17 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                                 Row(
                                   children: [
                                     Expanded(
-                                      child: Center(
-                                        child: Text(
-                                          "Shopee",
-                                          style: UITextStyle.yellow_16_w400,
-                                        ),
+                                      child: Text(
+                                        "Shopee",
+                                        style: UITextStyle.yellow_16_w400,
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
                                     Expanded(
-                                      child: Center(
-                                        child: Text(
-                                          viewModel.frequencyPriceShopee().toString(),
-                                          style: UITextStyle.yellow_16_w400,
-                                        ),
+                                      child: Text(
+                                        viewModel.frequencyPriceShopee().toString(),
+                                        style: UITextStyle.yellow_16_w400,
+                                        textAlign: TextAlign.center,
                                       ),
                                     )
                                   ],
@@ -320,8 +320,8 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                                   height: 8.0.h,
                                 ),
                                 Container(
-                                  height: 1.0.h,
                                   width: double.infinity,
+                                  height: 1.0.h,
                                   color: UIColor.mediumLightShadeGray,
                                 ),
                               ],
@@ -336,19 +336,17 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                                 Row(
                                   children: [
                                     Expanded(
-                                      child: Center(
-                                        child: Text(
-                                          "Tiki",
-                                          style: UITextStyle.blue_16_w400,
-                                        ),
+                                      child: Text(
+                                        "Tiki",
+                                        style: UITextStyle.blue_16_w400,
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
                                     Expanded(
-                                      child: Center(
-                                        child: Text(
-                                          viewModel.frequencyPriceTiki().toString(),
-                                          style: UITextStyle.blue_16_w400,
-                                        ),
+                                      child: Text(
+                                        viewModel.frequencyPriceTiki().toString(),
+                                        style: UITextStyle.blue_16_w400,
+                                        textAlign: TextAlign.center,
                                       ),
                                     )
                                   ],
@@ -356,18 +354,13 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                                 SizedBox(
                                   height: 8.0.h,
                                 ),
-                                Container(
-                                  height: 1.0.h,
-                                  width: double.infinity,
-                                  color: UIColor.mediumLightShadeGray,
-                                ),
                               ],
                             ),
                         ],
                       ),
                     ),
                     SizedBox(
-                      height: 32.0.h,
+                      height: 16.0.h,
                     ),
                     Text(
                       "Sản phẩm liên quan",
