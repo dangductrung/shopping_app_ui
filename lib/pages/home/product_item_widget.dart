@@ -8,6 +8,7 @@ import 'package:shopping_app/shared/view/network_image.dart';
 import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 import 'package:shopping_app/extensions/size_ext.dart';
+import 'package:shopping_app/extensions/date_time_ext.dart';
 
 class ProductItemWidget extends StatelessWidget {
   final Product product;
@@ -34,12 +35,16 @@ class ProductItemWidget extends StatelessWidget {
           color: UIColor.white,
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            NetworkImageWidget(
-              url: product?.image ?? "",
-              boxFit: BoxFit.fill,
-              width: (Get.width - 32 - 10) / 2,
+            SizedBox(
               height: (Get.width - 32 - 10) / 2,
+              child: NetworkImageWidget(
+                url: product?.image ?? "",
+                boxFit: BoxFit.fill,
+                width: (Get.width - 32 - 10) / 2,
+                height: (Get.width - 32 - 10) / 2,
+              ),
             ),
             SizedBox(
               height: 6.0.h,
@@ -47,7 +52,7 @@ class ProductItemWidget extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0.w),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     product?.name,
@@ -96,10 +101,15 @@ class ProductItemWidget extends StatelessWidget {
                   SizedBox(
                     height: 4.0.h,
                   ),
-                  Text(
-                    "Ngày cập nhật: ${FormatHelper.formatDateTime(product.createdAt, pattern: "dd/MM/yyyy")}",
-                    style: UITextStyle.mediumLightShadeGray_12_w400,
-                    textAlign: TextAlign.start,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        product.createdAt.timeAgo(),
+                        style: UITextStyle.mediumLightShadeGray_12_w400,
+                        textAlign: TextAlign.start,
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 12.0.h,

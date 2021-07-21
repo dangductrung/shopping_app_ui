@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app/generated/assets.gen.dart';
 import 'package:shopping_app/helpers/format_helpers.dart';
 import 'package:shopping_app/models/product.dart';
-import 'package:shopping_app/pages/details/details_screen.dart';
 import 'package:shopping_app/shared/view/network_image.dart';
 import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 import 'package:shopping_app/extensions/size_ext.dart';
-import 'package:shopping_app/extensions/double_ext.dart';
+import 'package:shopping_app/extensions/date_time_ext.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;

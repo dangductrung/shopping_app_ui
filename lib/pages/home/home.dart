@@ -3,12 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopping_app/common/searchbar.dart';
+import 'package:shopping_app/helpers/format_helpers.dart';
+import 'package:shopping_app/pages/details/details_screen.dart';
 import 'package:shopping_app/pages/home/home_view_model.dart';
 import 'package:shopping_app/pages/home/product_item_widget.dart';
 import 'package:shopping_app/shared/base/base_view_state.dart';
+import 'package:shopping_app/shared/view/network_image.dart';
 import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 import 'package:shopping_app/extensions/size_ext.dart';
+import 'package:shopping_app/extensions/date_time_ext.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -117,12 +121,43 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                       )
                     : Container(),
               ),
+              Obx(
+                () => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 16.0.h,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                            child: Text("Sản phẩm giảm giá mới", style: UITextStyle.mediumBlack_16_w700),
+                          ),
+                        ),
+                        Text(
+                          "Xem thêm",
+                          style: UITextStyle.blue_16_w400,
+                        ),
+                        SizedBox(
+                          width: 8.0.w,
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 16.0.h,
+                    ),
+                    _fluctuationList(),
+                  ],
+                ),
+              ),
               SizedBox(
                 height: 16.0.h,
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                child: Text("Sản phẩm nổi bật", style: UITextStyle.mediumBlack_16_w400),
+                child: Text("Sản phẩm nổi bật", style: UITextStyle.mediumBlack_16_w700),
               ),
               Obx(
                 () => buildWidget(),
@@ -145,7 +180,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                 behavior: HitTestBehavior.translucent,
                 child: ProductItemWidget(
                   product: viewModel.products[i],
-                  onFollowClicked: () => viewModel.onFollowClicked(i),
+                  onFollowClicked: () => viewModel.onFollowClicked(viewModel.products[i]),
                 ),
               ),
             ),
@@ -158,7 +193,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                 behavior: HitTestBehavior.translucent,
                 child: ProductItemWidget(
                   product: viewModel.products[i + 1],
-                  onFollowClicked: () => viewModel.onFollowClicked(i + 1),
+                  onFollowClicked: () => viewModel.onFollowClicked(viewModel.products[i + 1]),
                 ),
               ),
             ),
@@ -177,6 +212,150 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
       itemBuilder: (context, index) {
         return items[index];
       },
+    );
+  }
+
+  Widget _fluctuationList() {
+    final double height = 270.0.h;
+    final double width = 180.0.w;
+    return SizedBox(
+      height: height,
+      child: ListView.separated(
+        separatorBuilder: (context, index) => SizedBox(
+          width: 12.0.w,
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 24.0.w),
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemCount: viewModel.fluctuation?.length ?? 0,
+        itemBuilder: (context, index) => GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            Get.to(
+              DetailsScreen(
+                product: viewModel.fluctuation[index].product,
+              ),
+              preventDuplicates: false,
+            );
+          },
+          child: Stack(
+            children: [
+              SizedBox(
+                height: height,
+                width: width,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: UIColor.lightGrayBorder),
+                    borderRadius: BorderRadius.circular(5.0.h),
+                    color: UIColor.white,
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 150.0.h,
+                        child: NetworkImageWidget(
+                          url: viewModel.fluctuation[index].product?.image,
+                          height: 150.0.h,
+                          width: width,
+                          boxFit: BoxFit.fill,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 6.0.h,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  viewModel.fluctuation[index].product?.name,
+                                  style: UITextStyle.mediumBlack_14_w400,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                SizedBox(
+                                  height: 3.0.h,
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    viewModel.getIcon(viewModel.fluctuation[index].product),
+                                    Text(
+                                      "${FormatHelper.moneyFormat(viewModel.fluctuation[index].product?.price ?? 0)}đ",
+                                      style: UITextStyle.red_18_w700,
+                                      textAlign: TextAlign.end,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 8.0.h,
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    viewModel.fluctuation[index].product.createdAt.timeAgo(),
+                                    style: UITextStyle.mediumLightShadeGray_12_w400,
+                                    maxLines: 1,
+                                  ),
+                                ),
+                                GestureDetector(
+                                  behavior: HitTestBehavior.translucent,
+                                  onTap: () {
+                                    viewModel.onFollowClicked(viewModel.fluctuation[index]?.product);
+                                  },
+                                  child: Icon(
+                                    Icons.favorite,
+                                    color: viewModel.fluctuation[index].product?.isFollow ?? false ? Colors.red : Colors.grey,
+                                    size: 24.0.h,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 8.0.h,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                right: 0.0.w,
+                top: 0.0.h,
+                child: Container(
+                  height: 28.0.h,
+                  padding: EdgeInsets.only(left: 12.0.w, top: 4.0.h, bottom: 4.0.h),
+                  decoration: BoxDecoration(
+                    color: UIColor.red,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12.0.h),
+                      bottomLeft: Radius.circular(12.0.h),
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "${viewModel.fluctuation[index]?.delta.toString()}%",
+                      style: UITextStyle.white_16_w400,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 
