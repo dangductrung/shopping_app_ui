@@ -6,6 +6,7 @@ import 'package:shopping_app/injector.dart';
 import 'package:shopping_app/models/fluctuation.dart';
 import 'package:shopping_app/models/poster.dart';
 import 'package:shopping_app/models/product.dart';
+import 'package:shopping_app/pages/home/discount/discount_page.dart';
 import 'package:shopping_app/pages/search/search_page.dart';
 import 'package:shopping_app/shared/base/base_view_model.dart';
 import 'package:get/get.dart';
@@ -51,6 +52,7 @@ class HomeViewModel extends BaseViewModel {
   void disposeState() {
     _products.close();
     _poster.close();
+    _fluctuation.close();
     super.disposeState();
   }
 
@@ -73,5 +75,9 @@ class HomeViewModel extends BaseViewModel {
       return Assets.icons.icLazada.image(height: 24.0.h, width: 24.0.h);
     }
     return Container();
+  }
+
+  void onMoreClicked() {
+    Get.to(DiscountPage());
   }
 }

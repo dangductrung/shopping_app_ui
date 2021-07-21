@@ -136,9 +136,13 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                             child: Text("Sản phẩm giảm giá mới", style: UITextStyle.mediumBlack_16_w700),
                           ),
                         ),
-                        Text(
-                          "Xem thêm",
-                          style: UITextStyle.blue_16_w400,
+                        GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: viewModel.onMoreClicked,
+                          child: Text(
+                            "Xem thêm",
+                            style: UITextStyle.blue_16_w400,
+                          ),
                         ),
                         SizedBox(
                           width: 8.0.w,
