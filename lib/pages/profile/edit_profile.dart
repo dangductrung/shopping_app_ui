@@ -26,6 +26,8 @@ class EditProfileState extends BaseViewState<EditProfile, EditProfileViewModel> 
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     final height = MediaQuery.of(context).size.height / 100;
     return Obx(
       () => KeyboardAutoDismiss(

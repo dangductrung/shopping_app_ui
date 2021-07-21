@@ -1,4 +1,6 @@
 import 'package:shopping_app/backend/services/product/product_service.dart';
+import 'package:shopping_app/event_bus/event_bus_helper.dart';
+import 'package:shopping_app/event_bus/update_follow_event_bus.dart';
 import 'package:shopping_app/injector.dart';
 import 'package:shopping_app/models/product.dart';
 import 'package:shopping_app/models/product.dart';
@@ -16,7 +18,14 @@ class FavoriteListViewModel extends BaseViewModel {
   @override
   void initState() {
     getData();
+    setupEventBus();
     super.initState();
+  }
+
+  void setupEventBus() {
+    injector<EventBusHelper>().eventBus.on<UpdateFollowEventBus>().listen((event) {
+      getData();
+    });
   }
 
   void getData() {

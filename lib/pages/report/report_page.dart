@@ -24,6 +24,8 @@ class _ReportPageState extends BaseViewState<ReportPage, ReportViewModel> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return KeyboardAutoDismiss(
       scaffold: Scaffold(
         backgroundColor: Colors.white,

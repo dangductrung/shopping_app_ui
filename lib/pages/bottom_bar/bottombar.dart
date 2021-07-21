@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:keyboard_service/keyboard_service.dart';
 import 'package:shopping_app/pages/bottom_bar/bottom_bar_view_model.dart';
-import 'package:shopping_app/pages/favoriteList/favorite_list.dart';
-import 'package:shopping_app/pages/home/home.dart';
-import 'package:shopping_app/pages/notification/notification_list.dart';
-import 'package:shopping_app/pages/profile/profile_screen.dart';
 import 'package:shopping_app/shared/base/base_view_state.dart';
 import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
+import 'package:shopping_app/extensions/size_ext.dart';
 
 class BottomBar extends StatefulWidget {
   @override
@@ -19,6 +16,7 @@ class BottomBar extends StatefulWidget {
 class BottomBarState extends BaseViewState<BottomBar, BottomBarViewModel> {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return KeyboardAutoDismiss(
       scaffold: Scaffold(
         bottomNavigationBar: Obx(
@@ -29,10 +27,12 @@ class BottomBarState extends BaseViewState<BottomBar, BottomBarViewModel> {
                 icon: Icon(
                   Icons.home_outlined,
                   color: UIColor.mediumLightShadeGray,
+                  size: 24.0.h,
                 ),
                 activeIcon: Icon(
                   Icons.home_outlined,
                   color: UIColor.orange,
+                  size: 24.0.h,
                 ),
                 title: Text(
                   "Trang chủ",
@@ -43,6 +43,7 @@ class BottomBarState extends BaseViewState<BottomBar, BottomBarViewModel> {
                 icon: Icon(
                   Icons.whatshot_outlined,
                   color: UIColor.mediumLightShadeGray,
+                  size: 24.0.h,
                 ),
                 title: Text(
                   "Thông báo",
@@ -51,16 +52,19 @@ class BottomBarState extends BaseViewState<BottomBar, BottomBarViewModel> {
                 activeIcon: Icon(
                   Icons.whatshot_outlined,
                   color: UIColor.orange,
+                  size: 24.0.h,
                 ),
               ),
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.favorite_border,
                   color: UIColor.mediumLightShadeGray,
+                  size: 24.0.h,
                 ),
                 activeIcon: Icon(
                   Icons.favorite_border,
                   color: UIColor.orange,
+                  size: 24.0.h,
                 ),
                 title: Text(
                   "Yêu thích",
@@ -71,10 +75,12 @@ class BottomBarState extends BaseViewState<BottomBar, BottomBarViewModel> {
                 icon: Icon(
                   Icons.account_circle_outlined,
                   color: UIColor.mediumLightShadeGray,
+                  size: 24.0.h,
                 ),
                 activeIcon: Icon(
                   Icons.account_circle_outlined,
                   color: UIColor.orange,
+                  size: 24.0.h,
                 ),
                 title: Text(
                   "Tài khoản",
@@ -85,8 +91,10 @@ class BottomBarState extends BaseViewState<BottomBar, BottomBarViewModel> {
             onTap: viewModel.onBarTapped,
           ),
         ),
-        body: Obx(
-          () => viewModel.pages[viewModel.index],
+        body: PageView(
+          controller: viewModel.pageController,
+          onPageChanged: viewModel.onBarTapped,
+          children: viewModel.pages,
         ),
       ),
     );

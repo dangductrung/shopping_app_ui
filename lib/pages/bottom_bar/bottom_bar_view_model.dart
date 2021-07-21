@@ -13,6 +13,7 @@ class BottomBarViewModel extends BaseViewModel {
     FavoriteList(),
     ProfileScreen(),
   ];
+  final pageController = PageController();
 
   final _index = 0.obs;
   int get index => _index.value;
@@ -20,5 +21,6 @@ class BottomBarViewModel extends BaseViewModel {
   // ignore: use_setters_to_change_properties
   void onBarTapped(int value) {
     _index.value = value;
+    pageController.jumpToPage(value);
   }
 }

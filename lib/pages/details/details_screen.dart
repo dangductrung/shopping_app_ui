@@ -32,6 +32,8 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

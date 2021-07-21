@@ -18,6 +18,8 @@ class FavoriteList extends StatefulWidget {
 class FavoriteListState extends BaseViewState<FavoriteList, FavoriteListViewModel> {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Scaffold(
       backgroundColor: UIColor.white,
       appBar: AppBar(

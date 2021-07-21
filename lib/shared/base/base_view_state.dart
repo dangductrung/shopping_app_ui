@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/shared/base/base_view_model.dart';
 
-abstract class BaseViewState<T extends StatefulWidget, M extends BaseViewModel> extends State<T> {
+abstract class BaseViewState<T extends StatefulWidget, M extends BaseViewModel> extends State<T> with AutomaticKeepAliveClientMixin<T> {
   M _viewModel;
 
   M get viewModel => _viewModel;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @protected
   void loadArguments() {}

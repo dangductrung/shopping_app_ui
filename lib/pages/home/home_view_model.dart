@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/backend/services/product/product_service.dart';
+import 'package:shopping_app/event_bus/event_bus_helper.dart';
+import 'package:shopping_app/event_bus/update_follow_event_bus.dart';
 import 'package:shopping_app/firebase/fcm_manager.dart';
 import 'package:shopping_app/generated/assets.gen.dart';
 import 'package:shopping_app/injector.dart';
@@ -41,10 +43,13 @@ class HomeViewModel extends BaseViewModel {
     call(() async {
       if (product?.isFollow ?? false) {
         await injector<ProductService>().unFollowProduct(product.id);
+        product?.isFollow = false;
       } else {
         await injector<ProductService>().followProduct(product.id);
+        product?.isFollow = true;
       }
-      getData();
+      _products.refresh();
+      injector<EventBusHelper>().eventBus.fire(UpdateFollowEventBus());
     });
   }
 

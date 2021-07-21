@@ -16,6 +16,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends BaseViewState<ProfileScreen, ProfileViewModel> {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Scaffold(
       backgroundColor: UIColor.white,
       appBar: AppBar(

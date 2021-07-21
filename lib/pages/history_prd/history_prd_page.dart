@@ -29,6 +29,8 @@ class _HistoryPrdPageState extends BaseViewState<HistoryPrdPage, HistoryPrdViewM
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

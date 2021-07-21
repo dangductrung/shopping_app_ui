@@ -16,6 +16,8 @@ class SignUp extends StatefulWidget {
 class SignUpState extends BaseViewState<SignUp, SignUpViewModel> {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     final height = MediaQuery.of(context).size.height / 100;
 
     return KeyboardAutoDismiss(

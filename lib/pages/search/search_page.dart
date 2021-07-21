@@ -28,6 +28,8 @@ class _SearchPageState extends BaseViewState<SearchPage, SearchViewModel> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return KeyboardAutoDismiss(
       scaffold: Scaffold(
         backgroundColor: UIColor.white,

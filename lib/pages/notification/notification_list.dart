@@ -19,7 +19,7 @@ class NotificationList extends StatefulWidget {
 class NotificationListState extends BaseViewState<NotificationList, NotificationViewModel> {
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height / 100;
+    super.build(context);
     return Scaffold(
       backgroundColor: UIColor.white,
       appBar: AppBar(
