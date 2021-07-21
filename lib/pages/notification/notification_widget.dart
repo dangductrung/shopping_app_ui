@@ -6,6 +6,7 @@ import 'package:shopping_app/models/notification_model.dart';
 import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 import 'package:shopping_app/extensions/size_ext.dart';
+import 'package:shopping_app/extensions/date_time_ext.dart';
 
 class NotifyItem extends StatelessWidget {
   final NotificationModel notification;
@@ -48,7 +49,7 @@ class NotifyItem extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(FormatHelper.formatDateTime(notification?.created_at, pattern: "dd/MM/yyyy HH:mm"), style: UITextStyle.mediumBlack_14_w400, maxLines: 4),
+                      Text(notification?.created_at?.timeAgo(), style: UITextStyle.mediumBlack_14_w400, maxLines: 4),
                     ],
                   ),
                 ],

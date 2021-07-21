@@ -1,6 +1,9 @@
 import 'package:shopping_app/backend/services/notification/notification_service.dart';
+import 'package:shopping_app/backend/services/product/product_service.dart';
 import 'package:shopping_app/injector.dart';
 import 'package:shopping_app/models/notification_model.dart';
+import 'package:shopping_app/models/product.dart';
+import 'package:shopping_app/pages/details/details_screen.dart';
 import 'package:shopping_app/shared/base/base_view_model.dart';
 import 'package:get/get.dart';
 
@@ -41,9 +44,21 @@ class NotificationViewModel extends BaseViewModel {
   void onReadNotification(int index) {
     call(() async {
       await injector<NotificationService>().read(notifications[index].id);
+      notifications[index].is_read = true;
       page = 0;
       getData();
+      final Product product = await injector<ProductService>().detailPrd({"product": notifications[index].link});
+      goToDetail(product);
     });
+  }
+
+  void goToDetail(Product product) {
+    Get.to(
+      DetailsScreen(
+        product: product,
+      ),
+      preventDuplicates: false,
+    );
   }
 
   void onReadAll() {

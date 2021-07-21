@@ -53,5 +53,5 @@ abstract class ProductService {
   Future<List<Fluctuation>> fluctuation(@Query("page") int page);
 
   @POST("/product/info")
-  Future<void> detailPrd(@Body() Map<String, dynamic> params);
+  Future<Product> detailPrd(@Body() Map<String, dynamic> params);
 }

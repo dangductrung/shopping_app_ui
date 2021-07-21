@@ -16,8 +16,10 @@ class NotificationModel {
   bool is_read;
   @JsonKey(name: "created_at")
   DateTime created_at;
+  @JsonKey(name: "link")
+  String link;
 
-  NotificationModel({this.id, this.type, this.body, this.title, this.is_read, this.created_at});
+  NotificationModel({this.id, this.type, this.body, this.title, this.is_read, this.created_at, this.link});
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) => _$NotificationModelFromJson(json);
   Map<String, dynamic> toJson() => _$NotificationModelToJson(this);

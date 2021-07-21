@@ -151,7 +151,7 @@ class DetailViewModel extends BaseViewModel {
       tikiPrice = chart.tikis[0].price;
     }
 
-    double price = shopeePrice > tikiPrice ? shopeePrice : tikiPrice;
+    final double price = shopeePrice > tikiPrice ? shopeePrice : tikiPrice;
 
     if (price < 10000) {
       return 1000;
