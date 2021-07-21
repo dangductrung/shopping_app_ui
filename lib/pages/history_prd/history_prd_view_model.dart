@@ -19,6 +19,12 @@ class HistoryPrdViewModel extends BaseViewModel {
     super.initState();
   }
 
+  @override
+  void disposeState() {
+    _history.close();
+    super.disposeState();
+  }
+
   void getData() {
     call(() async {
       _history.assignAll(await injector<ProductService>().history(product?.id));
