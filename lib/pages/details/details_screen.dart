@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopping_app/models/chart.dart';
 import 'package:shopping_app/pages/favoriteList/product_item.dart';
 import 'package:shopping_app/generated/assets.gen.dart';
 import 'package:shopping_app/helpers/format_helpers.dart';
@@ -16,8 +17,10 @@ import 'package:shopping_app/extensions/size_ext.dart';
 
 class DetailsScreen extends StatefulWidget {
   final Product product;
+  final Chart chart;
+  final List<Product> products;
 
-  const DetailsScreen({this.product});
+  DetailsScreen({this.product, this.chart, this.products});
 
   @override
   _DetailsScreenState createState() => _DetailsScreenState();
@@ -27,6 +30,12 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
   @override
   void loadArguments() {
     viewModel.product = widget?.product;
+    if (widget?.chart != null) {
+      viewModel.setChart(widget?.chart);
+    }
+    if (widget?.products != null) {
+      viewModel.setPrds(widget?.products);
+    }
     super.loadArguments();
   }
 

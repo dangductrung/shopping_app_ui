@@ -28,6 +28,16 @@ class DetailViewModel extends BaseViewModel {
     ));
   }
 
+  // ignore: use_setters_to_change_properties
+  void setChart(Chart chart) {
+    _chart.value = chart;
+  }
+
+  // ignore: use_setters_to_change_properties
+  void setPrds(List<Product> products) {
+    _products.assignAll(products);
+  }
+
   Future<void> onOpenBrowserClicked() async {
     if (await canLaunch(product?.link)) {
       await launch(product?.link);
