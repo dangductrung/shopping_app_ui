@@ -122,39 +122,41 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                     : Container(),
               ),
               Obx(
-                () => Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 16.0.h,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                            child: Text("Sản phẩm giảm giá mới", style: UITextStyle.mediumBlack_16_w700),
+                () => (viewModel.fluctuation?.length ?? 0) > 0
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 16.0.h,
                           ),
-                        ),
-                        GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: viewModel.onMoreClicked,
-                          child: Text(
-                            "Xem thêm",
-                            style: UITextStyle.blue_16_w400,
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+                                  child: Text("Sản phẩm giảm giá mới", style: UITextStyle.mediumBlack_16_w700),
+                                ),
+                              ),
+                              GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                onTap: viewModel.onMoreClicked,
+                                child: Text(
+                                  "Xem thêm",
+                                  style: UITextStyle.blue_16_w400,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 8.0.w,
+                              )
+                            ],
                           ),
-                        ),
-                        SizedBox(
-                          width: 8.0.w,
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 16.0.h,
-                    ),
-                    _fluctuationList(),
-                  ],
-                ),
+                          SizedBox(
+                            height: 16.0.h,
+                          ),
+                          _fluctuationList(),
+                        ],
+                      )
+                    : Container(),
               ),
               SizedBox(
                 height: 16.0.h,
