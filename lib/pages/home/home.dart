@@ -305,7 +305,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                             Row(
                               children: [
                                 Expanded(
-                                  child: Text(
+                                  child: AutoSizeText(
                                     viewModel.fluctuation[index].product.createdAt.timeAgo(),
                                     style: UITextStyle.mediumLightShadeGray_12_w400,
                                     maxLines: 1,

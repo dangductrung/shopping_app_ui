@@ -10,6 +10,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shopping_app/backend/services/fcm_service/fcm_service.dart';
+import 'package:shopping_app/firebase/fcm_message_handler_route.dart';
 import 'package:shopping_app/injector.dart';
 import 'package:shopping_app/storage/storages/fcm_token_storage.dart';
 
@@ -63,10 +64,10 @@ class FCMManager {
       onMessage: (Map<String, dynamic> message) async {
         final payload = FCMPayload.create(message);
         debugPrint("FCM On Message - Payload ${payload.toJson()}");
-        if (payload.isDataMessage) {
-          await _onMessage(payload);
-        } else {
+        if (!payload.isDataMessage) {
           _pushNotification(payload);
+        } else {
+          await _onMessage(payload);
         }
       },
       onLaunch: (Map<String, dynamic> message) async {
@@ -85,14 +86,7 @@ class FCMManager {
 
   Future<void> _onMessage(FCMPayload payload) async {
     debugPrint("FCM On Message - Payload ${payload.toJson()}");
-    // if (await injector<Oauth2Manager>().isLoggedIn()) {
-    //   try {
-    //     await FirebaseService(baseUrl: Config.CURRENT_URL).readNotification((payload.data['item_id'] as int).toString());
-    //     // ignore: empty_catches
-    //   } catch (ex) {}
-    //
-    //   fcmMessageHandlerRoutes[payload.type]?.handle(payload);
-    // }
+    fcmMessageHandlerRoutes[payload.type]?.handle(payload);
   }
 
   Future<void> registerFcmToken() async {
