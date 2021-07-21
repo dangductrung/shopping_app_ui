@@ -73,6 +73,7 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
             return true;
           },
           child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
