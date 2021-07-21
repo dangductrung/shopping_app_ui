@@ -245,7 +245,6 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
           child: Stack(
             children: [
               SizedBox(
-                height: height,
                 width: width,
                 child: Container(
                   decoration: BoxDecoration(
@@ -277,7 +276,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                AutoSizeText(
                                   viewModel.fluctuation[index].product?.name,
                                   style: UITextStyle.mediumBlack_14_w400,
                                   maxLines: 2,
@@ -291,7 +290,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     viewModel.getIcon(viewModel.fluctuation[index].product),
-                                    Text(
+                                    AutoSizeText(
                                       "${FormatHelper.moneyFormat(viewModel.fluctuation[index].product?.price ?? 0)}đ",
                                       style: UITextStyle.red_18_w700,
                                       textAlign: TextAlign.end,
