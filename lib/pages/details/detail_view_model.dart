@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shopping_app/backend/services/product/product_service.dart';
+import 'package:shopping_app/event_bus/event_bus_helper.dart';
+import 'package:shopping_app/event_bus/update_follow_event_bus.dart';
 import 'package:shopping_app/helpers/format_helpers.dart';
 import 'package:shopping_app/injector.dart';
 import 'package:shopping_app/models/chart.dart';
@@ -247,6 +249,7 @@ class DetailViewModel extends BaseViewModel {
         _products[index].isFollow = true;
       }
       _products.refresh();
+      injector<EventBusHelper>().eventBus.fire(UpdateFollowEventBus());
     });
   }
 
@@ -306,6 +309,7 @@ class DetailViewModel extends BaseViewModel {
       final Map<String, dynamic> params = {};
       params["keyword"] = product?.name;
       _products.assignAll(await injector<ProductService>().search(params, 0));
+      injector<EventBusHelper>().eventBus.fire(UpdateFollowEventBus());
     });
   }
 

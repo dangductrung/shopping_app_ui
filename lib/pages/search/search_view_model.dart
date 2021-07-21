@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shopping_app/backend/services/product/product_service.dart';
+import 'package:shopping_app/event_bus/event_bus_helper.dart';
+import 'package:shopping_app/event_bus/update_follow_event_bus.dart';
 import 'package:shopping_app/injector.dart';
 import 'package:shopping_app/models/product.dart';
 import 'package:shopping_app/pages/details/details_screen.dart';
@@ -55,6 +57,7 @@ class SearchViewModel extends BaseViewModel {
         _products[i].isFollow = true;
       }
       _products.refresh();
+      injector<EventBusHelper>().eventBus.fire(UpdateFollowEventBus());
     });
   }
 

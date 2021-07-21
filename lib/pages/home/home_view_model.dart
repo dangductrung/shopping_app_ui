@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app/backend/services/product/product_service.dart';
 import 'package:shopping_app/event_bus/event_bus_helper.dart';
 import 'package:shopping_app/event_bus/update_follow_event_bus.dart';
+import 'package:shopping_app/event_bus/update_home_event_bus.dart';
 import 'package:shopping_app/firebase/fcm_manager.dart';
 import 'package:shopping_app/generated/assets.gen.dart';
 import 'package:shopping_app/injector.dart';
@@ -28,15 +29,22 @@ class HomeViewModel extends BaseViewModel {
     injector<FCMManager>().configNotification(Get.context);
     injector<FCMManager>().registerFcmToken();
     getData();
+    setupEventBus();
     super.initState();
   }
 
-  void getData() {
+  void setupEventBus() {
+    injector<EventBusHelper>().eventBus.on<UpdateHomeEventBus>().listen((event) {
+      getData(isLoad: false);
+    });
+  }
+
+  void getData({bool isLoad = true}) {
     call(() async {
       _products.assignAll(await injector<ProductService>().getListLastItem());
       _fluctuation.assignAll(await injector<ProductService>().fluctuation(0));
       _poster.value = await injector<ProductService>().getPoster();
-    });
+    }, background: !isLoad);
   }
 
   void onFollowClicked(Product product) {
@@ -48,6 +56,7 @@ class HomeViewModel extends BaseViewModel {
         await injector<ProductService>().followProduct(product.id);
         product?.isFollow = true;
       }
+      _fluctuation.refresh();
       _products.refresh();
       injector<EventBusHelper>().eventBus.fire(UpdateFollowEventBus());
     });

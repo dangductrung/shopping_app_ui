@@ -1,6 +1,7 @@
 import 'package:shopping_app/backend/services/product/product_service.dart';
 import 'package:shopping_app/event_bus/event_bus_helper.dart';
 import 'package:shopping_app/event_bus/update_follow_event_bus.dart';
+import 'package:shopping_app/event_bus/update_home_event_bus.dart';
 import 'package:shopping_app/injector.dart';
 import 'package:shopping_app/models/product.dart';
 import 'package:shopping_app/models/product.dart';
@@ -24,11 +25,12 @@ class FavoriteListViewModel extends BaseViewModel {
 
   void setupEventBus() {
     injector<EventBusHelper>().eventBus.on<UpdateFollowEventBus>().listen((event) {
-      getData();
+      page = 0;
+      getData(isLoad: false);
     });
   }
 
-  void getData() {
+  void getData({bool isLoad = true}) {
     call(() async {
       final productsTemp = await injector<ProductService>().getFollowList(page ?? 0);
 
@@ -39,13 +41,14 @@ class FavoriteListViewModel extends BaseViewModel {
       }
       page++;
       _isHaveLoadMore.value = !(productsTemp?.isEmpty ?? false);
-    });
+    }, background: !isLoad);
   }
 
   void onUnFollowClicked(int index) {
     call(() async {
       await injector<ProductService>().unFollowProduct(products[index].id);
       _products.removeAt(index);
+      injector<EventBusHelper>().eventBus.fire(UpdateHomeEventBus());
     });
   }
 
