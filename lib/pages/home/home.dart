@@ -146,7 +146,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                                 ),
                               ),
                               SizedBox(
-                                width: 8.0.w,
+                                width: 16.0.w,
                               )
                             ],
                           ),
