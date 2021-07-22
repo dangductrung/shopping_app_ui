@@ -56,6 +56,7 @@ class _DiscountPageState extends BaseViewState<DiscountPage, DiscountViewModel> 
                 child: ProductItem(
                   product: viewModel.fluctuation[index].product,
                   onFollowClicked: () => viewModel.onFollowClicked(index),
+                  delta: viewModel.fluctuation[index].delta ?? 0,
                 ),
               );
             },

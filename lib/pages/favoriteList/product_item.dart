@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_app/generated/assets.gen.dart';
@@ -12,8 +13,9 @@ import 'package:shopping_app/extensions/date_time_ext.dart';
 class ProductItem extends StatelessWidget {
   final Product product;
   final Function() onFollowClicked;
+  final double delta;
 
-  const ProductItem({this.product, this.onFollowClicked});
+  const ProductItem({this.product, this.onFollowClicked, this.delta});
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,22 @@ class ProductItem extends StatelessWidget {
                     child: Text(
                       "New",
                       style: UITextStyle.white_14_400,
+                    ),
+                  ),
+                if (delta != null)
+                  Container(
+                    height: 28.0.h,
+                    width: 50.0.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(topRight: Radius.circular(14.0.h), bottomRight: Radius.circular(14.0.h)),
+                      color: UIColor.red,
+                    ),
+                    padding: EdgeInsets.only(right: 4.0.w),
+                    child: Center(
+                      child: AutoSizeText(
+                        "$delta%",
+                        style: UITextStyle.white_14_400,
+                      ),
                     ),
                   ),
               ],
