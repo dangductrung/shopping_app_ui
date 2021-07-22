@@ -115,70 +115,72 @@ class _HistoryPrdPageState extends BaseViewState<HistoryPrdPage, HistoryPrdViewM
               SizedBox(
                 height: 8.0.h,
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: viewModel.history?.length ?? 0,
-                itemBuilder: (context, index) => Column(
-                  children: [
-                    SizedBox(
-                      height: 8.0.h,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 8.0.w,
-                              ),
-                              Expanded(
-                                child: Text(
-                                  FormatHelper.formatDateTime(viewModel.history[index].createdAt, pattern: "dd/MM/yyyy"),
-                                  style: UITextStyle.mediumBlack_16_w400,
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: viewModel.history?.length ?? 0,
+                  itemBuilder: (context, index) => Column(
+                    children: [
+                      SizedBox(
+                        height: 8.0.h,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 8.0.w,
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 8.0.w,
-                              ),
-                              Expanded(
-                                child: Text(
-                                  "${FormatHelper.moneyFormat(viewModel.history[index].price)} đ",
-                                  style: UITextStyle.mediumBlack_16_w400,
+                                Expanded(
+                                  child: Text(
+                                    FormatHelper.formatDateTime(viewModel.history[index].createdAt, pattern: "dd/MM/yyyy"),
+                                    style: UITextStyle.mediumBlack_16_w400,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  viewModel.getDelta(index),
-                                  style: viewModel.getColor(index),
-                                  textAlign: TextAlign.right,
+                          Expanded(
+                            flex: 3,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 8.0.w,
                                 ),
-                              ),
-                              SizedBox(
-                                width: 8.0.w,
-                              )
-                            ],
+                                Expanded(
+                                  child: Text(
+                                    "${FormatHelper.moneyFormat(viewModel.history[index].price)} đ",
+                                    style: UITextStyle.mediumBlack_16_w400,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 8.0.h,
-                    ),
-                  ],
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    viewModel.getDelta(index),
+                                    style: viewModel.getColor(index),
+                                    textAlign: TextAlign.right,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 8.0.w,
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 8.0.h,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
