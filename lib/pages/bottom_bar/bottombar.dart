@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,9 +35,9 @@ class BottomBarState extends BaseViewState<BottomBar, BottomBarViewModel> {
                   color: UIColor.orange,
                   size: 24.0.h,
                 ),
-                title: Text(
+                title: AutoSizeText(
                   "Trang chủ",
-                  style: UITextStyle.mediumBlack_14_w400,
+                  style: UITextStyle.mediumBlack_12_w400,
                 ),
               ),
               BottomNavigationBarItem(
@@ -45,9 +46,9 @@ class BottomBarState extends BaseViewState<BottomBar, BottomBarViewModel> {
                   color: UIColor.mediumLightShadeGray,
                   size: 24.0.h,
                 ),
-                title: Text(
+                title: AutoSizeText(
                   "Thông báo",
-                  style: UITextStyle.mediumBlack_14_w400,
+                  style: UITextStyle.mediumBlack_12_w400,
                 ),
                 activeIcon: Icon(
                   Icons.whatshot_outlined,
@@ -66,9 +67,9 @@ class BottomBarState extends BaseViewState<BottomBar, BottomBarViewModel> {
                   color: UIColor.orange,
                   size: 24.0.h,
                 ),
-                title: Text(
+                title: AutoSizeText(
                   "Yêu thích",
-                  style: UITextStyle.mediumBlack_14_w400,
+                  style: UITextStyle.mediumBlack_12_w400,
                 ),
               ),
               BottomNavigationBarItem(
@@ -82,9 +83,9 @@ class BottomBarState extends BaseViewState<BottomBar, BottomBarViewModel> {
                   color: UIColor.orange,
                   size: 24.0.h,
                 ),
-                title: Text(
+                title: AutoSizeText(
                   "Tài khoản",
-                  style: UITextStyle.mediumBlack_14_w400,
+                  style: UITextStyle.mediumBlack_12_w400,
                 ),
               ),
             ],

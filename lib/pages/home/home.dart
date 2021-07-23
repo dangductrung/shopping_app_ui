@@ -222,7 +222,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
   }
 
   Widget _fluctuationList() {
-    final double height = 270.0.h;
+    final double height = 280.0.h;
     final double width = 180.0.w;
     return SizedBox(
       height: height,
@@ -262,7 +262,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                           url: viewModel.fluctuation[index].product?.image,
                           height: 150.0.h,
                           width: width,
-                          boxFit: BoxFit.fill,
+                          boxFit: BoxFit.contain,
                         ),
                       ),
                       SizedBox(
