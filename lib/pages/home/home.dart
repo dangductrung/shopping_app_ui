@@ -268,68 +268,81 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                       SizedBox(
                         height: 6.0.h,
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0.w),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AutoSizeText(
-                                  viewModel.fluctuation[index].product?.name,
-                                  style: UITextStyle.mediumBlack_14_w400,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                SizedBox(
-                                  height: 3.0.h,
-                                ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    viewModel.getIcon(viewModel.fluctuation[index].product),
-                                    AutoSizeText(
-                                      "${FormatHelper.moneyFormat(viewModel.fluctuation[index].product?.price ?? 0)}đ",
-                                      style: UITextStyle.red_18_w700,
-                                      textAlign: TextAlign.end,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 8.0.h,
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: AutoSizeText(
-                                    viewModel.fluctuation[index].product.createdAt.timeAgo(),
-                                    style: UITextStyle.mediumLightShadeGray_12_w400,
-                                    maxLines: 1,
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      AutoSizeText(
+                                        viewModel.fluctuation[index].product?.name,
+                                        style: UITextStyle.mediumBlack_14_w400,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      SizedBox(
+                                        height: 3.0.h,
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                GestureDetector(
-                                  behavior: HitTestBehavior.translucent,
-                                  onTap: () {
-                                    viewModel.onFollowClicked(viewModel.fluctuation[index]?.product);
-                                  },
-                                  child: Icon(
-                                    Icons.favorite,
-                                    color: viewModel.fluctuation[index].product?.isFollow ?? false ? Colors.red : Colors.grey,
-                                    size: 24.0.h,
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      viewModel.getIcon(viewModel.fluctuation[index].product),
+                                      AutoSizeText(
+                                        "${FormatHelper.moneyFormat(viewModel.fluctuation[index].product?.price ?? 0)}đ",
+                                        style: UITextStyle.red_16_w700,
+                                        textAlign: TextAlign.end,
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 8.0.h,
-                            ),
-                          ],
+                                  SizedBox(
+                                    height: 8.0.h,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: AutoSizeText(
+                                          viewModel.fluctuation[index].product.createdAt.timeAgo(),
+                                          style: UITextStyle.mediumLightShadeGray_12_w400,
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        behavior: HitTestBehavior.translucent,
+                                        onTap: () {
+                                          viewModel.onFollowClicked(viewModel.fluctuation[index]?.product);
+                                        },
+                                        child: Icon(
+                                          Icons.favorite,
+                                          color: viewModel.fluctuation[index].product?.isFollow ?? false ? Colors.red : Colors.grey,
+                                          size: 24.0.h,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 8.0.h,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -341,18 +354,16 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                 top: 0.0.h,
                 child: Container(
                   height: 28.0.h,
-                  padding: EdgeInsets.only(left: 12.0.w, top: 4.0.h, bottom: 4.0.h),
+                  width: 50.0.w,
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(14.0.h), bottomLeft: Radius.circular(14.0.h)),
                     color: UIColor.red,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12.0.h),
-                      bottomLeft: Radius.circular(12.0.h),
-                    ),
                   ),
+                  padding: EdgeInsets.only(left: 4.0.w),
                   child: Center(
-                    child: Text(
-                      "${viewModel.fluctuation[index]?.delta.toString()}%",
-                      style: UITextStyle.white_16_w400,
+                    child: AutoSizeText(
+                      "${viewModel.fluctuation[index]?.delta ?? 0}%",
+                      style: UITextStyle.white_14_400,
                     ),
                   ),
                 ),
