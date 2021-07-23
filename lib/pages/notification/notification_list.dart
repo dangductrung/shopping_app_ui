@@ -66,6 +66,12 @@ class NotificationListState extends BaseViewState<NotificationList, Notification
               },
               loadMore: viewModel.isHaveLoadMore,
               itemCount: viewModel.notifications?.length ?? 0,
+              foregroundWidget: Center(
+                child: Text(
+                  "Không có dữ liệu",
+                  style: UITextStyle.mediumBlack_14_w400,
+                ),
+              ),
               itemBuilder: (context, index) {
                 return GestureDetector(
                   behavior: HitTestBehavior.translucent,

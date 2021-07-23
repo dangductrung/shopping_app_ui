@@ -61,6 +61,12 @@ class _SearchPageState extends BaseViewState<SearchPage, SearchViewModel> {
                 onLoadMore: () {
                   viewModel.getData();
                 },
+                foregroundWidget: Center(
+                  child: Text(
+                    "Không có dữ liệu",
+                    style: UITextStyle.mediumBlack_14_w400,
+                  ),
+                ),
                 itemCount: viewModel.products?.length ?? 0,
                 itemBuilder: (context, index) {
                   return GestureDetector(

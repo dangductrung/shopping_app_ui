@@ -54,6 +54,12 @@ class FavoriteListState extends BaseViewState<FavoriteList, FavoriteListViewMode
                 viewModel.getData();
               },
               itemCount: viewModel.products?.length ?? 0,
+              foregroundWidget: Center(
+                child: Text(
+                  "Không có dữ liệu",
+                  style: UITextStyle.mediumBlack_14_w400,
+                ),
+              ),
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () => viewModel.onItemClicked(index),
