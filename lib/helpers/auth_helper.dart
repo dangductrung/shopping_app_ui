@@ -24,7 +24,7 @@ class AuthHelper {
   }
 
   void gotoLogin() {
-    Get.to(SignIn());
+    Get.offAll(SignIn());
   }
 
   Future<void> handleLogout() async {
