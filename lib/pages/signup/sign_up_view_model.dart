@@ -53,7 +53,7 @@ class SignUpViewModel extends BaseViewModel {
   }
 
   void goToHomePage() {
-    Get.to(BottomBar());
+    Get.offAll(BottomBar());
   }
 
   void onSignInClicked() {

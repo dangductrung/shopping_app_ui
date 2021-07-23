@@ -37,7 +37,7 @@ class SignInViewModel extends BaseViewModel {
   }
 
   void goToHomePage() {
-    Get.to(BottomBar());
+    Get.offAll(BottomBar());
   }
 
   // ignore: use_setters_to_change_properties
