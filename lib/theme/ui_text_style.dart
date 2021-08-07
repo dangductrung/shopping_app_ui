@@ -39,6 +39,7 @@ class UITextStyle {
     UITextStyle.red_18_w700 = TextStyle(color: UIColor.red, fontSize: 18.0.sp, fontWeight: FontWeight.w700);
     UITextStyle.blue_18_w600 = TextStyle(color: Colors.blue, fontSize: 18.0.sp, fontWeight: FontWeight.w600);
     UITextStyle.black_18_w500 = TextStyle(color: UIColor.mediumBlack, fontSize: 18.0.sp, fontWeight: FontWeight.w500);
+    UITextStyle.mediumBlack_18_w700 = TextStyle(color: UIColor.mediumBlack, fontSize: 18.0.sp, fontWeight: FontWeight.w700);
   }
 
   static TextStyle mediumLightShadeGray_12_w400;
@@ -75,4 +76,5 @@ class UITextStyle {
   static TextStyle black_18_w500;
   static TextStyle red_18_w700;
   static TextStyle blue_18_w600;
+  static TextStyle mediumBlack_18_w700;
 }

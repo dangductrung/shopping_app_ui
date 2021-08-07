@@ -20,6 +20,8 @@ class HomeViewModel extends BaseViewModel {
   List<Product> get products => _products.toList();
   final _poster = Poster().obs;
   Poster get poster => _poster.value;
+  final _maxFluc = Product().obs;
+  Product get maxFluc => _maxFluc.value;
 
   final _fluctuation = <Fluctuation>[].obs;
   List<Fluctuation> get fluctuation => _fluctuation.toList();
@@ -44,6 +46,7 @@ class HomeViewModel extends BaseViewModel {
       _products.assignAll(await injector<ProductService>().getListLastItem());
       _fluctuation.assignAll(await injector<ProductService>().fluctuation(0));
       _poster.value = await injector<ProductService>().getPoster();
+      _maxFluc.value = await injector<ProductService>().fluctuationMax();
     }, background: !isLoad);
   }
 
@@ -67,6 +70,7 @@ class HomeViewModel extends BaseViewModel {
     _products.close();
     _poster.close();
     _fluctuation.close();
+    _maxFluc.close();
     super.disposeState();
   }
 

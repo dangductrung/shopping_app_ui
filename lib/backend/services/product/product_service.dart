@@ -52,6 +52,9 @@ abstract class ProductService {
   @GET("/product/fluctuation")
   Future<List<Fluctuation>> fluctuation(@Query("page") int page);
 
+  @GET("/product/fluctuation/max")
+  Future<Product> fluctuationMax();
+
   @POST("/product/info")
   Future<Product> detailPrd(@Body() Map<String, dynamic> params);
 }

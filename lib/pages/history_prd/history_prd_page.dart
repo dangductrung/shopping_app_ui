@@ -61,7 +61,7 @@ class _HistoryPrdPageState extends BaseViewState<HistoryPrdPage, HistoryPrdViewM
               Row(
                 children: [
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: Row(
                       children: [
                         SizedBox(
@@ -78,7 +78,7 @@ class _HistoryPrdPageState extends BaseViewState<HistoryPrdPage, HistoryPrdViewM
                     ),
                   ),
                   Expanded(
-                    flex: 3,
+                    flex: 4,
                     child: Row(
                       children: [
                         SizedBox(
@@ -95,6 +95,7 @@ class _HistoryPrdPageState extends BaseViewState<HistoryPrdPage, HistoryPrdViewM
                     ),
                   ),
                   Expanded(
+                    flex: 2,
                     child: Row(
                       children: [
                         Expanded(
@@ -127,7 +128,7 @@ class _HistoryPrdPageState extends BaseViewState<HistoryPrdPage, HistoryPrdViewM
                       Row(
                         children: [
                           Expanded(
-                            flex: 2,
+                            flex: 3,
                             child: Row(
                               children: [
                                 SizedBox(
@@ -143,7 +144,7 @@ class _HistoryPrdPageState extends BaseViewState<HistoryPrdPage, HistoryPrdViewM
                             ),
                           ),
                           Expanded(
-                            flex: 3,
+                            flex: 4,
                             child: Row(
                               children: [
                                 SizedBox(
@@ -159,6 +160,7 @@ class _HistoryPrdPageState extends BaseViewState<HistoryPrdPage, HistoryPrdViewM
                             ),
                           ),
                           Expanded(
+                            flex: 2,
                             child: Row(
                               children: [
                                 Expanded(

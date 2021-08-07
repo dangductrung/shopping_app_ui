@@ -160,9 +160,21 @@ class DetailViewModel extends BaseViewModel {
     double tikiPrice = 0;
     if ((chart?.shopees?.length ?? 0) != 0) {
       shopeePrice = chart.shopees[0].price;
+
+      for (int i = 0; i < (chart.shopees?.length ?? 0); ++i) {
+        if (chart.shopees[i].price > shopeePrice) {
+          shopeePrice = chart.shopees[i].price;
+        }
+      }
     }
     if ((chart?.tikis?.length ?? 0) != 0) {
       tikiPrice = chart.tikis[0].price;
+
+      for (int i = 0; i < (chart.tikis?.length ?? 0); ++i) {
+        if (chart.tikis[i].price > tikiPrice) {
+          tikiPrice = chart.tikis[i].price;
+        }
+      }
     }
 
     final double price = shopeePrice > tikiPrice ? shopeePrice : tikiPrice;

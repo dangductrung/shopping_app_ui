@@ -26,8 +26,10 @@ class Product {
   int followId;
   @JsonKey(name: "created_at")
   DateTime createdAt;
+  @JsonKey(name: "delta")
+  double delta;
 
-  Product({this.id, this.name, this.image, this.brand, this.from, this.link, this.price, this.isFollow, this.isNew, this.followId, this.createdAt});
+  Product({this.id, this.name, this.image, this.brand, this.from, this.link, this.price, this.isFollow, this.isNew, this.followId, this.createdAt, this.delta});
 
   factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
   Map<String, dynamic> toJson() => _$ProductToJson(this);

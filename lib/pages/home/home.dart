@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopping_app/common/searchbar.dart';
+import 'package:shopping_app/generated/assets.gen.dart';
 import 'package:shopping_app/helpers/format_helpers.dart';
 import 'package:shopping_app/pages/details/details_screen.dart';
 import 'package:shopping_app/pages/home/home_view_model.dart';
@@ -122,12 +123,15 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                     : Container(),
               ),
               Obx(
+                () => viewModel?.maxFluc?.id != null ? buildMaxFlucWidget() : Container(),
+              ),
+              Obx(
                 () => (viewModel.fluctuation?.length ?? 0) > 0
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: 16.0.h,
+                            height: 8.0.h,
                           ),
                           Row(
                             children: [
@@ -170,6 +174,140 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildMaxFlucWidget() {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8.0.h, horizontal: 16.0.w),
+      child: Container(
+        decoration: BoxDecoration(
+          color: UIColor.lightPinkPastel.withAlpha(90),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 8.0.h),
+              child: Text(
+                "Sản phẩm giảm giá mạnh nhất trong tuần",
+                style: UITextStyle.mediumBlack_18_w700,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(
+              height: 8.0.h,
+            ),
+            GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: () {
+                Get.to(
+                  DetailsScreen(
+                    product: viewModel?.maxFluc,
+                  ),
+                  preventDuplicates: false,
+                );
+              },
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 8.0.h,
+                  ),
+                  Stack(
+                    children: [
+                      SizedBox(
+                        height: 150.0.h,
+                        width: 150.0.w,
+                        child: NetworkImageWidget(
+                          url: viewModel?.maxFluc?.image ?? "",
+                          height: 150.0.h,
+                          width: 100.0.w,
+                        ),
+                      ),
+                      Positioned(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 2.0.h, horizontal: 4.0.w),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(5.0.h),
+                              bottomRight: Radius.circular(5.0.h),
+                            ),
+                            color: Colors.red,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.whatshot,
+                                color: UIColor.white,
+                                size: 20.0.h,
+                              ),
+                              SizedBox(
+                                width: 4.0.h,
+                              ),
+                              Text(
+                                "${viewModel.maxFluc?.delta ?? 0}%",
+                                style: UITextStyle.white_14_400,
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    width: 16.0.h,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AutoSizeText(
+                          viewModel?.maxFluc?.name ?? "",
+                          style: UITextStyle.mediumBlack_16_w400,
+                        ),
+                        SizedBox(
+                          height: 8.0.h,
+                        ),
+                        Row(
+                          children: [
+                            viewModel.getIcon(viewModel.maxFluc),
+                            SizedBox(
+                              width: 8.0.w,
+                            ),
+                            Expanded(
+                              child: Text(
+                                "${FormatHelper.moneyFormat(viewModel?.maxFluc?.price ?? 0)}đ",
+                                style: UITextStyle.red_18_w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 8.0.h,
+                        ),
+                        Text(
+                          viewModel.maxFluc?.createdAt?.timeAgo(),
+                          style: UITextStyle.mediumLightShadeGray_12_w400,
+                          textAlign: TextAlign.start,
+                        ),
+                        SizedBox(
+                          height: 8.0.h,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 16.0.h,
+            ),
+          ],
         ),
       ),
     );

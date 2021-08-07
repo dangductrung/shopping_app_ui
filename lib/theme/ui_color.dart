@@ -32,4 +32,7 @@ class UIColor {
   static const Color darkYellow = Color(0xffF0A500);
   static const Color orangeBtn = Color(0xffE45826);
   static const Color lightGray = Colors.white12;
+  static const Color greenPastel = Color(0xffADDDCE);
+  static const Color strongPinkPastel = Color(0xffF2B3F);
+  static const Color lightPinkPastel = Color(0xffF9E1E0);
 }

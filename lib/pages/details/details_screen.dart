@@ -86,10 +86,13 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                NetworkImageWidget(
-                  url: widget.product?.image,
-                  width: double.infinity,
+                SizedBox(
                   height: 240.0.h,
+                  child: NetworkImageWidget(
+                    url: widget.product?.image,
+                    width: double.infinity,
+                    height: 240.0.h,
+                  ),
                 ),
                 SizedBox(
                   height: 16.0.h,
@@ -394,7 +397,7 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                         separatorBuilder: (context, index) => SizedBox(
                           height: 8.0.h,
                         ),
-                        itemBuilder: (context, index) => ProductItemWidget(
+                        itemBuilder: (context, index) => ProductItem(
                           product: viewModel.products[index],
                           onFollowClicked: () => viewModel.onFollowClicked(index),
                         ),
