@@ -361,7 +361,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
 
   Widget _fluctuationList() {
     final double height = 280.0.h;
-    final double width = 180.0.w;
+    final double width = 170.0.w;
     return SizedBox(
       height: height,
       child: ListView.separated(
@@ -414,25 +414,27 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      AutoSizeText(
-                                        viewModel.fluctuation[index].product?.name,
-                                        style: UITextStyle.mediumBlack_14_w400,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      SizedBox(
-                                        height: 3.0.h,
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          viewModel.fluctuation[index].product?.name,
+                                          style: UITextStyle.mediumBlack_14_w400,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(
+                                          height: 3.0.h,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

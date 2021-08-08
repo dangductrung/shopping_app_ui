@@ -397,9 +397,20 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                         separatorBuilder: (context, index) => SizedBox(
                           height: 8.0.h,
                         ),
-                        itemBuilder: (context, index) => ProductItem(
-                          product: viewModel.products[index],
-                          onFollowClicked: () => viewModel.onFollowClicked(index),
+                        itemBuilder: (context, index) => GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: () {
+                            Get.to(
+                              DetailsScreen(
+                                product: viewModel.products[index],
+                              ),
+                              preventDuplicates: false,
+                            );
+                          },
+                          child: ProductItem(
+                            product: viewModel.products[index],
+                            onFollowClicked: () => viewModel.onFollowClicked(index),
+                          ),
                         ),
                       ),
                       SizedBox(

@@ -53,12 +53,14 @@ class ProductItemWidget extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 8.0.w),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     product?.name,
                     style: UITextStyle.mediumBlack_14_w400,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.start,
                   ),
                   SizedBox(
                     height: 3.0.h,
