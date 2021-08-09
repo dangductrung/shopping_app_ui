@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_app/helpers/format_helpers.dart';
+import 'package:shopping_app/models/chart.dart';
 import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 import 'package:shopping_app/extensions/size_ext.dart';
@@ -12,8 +13,9 @@ class LineChartSample1 extends StatefulWidget {
   final List<String> from;
   final String unit;
   final Function() onOpenClicked;
+  final Chart chart;
 
-  const LineChartSample1({this.data, this.verticalInterval, this.horizontalAxisValues, this.from, this.unit, this.onOpenClicked});
+  const LineChartSample1({this.data, this.verticalInterval, this.horizontalAxisValues, this.from, this.unit, this.onOpenClicked, this.chart});
 
   @override
   State<StatefulWidget> createState() => LineChartSample1State();
@@ -117,7 +119,7 @@ class LineChartSample1State extends State<LineChartSample1> {
               tooltipItems.add(
                 LineTooltipItem(
                   "${i == 0 ? FormatHelper.formatDateTime(DateTime.fromMillisecondsSinceEpoch(touchedBarSpots[i].x.toInt()), pattern: "dd/MM/yyyy \n") ?? "" : ""} ${FormatHelper.moneyFormat(touchedBarSpots[i].y)}",
-                  TextStyle(color: getColor(i), fontSize: 14, fontWeight: FontWeight.w700),
+                  TextStyle(color: getChartColor(touchedBarSpots[i].y, i), fontSize: 14, fontWeight: FontWeight.w700),
                 ),
               );
             }
@@ -199,6 +201,25 @@ class LineChartSample1State extends State<LineChartSample1> {
       ));
     }
     return result;
+  }
+
+  Color getChartColor(double price, int index) {
+    final Chart chart = widget.chart;
+    if ((chart?.shopees?.length ?? -1) >= 0) {
+      for (int i = 0; i < chart?.shopees?.length; ++i) {
+        if (chart.shopees[i].price == price) {
+          return UIColor.yellow;
+        }
+      }
+      return Colors.blue;
+    } else {
+      for (int i = 0; i < chart?.tikis?.length; ++i) {
+        if (chart.tikis[i].price == price) {
+          return Colors.blue;
+        }
+      }
+      return UIColor.yellow;
+    }
   }
 
   Color getColor(int index) {

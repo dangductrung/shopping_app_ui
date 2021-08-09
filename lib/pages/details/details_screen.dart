@@ -187,6 +187,7 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                             from: viewModel.getFrom(),
                             unit: viewModel.getUnit(),
                             onOpenClicked: viewModel.openHistoryPage,
+                            chart: viewModel.chart,
                           ),
                         )
                       else

@@ -208,7 +208,8 @@ class DetailViewModel extends BaseViewModel {
 
         return "${FormatHelper.moneyFormat(maxPrice)}đ";
       }
-    } else {
+    }
+    if ((chart?.tikis?.length ?? 0) != 0) {
       if (chart?.tikis[0].link == product?.link) {
         double maxPrice = chart?.tikis[0].price;
 
@@ -240,7 +241,8 @@ class DetailViewModel extends BaseViewModel {
 
         return "${FormatHelper.moneyFormat(minPrice)}đ";
       }
-    } else {
+    }
+    if ((chart?.tikis?.length ?? 0) != 0) {
       if (chart?.tikis[0].link == product?.link) {
         double minPrice = chart?.tikis[0].price;
 
