@@ -69,10 +69,20 @@ class SearchViewModel extends BaseViewModel {
   }
 
   void onItemClicked(int index) {
+    gotoProduct(products[index]);
+  }
+
+  Future<void> trackProduct(Product product) async {
+    await injector<ProductService>().track(product.id);
+  }
+
+  void gotoProduct(Product product) {
+    trackProduct(product);
     Get.to(
       DetailsScreen(
-        product: products[index],
+        product: product,
       ),
+      preventDuplicates: false,
     );
   }
 }

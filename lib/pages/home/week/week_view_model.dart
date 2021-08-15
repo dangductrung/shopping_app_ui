@@ -43,15 +43,6 @@ class WeekViewModel extends BaseViewModel {
     super.disposeState();
   }
 
-  void onItemClicked(int index) {
-    Get.to(
-      DetailsScreen(
-        product: products[index],
-      ),
-      preventDuplicates: false,
-    );
-  }
-
   void onFollowClicked(int index) {
     final product = products[index];
     call(() async {
@@ -64,5 +55,23 @@ class WeekViewModel extends BaseViewModel {
       }
       _products.refresh();
     });
+  }
+
+  void onItemClicked(int index) {
+    gotoProduct(products[index]);
+  }
+
+  Future<void> trackProduct(Product product) async {
+    await injector<ProductService>().track(product.id);
+  }
+
+  void gotoProduct(Product product) {
+    trackProduct(product);
+    Get.to(
+      DetailsScreen(
+        product: product,
+      ),
+      preventDuplicates: false,
+    );
   }
 }

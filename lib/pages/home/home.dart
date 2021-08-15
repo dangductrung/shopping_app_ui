@@ -124,6 +124,9 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                     : Container(),
               ),
               Obx(
+                () => (viewModel.suggestions?.length ?? 0) > 0 ? _buildSuggestionsList() : Container(),
+              ),
+              Obx(
                 () => (viewModel.maxSaleWeek?.length ?? 0) > 0 ? buildMaxFlucWidget() : Container(),
               ),
               Obx(
@@ -179,6 +182,236 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                 () => buildWidget(),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSuggestionsList() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 8.0.h,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.0.h, horizontal: 16.0.w),
+          child: Row(
+            children: [
+              Icon(
+                Icons.whatshot,
+                color: UIColor.red,
+                size: 20.0.h,
+              ),
+              SizedBox(
+                width: 2.0.h,
+              ),
+              Expanded(
+                child: Text(
+                  "Gợi ý cho bạn",
+                  style: UITextStyle.mediumBlack_16_w700,
+                ),
+              ),
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: viewModel.onSuggestionMoreClicked,
+                child: Text(
+                  "Xem thêm",
+                  style: UITextStyle.blue_16_w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 8.0.h,
+        ),
+        _buildSuggestions(),
+        SizedBox(
+          height: 16.0.h,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSuggestions() {
+    final double height = 280.0.h;
+    final double width = 170.0.w;
+    return SizedBox(
+      height: height,
+      child: ListView.separated(
+        separatorBuilder: (context, index) => SizedBox(
+          width: 12.0.w,
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 24.0.w),
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemCount: viewModel.suggestions?.length ?? 0,
+        itemBuilder: (context, index) => GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            viewModel.gotoProduct(viewModel.suggestions[index]);
+          },
+          child: SizedBox(
+            width: width,
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: UIColor.lightGrayBorder),
+                borderRadius: BorderRadius.circular(5.0.h),
+                color: UIColor.white,
+              ),
+              child: Column(
+                children: [
+                  Stack(
+                    children: [
+                      SizedBox(
+                        height: 150.0.h,
+                        child: NetworkImageWidget(
+                          url: viewModel.suggestions[index]?.image,
+                          height: 150.0.h,
+                          width: width,
+                          boxFit: BoxFit.contain,
+                        ),
+                      ),
+                      Stack(
+                        children: [
+                          SizedBox(
+                            height: 150.0.h,
+                            width: 150.0.w,
+                            child: NetworkImageWidget(
+                              url: viewModel?.suggestions[index]?.image ?? "",
+                              height: 150.0.h,
+                              width: 100.0.w,
+                            ),
+                          ),
+                          Positioned(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 2.0.h, horizontal: 4.0.w),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(5.0.h),
+                                  bottomRight: Radius.circular(5.0.h),
+                                ),
+                                color: Colors.red,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.whatshot,
+                                    color: UIColor.white,
+                                    size: 20.0.h,
+                                  ),
+                                  SizedBox(
+                                    width: 4.0.h,
+                                  ),
+                                  AutoSizeText(
+                                    "${viewModel.suggestions[index]?.delta ?? 0}%",
+                                    style: UITextStyle.white_14_400,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 6.0.h,
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      viewModel.suggestions[index]?.name,
+                                      style: UITextStyle.mediumBlack_14_w400,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    SizedBox(
+                                      height: 3.0.h,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  viewModel.getIcon(viewModel.suggestions[index]),
+                                  AutoSizeText(
+                                    "${FormatHelper.moneyFormat(viewModel.suggestions[index]?.price ?? 0)}đ",
+                                    style: UITextStyle.red_16_w700,
+                                    textAlign: TextAlign.end,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 2.0.h,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  GestureDetector(
+                                    behavior: HitTestBehavior.translucent,
+                                    onTap: () {
+                                      viewModel.onFollowClicked(viewModel.suggestions[index]);
+                                    },
+                                    child: Icon(
+                                      Icons.favorite,
+                                      color: viewModel.suggestions[index]?.isFollow ?? false ? Colors.red : Colors.grey,
+                                      size: 24.0.h,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 2.0.h,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      viewModel.suggestions[index].createdAt.timeAgo(),
+                                      style: UITextStyle.mediumLightShadeGray_12_w400,
+                                      maxLines: 1,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 8.0.h,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -248,12 +481,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
         itemBuilder: (context, index) => GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: () {
-            Get.to(
-              DetailsScreen(
-                product: viewModel.maxSaleWeek[index],
-              ),
-              preventDuplicates: false,
-            );
+            viewModel.gotoProduct(viewModel.maxSaleWeek[index]);
           },
           child: SizedBox(
             width: width,
@@ -370,17 +598,11 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                                 ],
                               ),
                               SizedBox(
-                                height: 8.0.h,
+                                height: 2.0.h,
                               ),
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Expanded(
-                                    child: AutoSizeText(
-                                      viewModel.maxSaleWeek[index].createdAt.timeAgo(),
-                                      style: UITextStyle.mediumLightShadeGray_12_w400,
-                                      maxLines: 1,
-                                    ),
-                                  ),
                                   GestureDetector(
                                     behavior: HitTestBehavior.translucent,
                                     onTap: () {
@@ -390,6 +612,20 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                                       Icons.favorite,
                                       color: viewModel.maxSaleWeek[index]?.isFollow ?? false ? Colors.red : Colors.grey,
                                       size: 24.0.h,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 2.0.h,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: AutoSizeText(
+                                      viewModel.maxSaleWeek[index].createdAt.timeAgo(),
+                                      style: UITextStyle.mediumLightShadeGray_12_w400,
+                                      maxLines: 1,
                                     ),
                                   ),
                                 ],
@@ -424,6 +660,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                 child: ProductItemWidget(
                   product: viewModel.products[i],
                   onFollowClicked: () => viewModel.onFollowClicked(viewModel.products[i]),
+                  onProductClicked: () => viewModel.gotoProduct(viewModel.products[i]),
                 ),
               ),
             ),
@@ -437,6 +674,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                 child: ProductItemWidget(
                   product: viewModel.products[i + 1],
                   onFollowClicked: () => viewModel.onFollowClicked(viewModel.products[i + 1]),
+                  onProductClicked: () => viewModel.gotoProduct(viewModel.products[i + 1]),
                 ),
               ),
             ),
@@ -474,12 +712,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
         itemBuilder: (context, index) => GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: () {
-            Get.to(
-              DetailsScreen(
-                product: viewModel.fluctuation[index].product,
-              ),
-              preventDuplicates: false,
-            );
+            viewModel.gotoProduct(viewModel.fluctuation[index].product);
           },
           child: Stack(
             children: [

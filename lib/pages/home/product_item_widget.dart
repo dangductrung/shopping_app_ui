@@ -13,8 +13,9 @@ import 'package:shopping_app/extensions/date_time_ext.dart';
 class ProductItemWidget extends StatelessWidget {
   final Product product;
   final Function() onFollowClicked;
+  final Function() onProductClicked;
 
-  const ProductItemWidget({this.product, this.onFollowClicked});
+  const ProductItemWidget({this.product, this.onFollowClicked, this.onProductClicked});
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +23,9 @@ class ProductItemWidget extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        Get.to(
-          DetailsScreen(
-            product: product,
-          ),
-          preventDuplicates: false,
-        );
+        if (onProductClicked != null) {
+          onProductClicked();
+        }
       },
       child: Container(
         height: height,

@@ -59,6 +59,7 @@ class NotificationViewModel extends BaseViewModel {
   }
 
   void goToDetail(Product product, Chart chart, List<Product> prds) {
+    trackProduct(product);
     Get.to(
       DetailsScreen(
         product: product,
@@ -74,5 +75,9 @@ class NotificationViewModel extends BaseViewModel {
       page = 0;
       getData();
     });
+  }
+
+  Future<void> trackProduct(Product product) async {
+    await injector<ProductService>().track(product.id);
   }
 }

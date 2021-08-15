@@ -401,12 +401,7 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                         itemBuilder: (context, index) => GestureDetector(
                           behavior: HitTestBehavior.translucent,
                           onTap: () {
-                            Get.to(
-                              DetailsScreen(
-                                product: viewModel.products[index],
-                              ),
-                              preventDuplicates: false,
-                            );
+                            viewModel.gotoProduct(viewModel.products[index]);
                           },
                           child: ProductItem(
                             product: viewModel.products[index],

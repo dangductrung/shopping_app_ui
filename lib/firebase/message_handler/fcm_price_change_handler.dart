@@ -32,6 +32,15 @@ class FCMPriceChangeHandler extends FCMMessageHandler {
   }
 
   void goToDetail(Product product) {
+    gotoProduct(product);
+  }
+
+  Future<void> trackProduct(Product product) async {
+    await injector<ProductService>().track(product.id);
+  }
+
+  void gotoProduct(Product product) {
+    trackProduct(product);
     Get.to(
       DetailsScreen(
         product: product,
