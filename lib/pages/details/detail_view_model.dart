@@ -21,6 +21,8 @@ class DetailViewModel extends BaseViewModel {
   final _products = <Product>[].obs;
   Chart get chart => _chart.value;
   List<Product> get products => _products.toList();
+  final _suggestions = <Product>[].obs;
+  List<Product> get suggestions => _suggestions.toList();
 
   void onReportClicked() {
     Get.to(ReportPage(
@@ -54,6 +56,8 @@ class DetailViewModel extends BaseViewModel {
 
   void getChartData() {
     call(() async {
+      _suggestions.assignAll(await injector<ProductService>().suggestion(0));
+      _suggestions.removeWhere((element) => element.link == product.link);
       _chart.value = await injector<ProductService>().getChartData(product?.id);
       final Map<String, dynamic> params = {};
       params["keyword"] = product?.name;
@@ -262,6 +266,7 @@ class DetailViewModel extends BaseViewModel {
   void disposeState() {
     _chart.close();
     _products.close();
+    _suggestions.close();
     super.disposeState();
   }
 

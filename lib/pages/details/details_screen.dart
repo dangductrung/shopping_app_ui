@@ -381,34 +381,78 @@ class _DetailsScreenState extends BaseViewState<DetailsScreen, DetailViewModel> 
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: 16.0.h,
-                      ),
-                      Text(
-                        "Sản phẩm liên quan",
-                        style: UITextStyle.mediumBlack_16_w700,
-                      ),
-                      SizedBox(
-                        height: 16.0.h,
-                      ),
-                      ListView.separated(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: viewModel?.products?.length ?? 0,
-                        separatorBuilder: (context, index) => SizedBox(
-                          height: 8.0.h,
+                      if ((viewModel.suggestions?.length ?? 0) != 0)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 16.0.h,
+                            ),
+                            Text(
+                              "Sản phẩm gợi ý cho bạn",
+                              style: UITextStyle.mediumBlack_16_w700,
+                            ),
+                            SizedBox(
+                              height: 8.0.h,
+                            ),
+                            ListView.separated(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: (viewModel?.suggestions?.length ?? 0) > 5 ? 5 : viewModel?.suggestions?.length,
+                              separatorBuilder: (context, index) => SizedBox(
+                                height: 8.0.h,
+                              ),
+                              padding: EdgeInsets.zero,
+                              itemBuilder: (context, index) => GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                onTap: () {
+                                  viewModel.gotoProduct(viewModel.suggestions[index]);
+                                },
+                                child: ProductItem(
+                                  product: viewModel.suggestions[index],
+                                  onFollowClicked: () => viewModel.onFollowClicked(index),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      else
+                        Container(),
+                      if ((viewModel.products?.length ?? 0) != 0)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 16.0.h,
+                            ),
+                            Text(
+                              "Sản phẩm liên quan",
+                              style: UITextStyle.mediumBlack_16_w700,
+                            ),
+                            SizedBox(
+                              height: 8.0.h,
+                            ),
+                            ListView.separated(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              padding: EdgeInsets.zero,
+                              itemCount: (viewModel?.products?.length ?? 0) > 5 ? 5 : viewModel?.products?.length,
+                              separatorBuilder: (context, index) => SizedBox(
+                                height: 8.0.h,
+                              ),
+                              itemBuilder: (context, index) => GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                onTap: () {
+                                  viewModel.gotoProduct(viewModel.products[index]);
+                                },
+                                child: ProductItem(
+                                  product: viewModel.products[index],
+                                  onFollowClicked: () => viewModel.onFollowClicked(index),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        itemBuilder: (context, index) => GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: () {
-                            viewModel.gotoProduct(viewModel.products[index]);
-                          },
-                          child: ProductItem(
-                            product: viewModel.products[index],
-                            onFollowClicked: () => viewModel.onFollowClicked(index),
-                          ),
-                        ),
-                      ),
                       SizedBox(
                         height: 50.0.h,
                       ),
