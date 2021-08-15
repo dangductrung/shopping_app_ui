@@ -7,6 +7,7 @@ class UITextStyle {
   static initUITextStyle() {
     UITextStyle.mediumLightShadeGray_12_w400 = TextStyle(color: UIColor.mediumLightShadeGray, fontSize: 12.0.sp, fontWeight: FontWeight.w400);
     UITextStyle.mediumBlack_12_w400 = TextStyle(color: UIColor.mediumBlack, fontSize: 12.0.sp, fontWeight: FontWeight.w400);
+    UITextStyle.mediumBlack_12_w400_italic = TextStyle(color: UIColor.mediumBlack, fontSize: 12.0.sp, fontWeight: FontWeight.w400, fontStyle: FontStyle.italic);
 
     UITextStyle.mediumBlack_14_w400 = TextStyle(color: UIColor.mediumBlack, fontSize: 14.0.sp, fontWeight: FontWeight.w400);
     UITextStyle.yellow_14_w400 = TextStyle(color: UIColor.yellow, fontSize: 14.0.sp, fontWeight: FontWeight.w400);
@@ -43,6 +44,7 @@ class UITextStyle {
   }
 
   static TextStyle mediumLightShadeGray_12_w400;
+  static TextStyle mediumBlack_12_w400_italic;
   static TextStyle mediumBlack_12_w400;
 
   static TextStyle mediumBlack_14_w400;
