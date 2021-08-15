@@ -22,7 +22,7 @@ class _SuggestionPageState extends BaseViewState<SuggestionPage, SuggestionViewM
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
-          "Gợi ý cho bạn",
+          "Sản phẩm gợi ý cho bạn",
           style: UITextStyle.white_18_w400,
         ),
         titleSpacing: 0,

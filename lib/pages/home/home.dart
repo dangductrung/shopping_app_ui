@@ -292,7 +292,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
               ),
               Expanded(
                 child: Text(
-                  "Gợi ý cho bạn",
+                  "Sản phẩm gợi ý cho bạn",
                   style: UITextStyle.mediumBlack_16_w700,
                 ),
               ),
