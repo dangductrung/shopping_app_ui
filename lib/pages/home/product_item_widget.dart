@@ -18,6 +18,7 @@ class ProductItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double height = 280.0.h;
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
@@ -29,6 +30,7 @@ class ProductItemWidget extends StatelessWidget {
         );
       },
       child: Container(
+        height: height,
         decoration: BoxDecoration(
           border: Border.all(color: UIColor.lightGrayBorder),
           borderRadius: BorderRadius.circular(5.0.h),
@@ -38,85 +40,89 @@ class ProductItemWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              height: (Get.width - 32 - 10) / 2,
+              height: 150.0.h,
               child: NetworkImageWidget(
                 url: product?.image ?? "",
                 boxFit: BoxFit.fill,
                 width: (Get.width - 32 - 10) / 2,
-                height: (Get.width - 32 - 10) / 2,
+                height: 150.0.h,
               ),
             ),
             SizedBox(
               height: 6.0.h,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0.w),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product?.name,
-                    style: UITextStyle.mediumBlack_14_w400,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.start,
-                  ),
-                  SizedBox(
-                    height: 3.0.h,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      getIcon(),
-                      Expanded(
-                        child: Text(
-                          "${FormatHelper.moneyFormat(product?.price ?? 0)}đ",
-                          style: UITextStyle.red_18_w700,
-                          textAlign: TextAlign.end,
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product?.name,
+                      style: UITextStyle.mediumBlack_14_w400,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.start,
+                    ),
+                    SizedBox(
+                      height: 3.0.h,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        getIcon(),
+                        Expanded(
+                          child: Text(
+                            "${FormatHelper.moneyFormat(product?.price ?? 0)}đ",
+                            style: UITextStyle.red_18_w700,
+                            textAlign: TextAlign.end,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 4.0.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onTap: () {
-                          if (onFollowClicked != null) {
-                            onFollowClicked();
-                          }
-                        },
-                        child: Icon(
-                          Icons.favorite,
-                          color: product?.isFollow ?? false ? Colors.red : Colors.grey,
-                          size: 24.0.h,
+                      ],
+                    ),
+                    SizedBox(
+                      height: 4.0.h,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: () {
+                            if (onFollowClicked != null) {
+                              onFollowClicked();
+                            }
+                          },
+                          child: Icon(
+                            Icons.favorite,
+                            color: product?.isFollow ?? false ? Colors.red : Colors.grey,
+                            size: 24.0.h,
+                          ),
                         ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 4.0.h,
+                    ),
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            product.createdAt.timeAgo(),
+                            style: UITextStyle.mediumLightShadeGray_12_w400,
+                            textAlign: TextAlign.start,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 4.0.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        product.createdAt.timeAgo(),
-                        style: UITextStyle.mediumLightShadeGray_12_w400,
-                        textAlign: TextAlign.start,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 12.0.h,
-                  ),
-                ],
+                    ),
+                    SizedBox(
+                      height: 6.0.h,
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

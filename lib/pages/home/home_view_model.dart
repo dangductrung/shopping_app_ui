@@ -9,7 +9,9 @@ import 'package:shopping_app/injector.dart';
 import 'package:shopping_app/models/fluctuation.dart';
 import 'package:shopping_app/models/poster.dart';
 import 'package:shopping_app/models/product.dart';
+import 'package:shopping_app/models/statistic.dart';
 import 'package:shopping_app/pages/home/discount/discount_page.dart';
+import 'package:shopping_app/pages/home/week/week_page.dart';
 import 'package:shopping_app/pages/search/search_page.dart';
 import 'package:shopping_app/shared/base/base_view_model.dart';
 import 'package:get/get.dart';
@@ -20,8 +22,10 @@ class HomeViewModel extends BaseViewModel {
   List<Product> get products => _products.toList();
   final _poster = Poster().obs;
   Poster get poster => _poster.value;
-  final _maxFluc = Product().obs;
-  Product get maxFluc => _maxFluc.value;
+  final _maxSaleWeek = <Product>[].obs;
+  List<Product> get maxSaleWeek => _maxSaleWeek.toList();
+  final _statistic = Statistic().obs;
+  Statistic get statistic => _statistic.value;
 
   final _fluctuation = <Fluctuation>[].obs;
   List<Fluctuation> get fluctuation => _fluctuation.toList();
@@ -46,7 +50,8 @@ class HomeViewModel extends BaseViewModel {
       _products.assignAll(await injector<ProductService>().getListLastItem());
       _fluctuation.assignAll(await injector<ProductService>().fluctuation(0));
       _poster.value = await injector<ProductService>().getPoster();
-      _maxFluc.value = await injector<ProductService>().fluctuationMax();
+      _maxSaleWeek.assignAll(await injector<ProductService>().saleWeek(0));
+      _statistic.value = await injector<ProductService>().statistic();
     }, background: !isLoad);
   }
 
@@ -54,13 +59,10 @@ class HomeViewModel extends BaseViewModel {
     call(() async {
       if (product?.isFollow ?? false) {
         await injector<ProductService>().unFollowProduct(product.id);
-        product?.isFollow = false;
       } else {
         await injector<ProductService>().followProduct(product.id);
-        product?.isFollow = true;
       }
-      _fluctuation.refresh();
-      _products.refresh();
+      getData();
       injector<EventBusHelper>().eventBus.fire(UpdateFollowEventBus());
     });
   }
@@ -70,7 +72,8 @@ class HomeViewModel extends BaseViewModel {
     _products.close();
     _poster.close();
     _fluctuation.close();
-    _maxFluc.close();
+    _maxSaleWeek.close();
+    _statistic.close();
     super.disposeState();
   }
 
@@ -95,7 +98,11 @@ class HomeViewModel extends BaseViewModel {
     return Container();
   }
 
-  void onMoreClicked() {
+  void onDayMoreClicked() {
     Get.to(DiscountPage());
+  }
+
+  void onWeekMoreClicked() {
+    Get.to(WeekPage());
   }
 }

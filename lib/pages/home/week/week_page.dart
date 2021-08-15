@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopping_app/pages/favoriteList/product_item.dart';
-import 'package:shopping_app/pages/home/discount/discount_view_model.dart';
+import 'package:shopping_app/pages/home/week/week_view_model.dart';
 import 'package:shopping_app/shared/base/base_view_state.dart';
 import 'package:shopping_app/shared/view/easy_list_view.dart';
 import 'package:shopping_app/theme/ui_color.dart';
 import 'package:shopping_app/theme/ui_text_style.dart';
 import 'package:shopping_app/extensions/size_ext.dart';
 
-class DiscountPage extends StatefulWidget {
+class WeekPage extends StatefulWidget {
   @override
-  _DiscountPageState createState() => _DiscountPageState();
+  _WeekPageState createState() => _WeekPageState();
 }
 
-class _DiscountPageState extends BaseViewState<DiscountPage, DiscountViewModel> {
+class _WeekPageState extends BaseViewState<WeekPage, WeekViewModel> {
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -22,7 +22,7 @@ class _DiscountPageState extends BaseViewState<DiscountPage, DiscountViewModel> 
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
-          "Sản phẩm giảm giá mới trong 24h",
+          "Sản phẩm giảm giá trong 7 ngày",
           style: UITextStyle.white_18_w400,
         ),
         titleSpacing: 0,
@@ -49,15 +49,15 @@ class _DiscountPageState extends BaseViewState<DiscountPage, DiscountViewModel> 
             onLoadMore: () {
               viewModel.getData();
             },
-            itemCount: viewModel.fluctuation?.length ?? 0,
+            itemCount: viewModel.products?.length ?? 0,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () => viewModel.onItemClicked(index),
                 behavior: HitTestBehavior.translucent,
                 child: ProductItem(
-                  product: viewModel.fluctuation[index].product,
+                  product: viewModel.products[index],
                   onFollowClicked: () => viewModel.onFollowClicked(index),
-                  delta: viewModel.fluctuation[index].delta ?? 0,
+                  delta: viewModel.products[index].delta ?? 0,
                 ),
               );
             },
@@ -68,5 +68,5 @@ class _DiscountPageState extends BaseViewState<DiscountPage, DiscountViewModel> 
   }
 
   @override
-  DiscountViewModel createViewModel() => DiscountViewModel();
+  WeekViewModel createViewModel() => WeekViewModel();
 }

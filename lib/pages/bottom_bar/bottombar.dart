@@ -93,6 +93,7 @@ class BottomBarState extends BaseViewState<BottomBar, BottomBarViewModel> {
           ),
         ),
         body: PageView(
+          physics: const NeverScrollableScrollPhysics(),
           controller: viewModel.pageController,
           onPageChanged: viewModel.onBarTapped,
           children: viewModel.pages,

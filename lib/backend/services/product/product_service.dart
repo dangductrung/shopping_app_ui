@@ -10,6 +10,7 @@ import 'package:shopping_app/models/fluctuation.dart';
 import 'package:shopping_app/models/history_product.dart';
 import 'package:shopping_app/models/poster.dart';
 import 'package:shopping_app/models/product.dart';
+import 'package:shopping_app/models/statistic.dart';
 
 part 'product_service.g.dart';
 
@@ -57,4 +58,16 @@ abstract class ProductService {
 
   @POST("/product/info")
   Future<Product> detailPrd(@Body() Map<String, dynamic> params);
+
+  @GET("/product/fluctuation/max/list")
+  Future<List<Product>> saleWeek(@Query("page") int page);
+
+  @GET("/product/statistic")
+  Future<Statistic> statistic();
+
+  @POST("/product/track")
+  Future<void> track(@Query("product") int id);
+
+  @GET("/product/suggest")
+  Future<List<Product>> suggestion(@Query("page") int page);
 }

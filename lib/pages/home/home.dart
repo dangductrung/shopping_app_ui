@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:shopping_app/common/searchbar.dart';
 import 'package:shopping_app/generated/assets.gen.dart';
 import 'package:shopping_app/helpers/format_helpers.dart';
+import 'package:shopping_app/models/product.dart';
 import 'package:shopping_app/pages/details/details_screen.dart';
 import 'package:shopping_app/pages/home/home_view_model.dart';
 import 'package:shopping_app/pages/home/product_item_widget.dart';
@@ -123,7 +124,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                     : Container(),
               ),
               Obx(
-                () => viewModel?.maxFluc?.id != null ? buildMaxFlucWidget() : Container(),
+                () => (viewModel.maxSaleWeek?.length ?? 0) > 0 ? buildMaxFlucWidget() : Container(),
               ),
               Obx(
                 () => (viewModel.fluctuation?.length ?? 0) > 0
@@ -133,26 +134,31 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                           SizedBox(
                             height: 8.0.h,
                           ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-                                  child: Text("Sản phẩm giảm giá mới", style: UITextStyle.mediumBlack_16_w700),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8.0.h, horizontal: 16.0.w),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.whatshot,
+                                  color: UIColor.red,
+                                  size: 20.0.h,
                                 ),
-                              ),
-                              GestureDetector(
-                                behavior: HitTestBehavior.translucent,
-                                onTap: viewModel.onMoreClicked,
-                                child: Text(
-                                  "Xem thêm",
-                                  style: UITextStyle.blue_16_w400,
+                                SizedBox(
+                                  width: 2.0.h,
                                 ),
-                              ),
-                              SizedBox(
-                                width: 16.0.w,
-                              )
-                            ],
+                                Expanded(
+                                  child: Text("Giảm giá mới trong 24h", style: UITextStyle.mediumBlack_16_w700),
+                                ),
+                                GestureDetector(
+                                  behavior: HitTestBehavior.translucent,
+                                  onTap: viewModel.onDayMoreClicked,
+                                  child: Text(
+                                    "Xem thêm",
+                                    style: UITextStyle.blue_16_w400,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(
                             height: 16.0.h,
@@ -180,134 +186,227 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
   }
 
   Widget buildMaxFlucWidget() {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.0.h, horizontal: 16.0.w),
-      child: Container(
-        decoration: BoxDecoration(
-          color: UIColor.lightPinkPastel.withAlpha(90),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 8.0.h,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 8.0.h),
-              child: Text(
-                "Sản phẩm giảm giá mạnh nhất trong tuần",
-                style: UITextStyle.mediumBlack_18_w700,
-                textAlign: TextAlign.center,
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.0.h, horizontal: 16.0.w),
+          child: Row(
+            children: [
+              Icon(
+                Icons.whatshot,
+                color: UIColor.red,
+                size: 20.0.h,
               ),
-            ),
-            SizedBox(
-              height: 8.0.h,
-            ),
-            GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onTap: () {
-                Get.to(
-                  DetailsScreen(
-                    product: viewModel?.maxFluc,
-                  ),
-                  preventDuplicates: false,
-                );
-              },
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              SizedBox(
+                width: 2.0.h,
+              ),
+              Expanded(
+                child: Text(
+                  "Giảm giá mạnh trong 7 ngày",
+                  style: UITextStyle.mediumBlack_16_w700,
+                ),
+              ),
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: viewModel.onWeekMoreClicked,
+                child: Text(
+                  "Xem thêm",
+                  style: UITextStyle.blue_16_w400,
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 8.0.h,
+        ),
+        _buildWeekList(),
+        SizedBox(
+          height: 16.0.h,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildWeekList() {
+    final double height = 280.0.h;
+    final double width = 170.0.w;
+    return SizedBox(
+      height: height,
+      child: ListView.separated(
+        separatorBuilder: (context, index) => SizedBox(
+          width: 12.0.w,
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 24.0.w),
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemCount: viewModel.maxSaleWeek?.length ?? 0,
+        itemBuilder: (context, index) => GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            Get.to(
+              DetailsScreen(
+                product: viewModel.maxSaleWeek[index],
+              ),
+              preventDuplicates: false,
+            );
+          },
+          child: SizedBox(
+            width: width,
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: UIColor.lightGrayBorder),
+                borderRadius: BorderRadius.circular(5.0.h),
+                color: UIColor.white,
+              ),
+              child: Column(
                 children: [
-                  SizedBox(
-                    width: 8.0.h,
-                  ),
                   Stack(
                     children: [
                       SizedBox(
                         height: 150.0.h,
-                        width: 150.0.w,
                         child: NetworkImageWidget(
-                          url: viewModel?.maxFluc?.image ?? "",
+                          url: viewModel.maxSaleWeek[index]?.image,
                           height: 150.0.h,
-                          width: 100.0.w,
+                          width: width,
+                          boxFit: BoxFit.contain,
                         ),
                       ),
-                      Positioned(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 2.0.h, horizontal: 4.0.w),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(5.0.h),
-                              bottomRight: Radius.circular(5.0.h),
+                      Stack(
+                        children: [
+                          SizedBox(
+                            height: 150.0.h,
+                            width: 150.0.w,
+                            child: NetworkImageWidget(
+                              url: viewModel?.maxSaleWeek[index]?.image ?? "",
+                              height: 150.0.h,
+                              width: 100.0.w,
                             ),
-                            color: Colors.red,
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.whatshot,
-                                color: UIColor.white,
-                                size: 20.0.h,
+                          Positioned(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 2.0.h, horizontal: 4.0.w),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(5.0.h),
+                                  bottomRight: Radius.circular(5.0.h),
+                                ),
+                                color: Colors.red,
                               ),
-                              SizedBox(
-                                width: 4.0.h,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.whatshot,
+                                    color: UIColor.white,
+                                    size: 20.0.h,
+                                  ),
+                                  SizedBox(
+                                    width: 4.0.h,
+                                  ),
+                                  AutoSizeText(
+                                    "${viewModel.maxSaleWeek[index]?.delta ?? 0}%",
+                                    style: UITextStyle.white_14_400,
+                                  ),
+                                ],
                               ),
-                              Text(
-                                "${viewModel.maxFluc?.delta ?? 0}%",
-                                style: UITextStyle.white_14_400,
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
+                            ),
+                          )
+                        ],
+                      ),
                     ],
                   ),
                   SizedBox(
-                    width: 16.0.h,
+                    height: 6.0.h,
                   ),
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AutoSizeText(
-                          viewModel?.maxFluc?.name ?? "",
-                          style: UITextStyle.mediumBlack_16_w400,
-                        ),
-                        SizedBox(
-                          height: 8.0.h,
-                        ),
-                        Row(
-                          children: [
-                            viewModel.getIcon(viewModel.maxFluc),
-                            SizedBox(
-                              width: 8.0.w,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      viewModel.maxSaleWeek[index]?.name,
+                                      style: UITextStyle.mediumBlack_14_w400,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    SizedBox(
+                                      height: 3.0.h,
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                            Expanded(
-                              child: Text(
-                                "${FormatHelper.moneyFormat(viewModel?.maxFluc?.price ?? 0)}đ",
-                                style: UITextStyle.red_18_w700,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  viewModel.getIcon(viewModel.maxSaleWeek[index]),
+                                  AutoSizeText(
+                                    "${FormatHelper.moneyFormat(viewModel.maxSaleWeek[index]?.price ?? 0)}đ",
+                                    style: UITextStyle.red_16_w700,
+                                    textAlign: TextAlign.end,
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 8.0.h,
-                        ),
-                        Text(
-                          viewModel.maxFluc?.createdAt?.timeAgo(),
-                          style: UITextStyle.mediumLightShadeGray_12_w400,
-                          textAlign: TextAlign.start,
-                        ),
-                        SizedBox(
-                          height: 8.0.h,
-                        ),
-                      ],
+                              SizedBox(
+                                height: 8.0.h,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: AutoSizeText(
+                                      viewModel.maxSaleWeek[index].createdAt.timeAgo(),
+                                      style: UITextStyle.mediumLightShadeGray_12_w400,
+                                      maxLines: 1,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    behavior: HitTestBehavior.translucent,
+                                    onTap: () {
+                                      viewModel.onFollowClicked(viewModel.maxSaleWeek[index]);
+                                    },
+                                    child: Icon(
+                                      Icons.favorite,
+                                      color: viewModel.maxSaleWeek[index]?.isFollow ?? false ? Colors.red : Colors.grey,
+                                      size: 24.0.h,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 8.0.h,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              height: 16.0.h,
-            ),
-          ],
+          ),
         ),
       ),
     );
