@@ -41,7 +41,7 @@ class FavoriteListViewModel extends BaseViewModel {
       }
       page++;
       _isHaveLoadMore.value = !(productsTemp?.isEmpty ?? false);
-    }, background: !isLoad);
+    }, background: !isLoad || page > 0);
   }
 
   void onUnFollowClicked(int index) {

@@ -32,7 +32,7 @@ class NotificationViewModel extends BaseViewModel {
       }
       page++;
       _isHaveLoadMore.value = !(notificationTemps?.isEmpty ?? false);
-    });
+    }, background: page > 0);
   }
 
   @override
