@@ -41,7 +41,7 @@ class ProductItemWidget extends StatelessWidget {
               height: 150.0.h,
               child: NetworkImageWidget(
                 url: product?.image ?? "",
-                boxFit: BoxFit.fill,
+                boxFit: BoxFit.contain,
                 width: (Get.width - 32 - 10) / 2,
                 height: 150.0.h,
               ),
