@@ -907,7 +907,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                 top: 0.0.h,
                 child: Container(
                   height: 28.0.h,
-                  width: 50.0.w,
+                  width: 60.0.w,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(14.0.h), bottomLeft: Radius.circular(14.0.h)),
                     color: UIColor.red,
