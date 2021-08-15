@@ -5,9 +5,9 @@ part 'statistic.g.dart';
 @JsonSerializable()
 class Statistic {
   @JsonKey(name: "shopee")
-  List<String> shopee;
+  List<DateTime> shopee;
   @JsonKey(name: "tiki")
-  List<String> tiki;
+  List<DateTime> tiki;
 
   Statistic({this.shopee, this.tiki});
 

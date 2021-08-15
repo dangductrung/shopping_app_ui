@@ -124,6 +124,9 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
                     : Container(),
               ),
               Obx(
+                () => ((viewModel.statistic?.shopee?.length ?? 0) == 2) && ((viewModel.statistic?.tiki?.length ?? 0) == 2) ? _buildStatistic() : Container(),
+              ),
+              Obx(
                 () => (viewModel.suggestions?.length ?? 0) > 0 ? _buildSuggestionsList() : Container(),
               ),
               Obx(
@@ -184,6 +187,86 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildStatistic() {
+    return Container(
+      decoration: BoxDecoration(
+        color: UIColor.lightPinkPastel.withAlpha(90),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 16.0.h,
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+            child: Text("Gợi ý thời gian giảm giá sốc (*)", style: UITextStyle.mediumBlack_16_w700),
+          ),
+          SizedBox(
+            height: 16.0.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    Assets.icons.icShopee.image(
+                      height: 90.0.h,
+                    ),
+                    SizedBox(
+                      height: 8.0.h,
+                    ),
+                    Text(FormatHelper.formatDateTime(viewModel.statistic.shopee[0], pattern: "dd-MM-yyyy"), style: UITextStyle.mediumBlack_16_w400),
+                    SizedBox(
+                      height: 2.0.h,
+                    ),
+                    Text("&", style: UITextStyle.mediumBlack_16_w400),
+                    SizedBox(
+                      height: 2.0.h,
+                    ),
+                    Text(FormatHelper.formatDateTime(viewModel.statistic.shopee[1], pattern: "dd-MM-yyyy"), style: UITextStyle.mediumBlack_16_w400),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  children: [
+                    Assets.icons.icTiki.image(
+                      height: 90.0.h,
+                    ),
+                    SizedBox(
+                      height: 8.0.h,
+                    ),
+                    Text(FormatHelper.formatDateTime(viewModel.statistic.tiki[0], pattern: "dd-MM-yyyy"), style: UITextStyle.mediumBlack_16_w400),
+                    SizedBox(
+                      height: 2.0.h,
+                    ),
+                    Text("&", style: UITextStyle.mediumBlack_16_w400),
+                    SizedBox(
+                      height: 2.0.h,
+                    ),
+                    Text(FormatHelper.formatDateTime(viewModel.statistic.tiki[1], pattern: "dd-MM-yyyy"), style: UITextStyle.mediumBlack_16_w400),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 16.0.h,
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+            child: Text("(*) Dữ liệu trên mang tính chất tham khảo, ứng dụng đề xuất dựa trên những lần thống kê biến động giá trong quá khứ", style: UITextStyle.mediumBlack_14_w400),
+          ),
+          SizedBox(
+            height: 8.0.h,
+          ),
+        ],
       ),
     );
   }
