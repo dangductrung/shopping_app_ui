@@ -732,36 +732,38 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
   Widget buildWidget() {
     final List<Widget> items = [];
     for (int i = 0; i < (viewModel.products?.length ?? 0); i = i + 2) {
-      final Widget row = Row(
-        children: [
-          if (i < (viewModel.products?.length ?? 0))
-            Expanded(
-              child: GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                child: ProductItemWidget(
-                  product: viewModel.products[i],
-                  onFollowClicked: () => viewModel.onFollowClicked(viewModel.products[i]),
-                  onProductClicked: () => viewModel.gotoProduct(viewModel.products[i]),
+      if ((i + 1) < (viewModel.products?.length ?? 0)) {
+        final Widget row = Row(
+          children: [
+            if (i < (viewModel.products?.length ?? 0))
+              Expanded(
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  child: ProductItemWidget(
+                    product: viewModel.products[i],
+                    onFollowClicked: () => viewModel.onFollowClicked(viewModel.products[i]),
+                    onProductClicked: () => viewModel.gotoProduct(viewModel.products[i]),
+                  ),
                 ),
               ),
+            SizedBox(
+              width: 10.0.w,
             ),
-          SizedBox(
-            width: 10.0.w,
-          ),
-          if ((i + 1) < (viewModel.products?.length ?? 0))
-            Expanded(
-              child: GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                child: ProductItemWidget(
-                  product: viewModel.products[i + 1],
-                  onFollowClicked: () => viewModel.onFollowClicked(viewModel.products[i + 1]),
-                  onProductClicked: () => viewModel.gotoProduct(viewModel.products[i + 1]),
+            if ((i + 1) < (viewModel.products?.length ?? 0))
+              Expanded(
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  child: ProductItemWidget(
+                    product: viewModel.products[i + 1],
+                    onFollowClicked: () => viewModel.onFollowClicked(viewModel.products[i + 1]),
+                    onProductClicked: () => viewModel.gotoProduct(viewModel.products[i + 1]),
+                  ),
                 ),
               ),
-            ),
-        ],
-      );
-      items.add(row);
+          ],
+        );
+        items.add(row);
+      }
     }
     return ListView.separated(
       padding: EdgeInsets.symmetric(vertical: 16.0.h, horizontal: 16.0.w),
@@ -770,7 +772,7 @@ class HomeScreenState extends BaseViewState<HomeScreen, HomeViewModel> {
       ),
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: ((viewModel.products?.length ?? 0) / 2).ceil(),
+      itemCount: (items?.length ?? 0).ceil(),
       itemBuilder: (context, index) {
         return items[index];
       },

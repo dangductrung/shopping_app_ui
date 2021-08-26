@@ -19,7 +19,7 @@ class ProductItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double height = 280.0.h;
+    final double height = 290.0.h;
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
